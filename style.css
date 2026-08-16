@@ -1,3 +1,7 @@
+/* =============================
+   CONFIGURACIÓN GENERAL
+============================= */
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -14,174 +18,15 @@ body {
     margin: 0;
 }
 
-/*======================================
-            GALERÍA
-=======================================*/
-
 html.no-scroll,
 body.no-scroll {
     overflow: hidden;
 }
 
-/*=============================
-        RECUERDOS
-=============================*/
 
-.recuerdos {
-    padding: 100px 20px;
-    background: #fff;
-    text-align: center;
-}
-
-.recuerdos h2 {
-    font-family: Georgia, serif;
-    font-size: 52px;
-    font-weight: 300;
-    color: #222;
-    margin-bottom: 20px;
-}
-
-.descripcion-recuerdos {
-    max-width: 650px;
-    margin: 0 auto;
-    color: #777;
-    font-size: 18px;
-    line-height: 1.8;
-}
-
-/* Línea decorativa */
-
-.recuerdos h2::after {
-    content: "";
-    display: block;
-    width: 70px;
-    height: 1px;
-    background: #caa24f;
-    margin: 25px auto 0;
-}
-
-/*=============================
-        CARRUSEL GALERÍA
-=============================*/
-
-.contenedor-galeria {
-    position: relative;
-    max-width: 1200px;
-    margin: 50px auto;
-}
-
-.galeria-fotos {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    padding: 10px;
-}
-
-.galeria-fotos::-webkit-scrollbar {
-    display: none;
-}
-
-.galeria-fotos img {
-    flex: 0 0 260px;
-    height: 320px;
-    object-fit: cover;
-    border-radius: 18px;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.galeria-fotos img:hover {
-    transform: scale(1.02);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, .22);
-}
-
-/* BOTONES */
-
-.flecha-galeria {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 45px;
-    height: 45px;
-    border: none;
-    border-radius: 50%;
-    background: #caa24f;
-    color: white;
-    font-size: 35px;
-    cursor: pointer;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.flecha-galeria:hover {
-    background: #b68d3c;
-}
-
-.izquierda {
-    left: -20px;
-}
-
-.derecha {
-    right: -20px;
-}
-
-/*======================================
-            LIGHTBOX
-=======================================*/
-
-.lightbox {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, .95);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .25s ease;
-    z-index: 9999;
-}
-
-.lightbox.activo {
-    opacity: 1;
-    visibility: visible;
-}
-
-.lightbox img {
-    max-width: 90vw;
-    max-height: 90vh;
-    border-radius: 15px;
-    transform: scale(.95);
-    transition: .25s;
-}
-
-.lightbox.activo img {
-    transform: scale(1);
-}
-
-.cerrar {
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    color: white;
-    font-size: 40px;
-    cursor: pointer;
-    transition: .2s;
-}
-
-.cerrar:hover {
-    background: white;
-    color: #222;
-    transform: rotate(90deg);
-}
-
-/*======================================
-            HERO
-=======================================*/
+/* =============================
+   HERO / PORTADA
+============================= */
 
 .hero {
     position: relative;
@@ -196,8 +41,8 @@ body.no-scroll {
     inset: 0;
     background: linear-gradient(
         to right,
-        rgba(0, 0, 0, .15),
-        rgba(0, 0, 0, .55)
+        rgba(0,0,0,.15),
+        rgba(0,0,0,.55)
     );
 }
 
@@ -286,11 +131,10 @@ body.no-scroll {
     align-items: center;
 }
 
-.btn-dorado {
+.btn-dorado,
+.btn-transparente {
     width: 340px;
     padding: 18px;
-    background: #caa24f;
-    color: #fff;
     text-decoration: none;
     border-radius: 8px;
     font-weight: bold;
@@ -298,19 +142,18 @@ body.no-scroll {
     transition: .3s;
 }
 
+.btn-dorado {
+    background: #caa24f;
+    color: #fff;
+}
+
 .btn-dorado:hover {
     background: #b38d40;
 }
 
 .btn-transparente {
-    width: 340px;
-    padding: 18px;
     border: 2px solid #fff;
     color: #fff;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: .3s;
 }
 
 .btn-transparente:hover {
@@ -334,39 +177,10 @@ body.no-scroll {
     }
 }
 
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.fecha {
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
-}
-
-.fecha h3 {
-    font-size: 44px;
-    color: #111;
-    margin: 0;
-}
-
-.fecha span {
-    font-family: Georgia, serif;
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: #777;
-}
-
-/*=============================
-        CONTADOR
-=============================*/
+/* =============================
+   CONTADOR
+============================= */
 
 .contador {
     padding: 140px 20px;
@@ -436,9 +250,10 @@ body.no-scroll {
     line-height: 1.8;
 }
 
-/*=============================
-        CEREMONIA
-=============================*/
+
+/* =============================
+   CEREMONIA Y RECEPCIÓN
+============================= */
 
 .ceremonia {
     padding: 90px 20px;
@@ -465,12 +280,11 @@ body.no-scroll {
     width: 380px;
     padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
 }
 
 .icono {
-    margin-bottom: 30px;
-    margin-top: 15px;
+    margin: 15px 0 30px;
 }
 
 .icono img {
@@ -480,8 +294,7 @@ body.no-scroll {
 }
 
 .iconovino {
-    margin-bottom: 20px;
-    margin-top: 10px;
+    margin: 10px 0 20px;
 }
 
 .iconovino img {
@@ -500,8 +313,7 @@ body.no-scroll {
     color: #caa24f;
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 18px;
-    margin-top: 10px;
+    margin: 10px 0 18px;
 }
 
 .dia {
@@ -521,7 +333,7 @@ body.no-scroll {
     display: inline-block;
     padding: 15px 30px;
     background: #caa24f;
-    color: white;
+    color: #fff;
     text-decoration: none;
     border-radius: 8px;
     font-family: 'Montserrat', sans-serif;
@@ -534,9 +346,163 @@ body.no-scroll {
     background: #b68d3c;
 }
 
-/*=============================
-        CONFIRMACIÓN
-=============================*/
+
+/* =============================
+   RECUERDOS / GALERÍA
+============================= */
+
+.recuerdos {
+    padding: 100px 20px;
+    background: #fff;
+    text-align: center;
+}
+
+.recuerdos h2 {
+    font-family: Georgia, serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: #222;
+    margin-bottom: 20px;
+}
+
+.recuerdos h2::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 1px;
+    background: #caa24f;
+    margin: 25px auto 0;
+}
+
+.descripcion-recuerdos {
+    max-width: 650px;
+    margin: 0 auto;
+    color: #777;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.contenedor-galeria {
+    position: relative;
+    max-width: 1200px;
+    margin: 50px auto;
+}
+
+.galeria-fotos {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 10px;
+}
+
+.galeria-fotos::-webkit-scrollbar {
+    display: none;
+}
+
+.galeria-fotos img {
+    flex: 0 0 260px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.galeria-fotos img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 28px rgba(0,0,0,.22);
+}
+
+
+/* BOTONES GALERÍA */
+
+.flecha-galeria {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: #caa24f;
+    color: #fff;
+    font-size: 35px;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flecha-galeria:hover {
+    background: #b68d3c;
+}
+
+.izquierda {
+    left: -20px;
+}
+
+.derecha {
+    right: -20px;
+}
+
+
+/* =============================
+   LIGHTBOX
+============================= */
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,.95);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s ease;
+    z-index: 9999;
+}
+
+.lightbox.activo {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 15px;
+    transform: scale(.95);
+    transition: .25s;
+}
+
+.lightbox.activo img {
+    transform: scale(1);
+}
+
+.cerrar {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    color: #fff;
+    font-size: 40px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.cerrar:hover {
+    background: #fff;
+    color: #222;
+    transform: rotate(90deg);
+}
+
+
+/* =============================
+   CONFIRMACIÓN
+============================= */
 
 .confirmacion {
     padding: 100px 20px;
@@ -550,7 +516,7 @@ body.no-scroll {
     background: #fff;
     padding: 50px 45px;
     border-radius: 20px;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, .08);
+    box-shadow: 0 12px 35px rgba(0,0,0,.08);
 }
 
 .confirmacion .titulo-seccion {
@@ -587,8 +553,6 @@ body.no-scroll {
     margin: 0 auto 40px;
 }
 
-/* Campos */
-
 .campo {
     text-align: left;
     margin-bottom: 25px;
@@ -620,7 +584,7 @@ body.no-scroll {
 .campo select:focus,
 .campo textarea:focus {
     border-color: #caa24f;
-    box-shadow: 0 0 0 3px rgba(202, 162, 79, .15);
+    box-shadow: 0 0 0 3px rgba(202,162,79,.15);
 }
 
 .campo textarea {
@@ -635,9 +599,7 @@ body.no-scroll {
     font-style: italic;
 }
 
-/* Botón */
-
-.confirmacion button {
+.confirmacion button[type="submit"] {
     width: 100%;
     padding: 17px;
     margin-top: 10px;
@@ -652,35 +614,15 @@ body.no-scroll {
     transition: .3s;
 }
 
-.confirmacion button:hover {
+.confirmacion button[type="submit"]:hover {
     background: #b68d3c;
     transform: translateY(-2px);
 }
 
-/* Decoración */
 
-.decoracion {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin: 20px 0 30px;
-    color: #caa24f;
-}
-
-.decoracion span:not(:nth-child(2)) {
-    width: 60px;
-    height: 1px;
-    background: #caa24f;
-}
-
-.decoracion span:nth-child(2) {
-    font-size: 22px;
-}
-
-/*=============================
-        SELECT PERSONALIZADO
-=============================*/
+/* =============================
+   SELECT PERSONALIZADO
+============================= */
 
 .select-contenedor {
     position: relative;
@@ -700,13 +642,6 @@ body.no-scroll {
     font-size: 15px;
     cursor: pointer;
     outline: none;
-    font-family: Arial, sans-serif;
-    transition: .3s;
-}
-
-.select-contenedor select:focus {
-    border-color: #caa24f;
-    box-shadow: 0 0 0 3px rgba(202, 162, 79, .15);
 }
 
 .flecha-select {
@@ -719,53 +654,10 @@ body.no-scroll {
     pointer-events: none;
 }
 
-/*=============================
-        BOTÓN MÚSICA
-=============================*/
 
-.boton-musica {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 2px solid #caa24f;
-    background: white;
-    color: #caa24f;
-    font-size: 28px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, .15);
-    z-index: 9999;
-    transition: .3s;
-}
-
-.boton-musica:hover {
-    background: #caa24f;
-    color: white;
-    transform: scale(1.1);
-}
-
-.boton-musica.reproduciendo {
-    animation: latido 1.5s infinite;
-}
-
-@keyframes latido {
-    0%, 100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.12);
-    }
-}
-
-/*=============================
-        BOTÓN CALENDARIO
-=============================*/
+/* =============================
+   GUARDAR FECHA
+============================= */
 
 .btn-calendario {
     display: inline-flex;
@@ -776,7 +668,7 @@ body.no-scroll {
     padding: 16px 35px;
     background: #caa24f;
     border: 2px solid #caa24f;
-    color: white;
+    color: #fff;
     text-decoration: none;
     border-radius: 30px;
     font-family: 'Montserrat', sans-serif;
@@ -785,23 +677,19 @@ body.no-scroll {
     letter-spacing: 1px;
     cursor: pointer;
     transition: all .35s ease;
-    box-shadow: 0 8px 20px rgba(202, 162, 79, .25);
+    box-shadow: 0 8px 20px rgba(202,162,79,.25);
 }
 
 .btn-calendario:hover {
-    background: white;
+    background: #fff;
     color: #caa24f;
     transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(202, 162, 79, .35);
+    box-shadow: 0 12px 30px rgba(202,162,79,.35);
 }
 
 .btn-calendario:active {
     transform: scale(.96);
 }
-
-/*=============================
-    OPCIONES CALENDARIO
-=============================*/
 
 .opciones-calendario {
     display: flex;
@@ -832,7 +720,7 @@ body.no-scroll {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    background: white;
+    background: #fff;
     border: 1px solid #caa24f;
     border-radius: 25px;
     color: #caa24f;
@@ -845,104 +733,62 @@ body.no-scroll {
 
 .opciones-calendario a:hover {
     background: #caa24f;
-    color: white;
+    color: #fff;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(202, 162, 79, .25);
+    box-shadow: 0 8px 20px rgba(202,162,79,.25);
 }
 
-/*======================================
-            RESPONSIVE
-=======================================*/
+
+/* =============================
+   BOTÓN DE MÚSICA
+============================= */
+
+.boton-musica {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #caa24f;
+    background: #fff;
+    color: #caa24f;
+    font-size: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,.15);
+    z-index: 9999;
+    transition: .3s;
+}
+
+.boton-musica:hover {
+    background: #caa24f;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.boton-musica.reproduciendo {
+    animation: latido 1.5s infinite;
+}
+
+@keyframes latido {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+
+/* =============================
+   RESPONSIVE - CELULAR
+============================= */
 
 @media (max-width: 768px) {
-
-    /* GALERÍA */
-
-    .recuerdos {
-        padding: 70px 0;
-    }
-
-    .recuerdos h2 {
-        font-size: 34px;
-        padding: 0 20px;
-    }
-
-    .descripcion-recuerdos {
-        padding: 0 25px;
-        font-size: 15px;
-    }
-
-    .galeria-fotos {
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 16px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        padding: 0 25px 25px;
-        margin-left: 0;
-        margin-right: 0;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-
-    .galeria-fotos::-webkit-scrollbar {
-        display: none;
-    }
-
-    .galeria-fotos img {
-        flex: 0 0 70%;
-        aspect-ratio: 4 / 5;
-        height: auto;
-        object-fit: cover;
-        border-radius: 18px;
-        scroll-snap-align: center;
-        cursor: pointer;
-    }
-
-    /* BLOQUEAR SCROLL */
-
-    html.no-scroll,
-    body.no-scroll {
-        overflow: hidden;
-        touch-action: none;
-    }
-
-    /* LIGHTBOX */
-
-    .lightbox {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 15px;
-        overflow: hidden;
-        z-index: 9999;
-    }
-
-    .lightbox img {
-        width: auto;
-        max-width: 100%;
-        max-height: 78vh;
-        object-fit: contain;
-        border-radius: 12px;
-    }
-
-    /* BOTÓN CERRAR */
-
-    .cerrar {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        width: 42px;
-        height: 42px;
-        font-size: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-    }
 
     /* HERO */
 
@@ -1007,6 +853,7 @@ body.no-scroll {
         font-size: 28px;
     }
 
+
     /* CONTADOR */
 
     .contador {
@@ -1043,6 +890,144 @@ body.no-scroll {
         font-size: 16px;
     }
 
+
+    /* CEREMONIA */
+
+    .ceremonia {
+        padding: 70px 20px;
+    }
+
+    .ceremonia h2 {
+        font-size: 34px;
+        margin-bottom: 40px;
+    }
+
+    .tarjeta {
+        width: 100%;
+        max-width: 380px;
+        padding: 35px 25px;
+    }
+
+    .tarjeta h3 {
+        font-size: 27px;
+    }
+
+    .dia,
+    .hora {
+        font-size: 21px;
+    }
+
+    .direccion {
+        font-size: 15px;
+    }
+
+    .btn-mapa {
+        width: 100%;
+        padding: 14px 15px;
+        font-size: 13px;
+    }
+
+
+    /* =============================
+       GALERÍA - CELULAR
+    ============================= */
+
+    .recuerdos {
+        padding: 70px 0;
+        overflow: hidden;
+    }
+
+    .recuerdos h2 {
+        font-size: 34px;
+        padding: 0 20px;
+    }
+
+    .descripcion-recuerdos {
+        padding: 0 25px;
+        font-size: 15px;
+    }
+
+    .contenedor-galeria {
+        width: 100%;
+        margin: 40px auto 0;
+        position: relative;
+    }
+
+    .galeria-fotos {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 12px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 10px 20px 25px;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .galeria-fotos::-webkit-scrollbar {
+        display: none;
+    }
+
+    .galeria-fotos img {
+        flex: 0 0 150px;
+        width: 150px;
+        height: 190px;
+        object-fit: cover;
+        border-radius: 15px;
+        scroll-snap-align: start;
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    .galeria-fotos img:active {
+        transform: scale(.98);
+    }
+
+    .flecha-galeria {
+        width: 40px;
+        height: 40px;
+        font-size: 28px;
+        z-index: 5;
+    }
+
+    .flecha-galeria.izquierda {
+        left: 5px;
+    }
+
+    .flecha-galeria.derecha {
+        right: 5px;
+    }
+
+
+    /* LIGHTBOX */
+
+    .lightbox {
+        padding: 15px;
+        overflow: hidden;
+    }
+
+    .lightbox img {
+        width: auto;
+        max-width: 100%;
+        max-height: 78vh;
+        object-fit: contain;
+        border-radius: 12px;
+    }
+
+    .cerrar {
+        top: 15px;
+        right: 15px;
+        width: 42px;
+        height: 42px;
+        font-size: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+    }
+
+
     /* CONFIRMACIÓN */
 
     .confirmacion {
@@ -1061,15 +1046,6 @@ body.no-scroll {
         font-size: 15px;
     }
 
-    /* MÚSICA */
-
-    .boton-musica {
-        width: 52px;
-        height: 52px;
-        bottom: 20px;
-        right: 20px;
-        font-size: 24px;
-    }
 
     /* CALENDARIO */
 
@@ -1085,4 +1061,16 @@ body.no-scroll {
         max-width: 300px;
         font-size: 14px;
     }
+
+
+    /* MÚSICA */
+
+    .boton-musica {
+        width: 52px;
+        height: 52px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 24px;
+    }
+
 }
