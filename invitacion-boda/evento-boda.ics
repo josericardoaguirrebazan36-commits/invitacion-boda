@@ -1,0 +1,47 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Omar y Wendy//ES
+
+BEGIN:VEVENT
+
+UID:boda-omar-wendy-20260918@example.com
+
+DTSTAMP:20260710T000000Z
+
+DTSTART:20261009T150000
+
+DTEND:20261009T160000
+
+SUMMARY:Boda Omar y Wendy ❤️
+
+DESCRIPTION:
+Celebración del matrimonio de Omar y Wendy.
+Gracias por acompañarnos en este día tan especial.
+
+LOCATION:Salón del Reino de los Testigos de Jehová
+
+
+BEGIN:VALARM
+TRIGGER:-P30D
+ACTION:DISPLAY
+DESCRIPTION:Recordatorio: falta 1 mes para la boda de Omar y Wendy ❤️
+END:VALARM
+
+
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Recordatorio: falta 1 semana para la boda de Omar y Wendy ❤️
+END:VALARM
+
+
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Mañana es la boda de Omar y Wendy ❤️
+END:VALARM
+
+
+END:VEVENT
+
+END:VCALENDAR
