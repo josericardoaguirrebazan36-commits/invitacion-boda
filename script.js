@@ -1,48 +1,40 @@
-/* ================= AUXILIARES ================= */
-
-const $ = s => document.querySelector(s);
-const $$ = s => document.querySelectorAll(s);
-
-const bloquearScroll = () => {
-    document.documentElement.classList.add("no-scroll");
-    document.body.classList.add("no-scroll");
-};
-
-const desbloquearScroll = () => {
-    document.documentElement.classList.remove("no-scroll");
-    document.body.classList.remove("no-scroll");
-};
+/* =====================================================
+   INVITACIÓN DE BODA
+   OMAR & WENDY
+===================================================== */
 
 
-/* ================= CONTADOR ================= */
+/* =====================================================
+   FUNCIONES AUXILIARES
+===================================================== */
 
-const fechaBoda =
-    new Date("October 9, 2026 00:00:00").getTime();
-
-function actualizarContador() {
-
-    let diferencia = fechaBoda - Date.now();
-
-    if (diferencia < 0) diferencia = 0;
-
-    $("#dias").textContent =
-        String(Math.floor(diferencia / 86400000)).padStart(2,"0");
-
-    $("#horas").textContent =
-        String(Math.floor(diferencia % 86400000 / 3600000)).padStart(2,"0");
-
-    $("#minutos").textContent =
-        String(Math.floor(diferencia % 3600000 / 60000)).padStart(2,"0");
-
-    $("#segundos").textContent =
-        String(Math.floor(diferencia % 60000 / 1000)).padStart(2,"0");
-}
-
-actualizarContador();
-setInterval(actualizarContador,1000);
+const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => document.querySelectorAll(selector);
 
 
-/* ================= CÓDIGO INVITADO ================= */
+/* =====================================================
+   CONFIGURACIÓN
+===================================================== */
+
+const URL_GOOGLE_SCRIPT =
+    "https://script.google.com/macros/s/AKfycbywp4BXSX_viv4KHA2MI0AUTD70ugkNtQ0e0Ah4laVR3RPf9TlowYJbGl3YbBf9uDA/exec";
+
+const ZOOM_ENLACE =
+    "https://us02web.zoom.us/j/740351363?pwd=MEYrV1VxZitlTDZDYUpYTUVJQlIwdz09";
+
+const ZOOM_ID =
+    "740-351-363";
+
+const ZOOM_CLAVE =
+    "323256";
+
+const YAPE_NUMERO =
+    "+51 992 418 572";
+
+
+/* =====================================================
+   CÓDIGO DEL INVITADO
+===================================================== */
 
 const parametros =
     new URLSearchParams(window.location.search);
@@ -50,484 +42,1424 @@ const parametros =
 const codigoInvitado =
     parametros.get("codigo");
 
-console.log("Código:",codigoInvitado);
+console.log(
+    "Código del invitado:",
+    codigoInvitado
+);
 
 
-/* ================= GALERÍA ================= */
+/* =====================================================
+   GALERÍA
+===================================================== */
 
-const galeria = $(".galeria-fotos");
-const fotos = $$(".galeria-fotos img");
-const lightbox = $("#lightbox");
-const imagenGrande = $("#imagenGrande");
+const fotos =
+    $$(".galeria-fotos img");
 
-fotos.forEach(foto => {
+const lightbox =
+    $("#lightbox");
 
-    foto.addEventListener("click",() => {
+const imagenGrande =
+    $("#imagenGrande");
+
+const cerrarLightboxBtn =
+    $("#cerrarLightbox");
+
+const galeria =
+    $(".galeria-fotos");
+
+let scrollActual = 0;
+
+
+/* Abrir imagen */
+
+fotos.forEach((foto) => {
+
+    foto.addEventListener("click", () => {
+
+        if (!lightbox || !imagenGrande) return;
 
         imagenGrande.src = foto.src;
         imagenGrande.alt = foto.alt;
 
-        lightbox.classList.add("activo");
+        scrollActual =
+            window.scrollY;
 
-        bloquearScroll();
+        document.documentElement.classList.add(
+            "no-scroll"
+        );
+
+        document.body.classList.add(
+            "no-scroll"
+        );
+
+        lightbox.classList.add(
+            "activo"
+        );
+
+        lightbox.setAttribute(
+            "aria-hidden",
+            "false"
+        );
 
     });
 
 });
 
-$("#cerrarLightbox").addEventListener("click",cerrarLightbox);
 
-lightbox.addEventListener("click",e => {
-
-    if(e.target === lightbox) {
-        cerrarLightbox();
-    }
-
-});
+/* Cerrar lightbox */
 
 function cerrarLightbox() {
 
-    lightbox.classList.remove("activo");
+    if (!lightbox) return;
 
-    desbloquearScroll();
+    lightbox.classList.remove(
+        "activo"
+    );
+
+    lightbox.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    document.documentElement.classList.remove(
+        "no-scroll"
+    );
+
+    document.body.classList.remove(
+        "no-scroll"
+    );
+
+    setTimeout(() => {
+
+        window.scrollTo({
+            top: scrollActual,
+            behavior: "instant"
+        });
+
+    }, 50);
 
 }
 
-$("#galeriaSiguiente").addEventListener("click",() => {
 
-    galeria.scrollBy({
-        left:300,
-        behavior:"smooth"
-    });
+if (cerrarLightboxBtn) {
 
-});
+    cerrarLightboxBtn.addEventListener(
+        "click",
+        cerrarLightbox
+    );
 
-$("#galeriaAnterior").addEventListener("click",() => {
-
-    galeria.scrollBy({
-        left:-300,
-        behavior:"smooth"
-    });
-
-});
+}
 
 
-/* ================= GOOGLE APPS SCRIPT ================= */
+if (lightbox) {
 
-const URL_GOOGLE_SCRIPT =
-"https://script.google.com/macros/s/AKfycbywp4BXSX_viv4KHA2MI0AUTD70ugkNtQ0e0Ah4laVR3RPf9TlowYJbGl3YbBf9uDA/exec";
+    lightbox.addEventListener(
+        "click",
+        (e) => {
+
+            if (e.target === lightbox) {
+                cerrarLightbox();
+            }
+
+        }
+    );
+
+}
 
 
-async function enviarRespuesta(respuesta,personas) {
+/* =====================================================
+   FLECHAS DE GALERÍA
+===================================================== */
 
-    if(!codigoInvitado) {
+const botonDerecha =
+    $(".flecha-galeria.derecha");
+
+const botonIzquierda =
+    $(".flecha-galeria.izquierda");
+
+
+if (botonDerecha && galeria) {
+
+    botonDerecha.addEventListener(
+        "click",
+        () => {
+
+            galeria.scrollBy({
+                left: 300,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+}
+
+
+if (botonIzquierda && galeria) {
+
+    botonIzquierda.addEventListener(
+        "click",
+        () => {
+
+            galeria.scrollBy({
+                left: -300,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CONTADOR
+===================================================== */
+
+const fechaBoda =
+    new Date(
+        "October 9, 2026 00:00:00"
+    ).getTime();
+
+
+function actualizarContador() {
+
+    let diferencia =
+        fechaBoda - Date.now();
+
+    if (diferencia < 0) {
+        diferencia = 0;
+    }
+
+
+    const dias =
+        Math.floor(
+            diferencia / 86400000
+        );
+
+    const horas =
+        Math.floor(
+            (diferencia % 86400000) /
+            3600000
+        );
+
+    const minutos =
+        Math.floor(
+            (diferencia % 3600000) /
+            60000
+        );
+
+    const segundos =
+        Math.floor(
+            (diferencia % 60000) /
+            1000
+        );
+
+
+    if ($("#dias"))
+        $("#dias").textContent =
+            String(dias).padStart(2, "0");
+
+    if ($("#horas"))
+        $("#horas").textContent =
+            String(horas).padStart(2, "0");
+
+    if ($("#minutos"))
+        $("#minutos").textContent =
+            String(minutos).padStart(2, "0");
+
+    if ($("#segundos"))
+        $("#segundos").textContent =
+            String(segundos).padStart(2, "0");
+
+}
+
+
+actualizarContador();
+
+setInterval(
+    actualizarContador,
+    1000
+);
+
+
+/* =====================================================
+   NOMBRE DEL INVITADO
+===================================================== */
+
+const nombreInvitado =
+    $("#nombreInvitado");
+
+
+/*
+   Si posteriormente quieres que el nombre
+   venga también desde Google Sheets,
+   aquí podemos conectarlo.
+
+   Por ahora mostramos el código únicamente
+   en consola para no modificar el diseño.
+*/
+
+if (!codigoInvitado) {
+
+    console.warn(
+        "La invitación se abrió sin código."
+    );
+
+}
+
+
+/* =====================================================
+   ELEMENTOS DE CONFIRMACIÓN
+===================================================== */
+
+const btnAsistire =
+    $("#btnAsistire");
+
+const btnZoom =
+    $("#btnZoom");
+
+const btnNoAsistire =
+    $("#btnNoAsistire");
+
+
+/* =====================================================
+   MODAL DE PERSONAS
+===================================================== */
+
+const modalAsistencia =
+    $("#modalAsistencia");
+
+const cerrarModal =
+    $("#cerrarModal");
+
+const restarPersona =
+    $("#restarPersona");
+
+const sumarPersona =
+    $("#sumarPersona");
+
+const cantidadPersonas =
+    $("#cantidadPersonas");
+
+const confirmarPresencial =
+    $("#confirmarPresencial");
+
+let cantidad = 1;
+
+
+/* =====================================================
+   MENSAJE DE ÉXITO
+===================================================== */
+
+const mensajeExito =
+    $("#mensajeExito");
+
+const textoExito =
+    $("#textoExito");
+
+const volverConfirmacion =
+    $("#volverConfirmacion");
+
+
+/* =====================================================
+   MODAL PERSONALIZADO DE CONFIRMACIÓN
+===================================================== */
+
+/*
+   Estos elementos corresponden a la ventana
+   personalizada que reemplaza a window.confirm().
+*/
+
+const modalConfirmacion =
+    $("#modalConfirmacion");
+
+const textoModalConfirmacion =
+    $("#textoModalConfirmacion");
+
+const tituloModalConfirmacion =
+    $("#tituloModalConfirmacion");
+
+const iconoModalConfirmacion =
+    $("#iconoModalConfirmacion");
+
+const cancelarConfirmacion =
+    $("#cancelarConfirmacion");
+
+const aceptarConfirmacion =
+    $("#aceptarConfirmacion");
+
+let accionPendiente = null;
+
+
+/* =====================================================
+   MODAL ZOOM
+===================================================== */
+
+const modalZoom =
+    $("#modalZoom");
+
+const cerrarModalZoom =
+    $("#cerrarModalZoom");
+
+const enlaceZoom =
+    $("#enlaceZoom");
+
+const idZoom =
+    $("#idZoom");
+
+const claveZoom =
+    $("#claveZoom");
+
+const copiarZoom =
+    $("#copiarZoom");
+
+const abrirZoom =
+    $("#abrirZoom");
+
+
+/* =====================================================
+   BLOQUEAR / DESBLOQUEAR SCROLL
+===================================================== */
+
+function bloquearScroll() {
+
+    document.documentElement.classList.add(
+        "no-scroll"
+    );
+
+    document.body.classList.add(
+        "no-scroll"
+    );
+
+}
+
+
+function desbloquearScroll() {
+
+    document.documentElement.classList.remove(
+        "no-scroll"
+    );
+
+    document.body.classList.remove(
+        "no-scroll"
+    );
+
+}
+
+
+/* =====================================================
+   GOOGLE APPS SCRIPT
+===================================================== */
+
+async function enviarRespuesta(
+    respuesta,
+    personas
+) {
+
+    if (!codigoInvitado) {
 
         alert(
-            "No se pudo identificar tu invitación."
+            "No se pudo identificar tu invitación. Por favor, utiliza el enlace que te enviaron."
         );
 
         return false;
+
     }
 
+
     const datos = {
-        codigo:codigoInvitado,
-        respuesta:respuesta,
-        personas:personas
+
+        codigo:
+            codigoInvitado,
+
+        respuesta:
+            respuesta,
+
+        personas:
+            personas
+
     };
+
+
+    console.log(
+        "Enviando respuesta:",
+        datos
+    );
+
 
     try {
 
         await fetch(
             URL_GOOGLE_SCRIPT,
             {
-                method:"POST",
-                mode:"no-cors",
-                headers:{
-                    "Content-Type":"application/json"
+
+                method: "POST",
+
+                mode: "no-cors",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
                 },
-                body:JSON.stringify(datos)
+
+                body:
+                    JSON.stringify(datos)
+
             }
         );
 
+
         return true;
 
-    } catch(error) {
+    } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Error al registrar respuesta:",
+            error
+        );
 
         return false;
+
     }
+
 }
 
 
-/* ================= MODAL PERSONAS ================= */
-
-const modalAsistencia =
-    $("#modalAsistencia");
-
-let cantidad = 1;
-
-function abrirModal(modal) {
-
-    modal.classList.add("activo");
-    modal.setAttribute("aria-hidden","false");
-
-    bloquearScroll();
-}
-
-function cerrarModal(modal) {
-
-    modal.classList.remove("activo");
-    modal.setAttribute("aria-hidden","true");
-
-    desbloquearScroll();
-}
-
-
-$("#btnAsistire").addEventListener("click",() => {
-
-    cantidad = 1;
-
-    actualizarCantidad();
-
-    abrirModal(modalAsistencia);
-
-});
-
+/* =====================================================
+   ACTUALIZAR CANTIDAD
+===================================================== */
 
 function actualizarCantidad() {
 
-    $("#cantidadPersonas").textContent = cantidad;
+    if (!cantidadPersonas) return;
 
-    $("#cantidadPersonas")
-        .parentElement
-        .querySelector("small")
-        .textContent =
-        cantidad === 1 ? "persona" : "personas";
+    cantidadPersonas.textContent =
+        cantidad;
+
+
+    const texto =
+        cantidad === 1
+            ? "persona"
+            : "personas";
+
+
+    const pequeno =
+        cantidadPersonas.parentElement
+            ?.querySelector("small");
+
+
+    if (pequeno) {
+
+        pequeno.textContent =
+            texto;
+
+    }
+
 }
 
 
-$("#restarPersona").addEventListener("click",() => {
+/* =====================================================
+   ABRIR MODAL DE PERSONAS
+===================================================== */
 
-    if(cantidad > 1) {
+if (btnAsistire) {
 
-        cantidad--;
+    btnAsistire.addEventListener(
+        "click",
+        () => {
 
-        actualizarCantidad();
+            cantidad = 1;
 
-    }
+            actualizarCantidad();
 
-});
+            if (modalAsistencia) {
 
+                modalAsistencia.classList.add(
+                    "activo"
+                );
 
-$("#sumarPersona").addEventListener("click",() => {
+                modalAsistencia.setAttribute(
+                    "aria-hidden",
+                    "false"
+                );
 
-    if(cantidad < 10) {
+            }
 
-        cantidad++;
-
-        actualizarCantidad();
-
-    }
-
-});
-
-
-$("#cerrarModal").addEventListener(
-    "click",
-    () => cerrarModal(modalAsistencia)
-);
-
-
-/* ================= ASISTENCIA PRESENCIAL ================= */
-
-$("#confirmarPresencial").addEventListener(
-    "click",
-    async () => {
-
-        const boton = $("#confirmarPresencial");
-
-        boton.disabled = true;
-        boton.textContent = "ENVIANDO...";
-
-        const enviado =
-            await enviarRespuesta(
-                "Sí, ahí estaré",
-                cantidad
-            );
-
-        cerrarModal(modalAsistencia);
-
-        boton.disabled = false;
-        boton.textContent = "CONFIRMAR ASISTENCIA";
-
-        if(enviado) {
-
-            mostrarExito(
-                `Hemos registrado tu asistencia para ${cantidad} ${
-                    cantidad === 1 ? "persona" : "personas"
-                }. ¡Nos alegra mucho contar contigo! ❤️`
-            );
-
-        } else {
-
-            alert("No se pudo registrar la respuesta.");
+            bloquearScroll();
 
         }
+    );
 
-    }
-);
-
-
-/* ================= MODAL ZOOM ================= */
-
-const modalZoom = $("#modalZoom");
-
-$("#btnZoom").addEventListener(
-    "click",
-    () => abrirModal(modalZoom)
-);
-
-$("#cerrarZoom").addEventListener(
-    "click",
-    () => cerrarModal(modalZoom)
-);
-
-$("#cancelarZoom").addEventListener(
-    "click",
-    () => cerrarModal(modalZoom)
-);
+}
 
 
-/* ================= CONFIRMAR ZOOM ================= */
+/* =====================================================
+   SUMAR PERSONA
+===================================================== */
 
-$("#confirmarZoom").addEventListener(
-    "click",
-    async () => {
+if (sumarPersona) {
 
-        const boton = $("#confirmarZoom");
+    sumarPersona.addEventListener(
+        "click",
+        () => {
 
-        boton.disabled = true;
-        boton.textContent = "ENVIANDO...";
+            if (cantidad < 10) {
 
-        const enviado =
-            await enviarRespuesta(
-                "Sí, pero podré asistir por Zoom",
-                0
-            );
+                cantidad++;
 
-        boton.disabled = false;
-        boton.textContent = "SÍ, CONFIRMAR";
+                actualizarCantidad();
 
-        cerrarModal(modalZoom);
-
-        if(enviado) {
-
-            abrirModal($("#modalDatosZoom"));
-
-        } else {
-
-            alert(
-                "No se pudo registrar la respuesta."
-            );
+            }
 
         }
+    );
 
-    }
-);
-
-
-/* ================= MODAL NO ASISTIR ================= */
-
-const modalNo =
-    $("#modalNoAsistire");
-
-$("#btnNoAsistire").addEventListener(
-    "click",
-    () => abrirModal(modalNo)
-);
-
-$("#cerrarNoAsistire").addEventListener(
-    "click",
-    () => cerrarModal(modalNo)
-);
-
-$("#cancelarNoAsistire").addEventListener(
-    "click",
-    () => cerrarModal(modalNo)
-);
+}
 
 
-/* ================= CONFIRMAR NO ASISTIR ================= */
+/* =====================================================
+   RESTAR PERSONA
+===================================================== */
 
-$("#confirmarNoAsistire").addEventListener(
-    "click",
-    async () => {
+if (restarPersona) {
 
-        const boton =
-            $("#confirmarNoAsistire");
+    restarPersona.addEventListener(
+        "click",
+        () => {
 
-        boton.disabled = true;
-        boton.textContent = "ENVIANDO...";
+            if (cantidad > 1) {
 
-        const enviado =
-            await enviarRespuesta(
-                "Disculpa, no podré asistir",
-                0
-            );
+                cantidad--;
 
-        boton.disabled = false;
-        boton.textContent = "SÍ, CONFIRMAR";
+                actualizarCantidad();
 
-        cerrarModal(modalNo);
-
-        if(enviado) {
-
-            mostrarExito(
-                "Gracias por avisarnos. Te agradecemos mucho por tomarte el tiempo de confirmarlo. ❤️"
-            );
-
-        } else {
-
-            alert(
-                "No se pudo registrar la respuesta."
-            );
+            }
 
         }
+    );
 
-    }
-);
-
-
-/* ================= DATOS ZOOM ================= */
-
-$("#cerrarDatosZoom").addEventListener(
-    "click",
-    () => cerrarModal($("#modalDatosZoom"))
-);
+}
 
 
-/* ================= COPIAR ================= */
+/* =====================================================
+   CERRAR MODAL PERSONAS
+===================================================== */
 
-$$("[data-copiar]").forEach(boton => {
+function cerrarVentanaAsistencia() {
 
-    boton.addEventListener("click",async() => {
+    if (!modalAsistencia) return;
 
-        const texto =
-            boton.dataset.copiar;
+    modalAsistencia.classList.remove(
+        "activo"
+    );
 
-        try {
+    modalAsistencia.setAttribute(
+        "aria-hidden",
+        "true"
+    );
 
-            await navigator.clipboard.writeText(texto);
+    desbloquearScroll();
 
-            const textoOriginal =
-                boton.textContent;
+}
 
-            boton.textContent =
-                "✓ COPIADO";
 
-            setTimeout(() => {
+if (cerrarModal) {
 
-                boton.textContent =
-                    textoOriginal;
+    cerrarModal.addEventListener(
+        "click",
+        cerrarVentanaAsistencia
+    );
 
-            },1800);
+}
 
-        } catch(error) {
 
-            console.error(error);
+if (modalAsistencia) {
+
+    modalAsistencia.addEventListener(
+        "click",
+        (e) => {
+
+            if (e.target === modalAsistencia) {
+
+                cerrarVentanaAsistencia();
+
+            }
 
         }
+    );
 
-    });
-
-});
+}
 
 
-/* ================= MENSAJE ÉXITO ================= */
+/* =====================================================
+   CONFIRMAR ASISTENCIA PRESENCIAL
+===================================================== */
 
-function mostrarExito(mensaje) {
+if (confirmarPresencial) {
 
-    $("#textoExito").textContent =
-        mensaje;
+    confirmarPresencial.addEventListener(
+        "click",
+        async () => {
 
-    $("#mensajeExito")
-        .classList.add("mostrar");
+            if (confirmarPresencial.disabled)
+                return;
 
-    $("#mensajeExito")
-        .setAttribute("aria-hidden","false");
+
+            confirmarPresencial.disabled =
+                true;
+
+            confirmarPresencial.textContent =
+                "ENVIANDO...";
+
+
+            const enviado =
+                await enviarRespuesta(
+                    "Sí, ahí estaré",
+                    cantidad
+                );
+
+
+            if (enviado) {
+
+                cerrarVentanaAsistencia();
+
+
+                mostrarMensajeExito(
+                    `Hemos registrado tu asistencia para ${cantidad} ${
+                        cantidad === 1
+                            ? "persona"
+                            : "personas"
+                    }. ¡Nos alegra mucho contar contigo! ❤️`
+                );
+
+            } else {
+
+                alert(
+                    "No se pudo registrar la confirmación. Por favor, inténtalo nuevamente."
+                );
+
+            }
+
+
+            confirmarPresencial.disabled =
+                false;
+
+            confirmarPresencial.textContent =
+                "CONFIRMAR ASISTENCIA";
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   MODAL PERSONALIZADO
+===================================================== */
+
+function abrirConfirmacion(
+    tipo
+) {
+
+    accionPendiente =
+        tipo;
+
+
+    if (!modalConfirmacion)
+        return;
+
+
+    if (
+        tipo === "zoom"
+    ) {
+
+        if (tituloModalConfirmacion)
+            tituloModalConfirmacion.textContent =
+                "Confirmar asistencia";
+
+        if (textoModalConfirmacion)
+            textoModalConfirmacion.textContent =
+                "¿Confirmas que participarás de la boda por Zoom?";
+
+        if (iconoModalConfirmacion)
+            iconoModalConfirmacion.textContent =
+                "💻";
+
+        if (aceptarConfirmacion)
+            aceptarConfirmacion.textContent =
+                "SÍ, CONFIRMAR";
+
+    }
+
+
+    if (
+        tipo === "no"
+    ) {
+
+        if (tituloModalConfirmacion)
+            tituloModalConfirmacion.textContent =
+                "Confirmar respuesta";
+
+        if (textoModalConfirmacion)
+            textoModalConfirmacion.textContent =
+                "¿Confirmas que no podrás asistir a la celebración?";
+
+        if (iconoModalConfirmacion)
+            iconoModalConfirmacion.textContent =
+                "🤍";
+
+        if (aceptarConfirmacion)
+            aceptarConfirmacion.textContent =
+                "SÍ, CONFIRMAR";
+
+    }
+
+
+    modalConfirmacion.classList.add(
+        "activo"
+    );
+
+    modalConfirmacion.setAttribute(
+        "aria-hidden",
+        "false"
+    );
 
     bloquearScroll();
 
 }
 
 
-$("#volverConfirmacion").addEventListener(
-    "click",
-    () => {
+function cerrarConfirmacion() {
 
-        $("#mensajeExito")
-            .classList.remove("mostrar");
+    if (!modalConfirmacion)
+        return;
 
-        $("#mensajeExito")
-            .setAttribute("aria-hidden","true");
+    modalConfirmacion.classList.remove(
+        "activo"
+    );
 
-        desbloquearScroll();
+    modalConfirmacion.setAttribute(
+        "aria-hidden",
+        "true"
+    );
 
-    }
-);
+    accionPendiente =
+        null;
+
+    desbloquearScroll();
+
+}
 
 
-/* ================= CERRAR MODALES CON ESC ================= */
+/* =====================================================
+   BOTÓN ZOOM
+===================================================== */
 
-document.addEventListener("keydown",e => {
+if (btnZoom) {
 
-    if(e.key !== "Escape") return;
+    btnZoom.addEventListener(
+        "click",
+        () => {
 
-    [
-        modalAsistencia,
-        modalZoom,
-        modalNo,
-        $("#modalDatosZoom"),
-        $("#mensajeExito")
-    ].forEach(elemento => {
-
-        if(
-            elemento.classList.contains("activo") ||
-            elemento.classList.contains("mostrar")
-        ) {
-
-            elemento.classList.remove(
-                "activo",
-                "mostrar"
+            abrirConfirmacion(
+                "zoom"
             );
 
-            elemento.setAttribute(
-                "aria-hidden",
-                "true"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   BOTÓN NO ASISTIR
+===================================================== */
+
+if (btnNoAsistire) {
+
+    btnNoAsistire.addEventListener(
+        "click",
+        () => {
+
+            abrirConfirmacion(
+                "no"
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CANCELAR MODAL PERSONALIZADO
+===================================================== */
+
+if (cancelarConfirmacion) {
+
+    cancelarConfirmacion.addEventListener(
+        "click",
+        cerrarConfirmacion
+    );
+
+}
+
+
+/* =====================================================
+   CLIC FUERA DEL MODAL
+===================================================== */
+
+if (modalConfirmacion) {
+
+    modalConfirmacion.addEventListener(
+        "click",
+        (e) => {
+
+            if (
+                e.target ===
+                modalConfirmacion
+            ) {
+
+                cerrarConfirmacion();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   ACEPTAR CONFIRMACIÓN
+===================================================== */
+
+if (aceptarConfirmacion) {
+
+    aceptarConfirmacion.addEventListener(
+        "click",
+        async () => {
+
+            if (!accionPendiente)
+                return;
+
+
+            const accion =
+                accionPendiente;
+
+
+            aceptarConfirmacion.disabled =
+                true;
+
+            aceptarConfirmacion.textContent =
+                "REGISTRANDO...";
+
+
+            let enviado = false;
+
+
+            /* ==============================
+               ZOOM
+            ============================== */
+
+            if (accion === "zoom") {
+
+                enviado =
+                    await enviarRespuesta(
+                        "Sí, pero podré asistir por Zoom",
+                        0
+                    );
+
+
+                if (enviado) {
+
+                    cerrarConfirmacion();
+
+                    mostrarMensajeExito(
+                        "Hemos registrado que nos acompañarás por Zoom. ¡Será una alegría tenerte con nosotros! ❤️"
+                    );
+
+                    setTimeout(
+                        mostrarModalZoom,
+                        500
+                    );
+
+                }
+
+            }
+
+
+            /* ==============================
+               NO ASISTIRÁ
+            ============================== */
+
+            if (accion === "no") {
+
+                enviado =
+                    await enviarRespuesta(
+                        "Disculpa, no podré asistir",
+                        0
+                    );
+
+
+                if (enviado) {
+
+                    cerrarConfirmacion();
+
+                    mostrarMensajeExito(
+                        "Gracias por avisarnos. Agradecemos mucho que nos hayas confirmado tu respuesta. ❤️"
+                    );
+
+                }
+
+            }
+
+
+            if (!enviado) {
+
+                alert(
+                    "No se pudo registrar la respuesta. Por favor, inténtalo nuevamente."
+                );
+
+            }
+
+
+            aceptarConfirmacion.disabled =
+                false;
+
+            aceptarConfirmacion.textContent =
+                "SÍ, CONFIRMAR";
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   MENSAJE DE ÉXITO
+===================================================== */
+
+function mostrarMensajeExito(
+    mensaje
+) {
+
+    if (!mensajeExito)
+        return;
+
+
+    if (textoExito)
+        textoExito.textContent =
+            mensaje;
+
+
+    mensajeExito.classList.add(
+        "mostrar"
+    );
+
+    mensajeExito.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    bloquearScroll();
+
+}
+
+
+/* =====================================================
+   CERRAR MENSAJE DE ÉXITO
+===================================================== */
+
+if (volverConfirmacion) {
+
+    volverConfirmacion.addEventListener(
+        "click",
+        () => {
+
+            if (mensajeExito) {
+
+                mensajeExito.classList.remove(
+                    "mostrar"
+                );
+
+                mensajeExito.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+            }
+
+            desbloquearScroll();
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   MODAL ZOOM
+===================================================== */
+
+function mostrarModalZoom() {
+
+    if (!modalZoom)
+        return;
+
+
+    if (enlaceZoom) {
+
+        enlaceZoom.textContent =
+            ZOOM_ENLACE;
+
+        enlaceZoom.href =
+            ZOOM_ENLACE;
+
+    }
+
+
+    if (idZoom)
+        idZoom.textContent =
+            ZOOM_ID;
+
+
+    if (claveZoom)
+        claveZoom.textContent =
+            ZOOM_CLAVE;
+
+
+    modalZoom.classList.add(
+        "activo"
+    );
+
+    modalZoom.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    bloquearScroll();
+
+}
+
+
+/* =====================================================
+   CERRAR MODAL ZOOM
+===================================================== */
+
+function cerrarVentanaZoom() {
+
+    if (!modalZoom)
+        return;
+
+
+    modalZoom.classList.remove(
+        "activo"
+    );
+
+    modalZoom.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    desbloquearScroll();
+
+}
+
+
+if (cerrarModalZoom) {
+
+    cerrarModalZoom.addEventListener(
+        "click",
+        cerrarVentanaZoom
+    );
+
+}
+
+
+if (modalZoom) {
+
+    modalZoom.addEventListener(
+        "click",
+        (e) => {
+
+            if (
+                e.target === modalZoom
+            ) {
+
+                cerrarVentanaZoom();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   COPIAR ENLACE ZOOM
+===================================================== */
+
+if (copiarZoom) {
+
+    copiarZoom.addEventListener(
+        "click",
+        async () => {
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    ZOOM_ENLACE
+                );
+
+
+                const textoOriginal =
+                    copiarZoom.textContent;
+
+
+                copiarZoom.textContent =
+                    "✓ ENLACE COPIADO";
+
+
+                copiarZoom.classList.add(
+                    "copiado"
+                );
+
+
+                setTimeout(
+                    () => {
+
+                        copiarZoom.textContent =
+                            textoOriginal;
+
+                        copiarZoom.classList.remove(
+                            "copiado"
+                        );
+
+                    },
+                    2200
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "No se pudo copiar:",
+                    error
+                );
+
+                copiarTextoFallback(
+                    ZOOM_ENLACE
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   ABRIR ZOOM
+===================================================== */
+
+if (abrirZoom) {
+
+    abrirZoom.addEventListener(
+        "click",
+        () => {
+
+            window.open(
+                ZOOM_ENLACE,
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   COPIAR YAPE
+===================================================== */
+
+/*
+   Compatible con cualquiera de estos IDs:
+
+   #copiarYape
+   #copiarNumeroYape
+*/
+
+const copiarYape =
+    $("#copiarYape") ||
+    $("#copiarNumeroYape");
+
+
+async function copiarNumeroYape() {
+
+    try {
+
+        await navigator.clipboard.writeText(
+            YAPE_NUMERO
+        );
+
+
+        if (copiarYape) {
+
+            const textoOriginal =
+                copiarYape.textContent;
+
+
+            copiarYape.textContent =
+                "✓ NÚMERO COPIADO";
+
+
+            copiarYape.classList.add(
+                "copiado"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    copiarYape.textContent =
+                        textoOriginal;
+
+                    copiarYape.classList.remove(
+                        "copiado"
+                    );
+
+                },
+                2200
             );
 
         }
 
-    });
 
-    desbloquearScroll();
+    } catch (error) {
 
-});
+        console.error(
+            "No se pudo copiar el número:",
+            error
+        );
+
+        copiarTextoFallback(
+            YAPE_NUMERO
+        );
+
+    }
+
+}
 
 
-/* ================= CALENDARIO ================= */
+if (copiarYape) {
 
-$("#btnMostrarCalendario")
-.addEventListener("click",() => {
+    copiarYape.addEventListener(
+        "click",
+        copiarNumeroYape
+    );
 
-    $("#opcionesCalendario")
-        .classList.toggle("mostrar");
-
-});
+}
 
 
-/* ================= MÚSICA ================= */
+/* =====================================================
+   COPIAR TEXTO DE RESPALDO
+===================================================== */
+
+function copiarTextoFallback(
+    texto
+) {
+
+    const textarea =
+        document.createElement(
+            "textarea"
+        );
+
+    textarea.value =
+        texto;
+
+    textarea.style.position =
+        "fixed";
+
+    textarea.style.opacity =
+        "0";
+
+    document.body.appendChild(
+        textarea
+    );
+
+    textarea.select();
+
+    try {
+
+        document.execCommand(
+            "copy"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "No se pudo copiar:",
+            error
+        );
+
+    }
+
+    textarea.remove();
+
+}
+
+
+/* =====================================================
+   CALENDARIO
+===================================================== */
+
+const btnMostrarCalendario =
+    $("#btnMostrarCalendario");
+
+const opcionesCalendario =
+    $("#opcionesCalendario");
+
+
+if (
+    btnMostrarCalendario &&
+    opcionesCalendario
+) {
+
+    btnMostrarCalendario.addEventListener(
+        "click",
+        () => {
+
+            opcionesCalendario.classList.toggle(
+                "mostrar"
+            );
+
+
+            const abierto =
+                opcionesCalendario.classList.contains(
+                    "mostrar"
+                );
+
+
+            btnMostrarCalendario.setAttribute(
+                "aria-expanded",
+                abierto
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   MÚSICA
+===================================================== */
 
 const musica =
     $("#musicaBoda");
@@ -535,37 +1467,226 @@ const musica =
 const botonMusica =
     $("#botonMusica");
 
-let reproduciendo = false;
+let reproduciendo =
+    false;
 
-botonMusica.addEventListener(
-    "click",
-    async () => {
 
-        try {
+if (
+    musica &&
+    botonMusica
+) {
 
-            if(!reproduciendo) {
+    botonMusica.addEventListener(
+        "click",
+        async () => {
 
-                await musica.play();
+            try {
 
-                reproduciendo = true;
+                if (!reproduciendo) {
 
-                botonMusica.textContent = "⏸";
+                    await musica.play();
 
-            } else {
+                    reproduciendo =
+                        true;
 
-                musica.pause();
+                    botonMusica.textContent =
+                        "⏸";
 
-                reproduciendo = false;
+                    botonMusica.classList.add(
+                        "reproduciendo"
+                    );
 
-                botonMusica.textContent = "🎵";
+                    botonMusica.setAttribute(
+                        "aria-label",
+                        "Pausar música"
+                    );
+
+                } else {
+
+                    musica.pause();
+
+                    reproduciendo =
+                        false;
+
+                    botonMusica.textContent =
+                        "🎵";
+
+                    botonMusica.classList.remove(
+                        "reproduciendo"
+                    );
+
+                    botonMusica.setAttribute(
+                        "aria-label",
+                        "Reproducir música"
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "No se pudo reproducir la música:",
+                    error
+                );
 
             }
 
-        } catch(error) {
+        }
+    );
 
-            console.error(error);
+}
+
+
+/* =====================================================
+   EVITAR ARRASTRAR IMÁGENES
+===================================================== */
+
+fotos.forEach(
+    (foto) => {
+
+        foto.addEventListener(
+            "dragstart",
+            (e) => {
+
+                e.preventDefault();
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   TECLA ESC
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    (e) => {
+
+        if (e.key !== "Escape")
+            return;
+
+
+        if (
+            lightbox &&
+            lightbox.classList.contains(
+                "activo"
+            )
+        ) {
+
+            cerrarLightbox();
+
+            return;
+
+        }
+
+
+        if (
+            modalAsistencia &&
+            modalAsistencia.classList.contains(
+                "activo"
+            )
+        ) {
+
+            cerrarVentanaAsistencia();
+
+            return;
+
+        }
+
+
+        if (
+            modalConfirmacion &&
+            modalConfirmacion.classList.contains(
+                "activo"
+            )
+        ) {
+
+            cerrarConfirmacion();
+
+            return;
+
+        }
+
+
+        if (
+            modalZoom &&
+            modalZoom.classList.contains(
+                "activo"
+            )
+        ) {
+
+            cerrarVentanaZoom();
+
+            return;
+
+        }
+
+
+        if (
+            mensajeExito &&
+            mensajeExito.classList.contains(
+                "mostrar"
+            )
+        ) {
+
+            mensajeExito.classList.remove(
+                "mostrar"
+            );
+
+            mensajeExito.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            desbloquearScroll();
 
         }
 
     }
+);
+
+
+/* =====================================================
+   EVITAR DOBLE CLIC PARA ZOOM
+===================================================== */
+
+document.addEventListener(
+    "dblclick",
+    (e) => {
+
+        e.preventDefault();
+
+    },
+    {
+        passive: false
+    }
+);
+
+
+/* =====================================================
+   INICIALIZACIÓN
+===================================================== */
+
+actualizarCantidad();
+
+console.log(
+    "Invitación de boda cargada correctamente."
+);
+
+console.log(
+    "Código:",
+    codigoInvitado || "No especificado"
+);
+
+console.log(
+    "Zoom:",
+    ZOOM_ID
+);
+
+console.log(
+    "Yape:",
+    YAPE_NUMERO
 );
