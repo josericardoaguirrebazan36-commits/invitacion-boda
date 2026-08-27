@@ -1,249 +1,486 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#caa24f">
-<title>Omar y Wendy | Invitación de boda</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#f6f1e8">
+    <meta name="description" content="Invitación de boda de Omar y Wendy">
+
+    <title>Omar & Wendy | Nuestra boda</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ================= INICIO ================= -->
-<section class="inicio" id="inicio">
-    <div class="inicio-contenido">
-        <span class="subtitulo">CON MUCHA ALEGRÍA</span>
+<!-- =====================================================
+     PORTADA
+===================================================== -->
 
-        <h1>¡Nos casamos!</h1>
+<header class="hero" id="inicio">
 
-        <div class="linea">
-            <span></span><b>♥</b><span></span>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <span class="hero-kicker">
+            CON MUCHO AMOR
+        </span>
+
+        <div class="hero-nombres">
+            <span>Omar</span>
+            <i>&</i>
+            <span>Wendy</span>
         </div>
 
-        <h2>9 de octubre de 2026</h2>
+        <div class="hero-linea">
+            <span></span>
+            <b>♡</b>
+            <span></span>
+        </div>
 
-        <p>
-            Estamos emocionados de compartir este momento
-            tan especial contigo y tu familia.
+        <p class="hero-frase">
+            Tenemos el honor de invitarte
+            a celebrar con nosotros el comienzo
+            de una nueva historia.
         </p>
 
-        <div class="botones-inicio">
-            <a href="#confirmacion" class="btn-dorado">
-                CONFIRMAR ASISTENCIA
-            </a>
-
-            <a href="#ceremonia" class="btn-transparente">
-                VER UBICACIÓN
-            </a>
+        <div class="hero-fecha">
+            <span>09</span>
+            <div>
+                <small>OCTUBRE</small>
+                <strong>2026</strong>
+            </div>
         </div>
 
-        <div class="flecha">↓</div>
+        <a href="#confirmacion" class="hero-boton">
+            CONFIRMAR ASISTENCIA
+        </a>
+
+        <a href="#contador" class="hero-scroll">
+            <span>DESCUBRE NUESTRA HISTORIA</span>
+            <b>↓</b>
+        </a>
+
     </div>
+
+</header>
+
+
+<!-- =====================================================
+     INTRODUCCIÓN
+===================================================== -->
+
+<section class="introduccion">
+
+    <div class="seccion-contenido">
+
+        <span class="eyebrow">
+            UN DÍA PARA RECORDAR
+        </span>
+
+        <h2>
+            El comienzo de<br>
+            nuestro para siempre
+        </h2>
+
+        <div class="ornamento">
+            <span></span>
+            <b>♡</b>
+            <span></span>
+        </div>
+
+        <p>
+            Después de compartir tantos momentos,
+            estamos felices de dar este paso juntos.
+        </p>
+
+        <p>
+            Queremos que seas parte de uno de los días
+            más importantes de nuestras vidas.
+        </p>
+
+    </div>
+
 </section>
 
 
-<!-- ================= CONTADOR ================= -->
-<section class="contador">
-    <span class="titulo-seccion">FALTAN</span>
+<!-- =====================================================
+     CONTADOR
+===================================================== -->
 
-    <h2>Para nuestro gran día</h2>
+<section class="contador" id="contador">
 
-    <div class="countdown">
-        <div class="item">
-            <span id="dias">00</span>
-            <small>Días</small>
-        </div>
+    <div class="contador-contenido">
 
-        <div class="item">
-            <span id="horas">00</span>
-            <small>Horas</small>
-        </div>
+        <span class="eyebrow">
+            LA CUENTA REGRESIVA
+        </span>
 
-        <div class="item">
-            <span id="minutos">00</span>
-            <small>Minutos</small>
-        </div>
+        <h2>
+            Cada vez falta menos
+        </h2>
 
-        <div class="item">
-            <span id="segundos">00</span>
-            <small>Segundos</small>
-        </div>
-    </div>
+        <div class="contador-grid">
 
-    <p>
-        Estamos contando los días para celebrar este
-        momento tan especial junto a ti y tu familia.
-    </p>
-</section>
-
-
-<!-- ================= CEREMONIA ================= -->
-<section class="ceremonia" id="ceremonia">
-    <span class="titulo-seccion">EL GRAN DÍA</span>
-
-    <h2>Discurso de boda y recepción</h2>
-
-    <div class="contenedor-tarjetas">
-
-        <div class="tarjeta">
-            <div class="icono">
-                <img src="img/salon.svg" alt="Salón del Reino">
+            <div class="contador-item">
+                <strong id="dias">00</strong>
+                <span>DÍAS</span>
             </div>
 
-            <h3>Discurso de Boda</h3>
+            <div class="contador-separador">:</div>
 
-            <p class="dia">Viernes 9 de octubre de 2026</p>
-            <p class="hora">3:00 p.m.</p>
-
-            <p class="direccion">
-                Salón del Reino de los Testigos de Jehová<br>
-                Calle Boreal Mz. D Lt. 1<br>
-                Asoc. de Viv. Urbanizadora San Roque
-            </p>
-
-            <a
-                href="https://maps.app.goo.gl/vWjHvP6BUYykY9Vy9"
-                target="_blank"
-                rel="noopener"
-                class="btn-mapa">
-                ABRIR EN GOOGLE MAPS
-            </a>
-        </div>
-
-
-        <div class="tarjeta">
-            <div class="iconovino">
-                <img src="img/copa.svg" alt="Recepción">
+            <div class="contador-item">
+                <strong id="horas">00</strong>
+                <span>HORAS</span>
             </div>
 
-            <h3>Recepción</h3>
+            <div class="contador-separador">:</div>
 
-            <p class="dia">Viernes 9 de octubre de 2026</p>
-            <p class="hora">7:30 p.m.</p>
+            <div class="contador-item">
+                <strong id="minutos">00</strong>
+                <span>MINUTOS</span>
+            </div>
 
-            <p class="direccion">
-                Casa familia Advíncula<br>
-                Mz A Lt # Calle 20<br>
-                Urb. Laura Caller - Los Olivos
-            </p>
+            <div class="contador-separador">:</div>
 
-            <a
-                href="https://maps.app.goo.gl/iJSi6noZ2xpN7yV56"
-                target="_blank"
-                rel="noopener"
-                class="btn-mapa">
-                ABRIR EN GOOGLE MAPS
-            </a>
+            <div class="contador-item">
+                <strong id="segundos">00</strong>
+                <span>SEGUNDOS</span>
+            </div>
+
         </div>
 
+        <p>
+            El viernes 9 de octubre de 2026
+            celebraremos nuestro gran día.
+        </p>
+
     </div>
+
 </section>
 
 
-<!-- ================= GALERÍA ================= -->
-<section class="recuerdos">
-    <span class="titulo-seccion">NUESTRA HISTORIA</span>
+<!-- =====================================================
+     FECHA Y LUGARES
+===================================================== -->
 
-    <h2>Los recuerdos de nuestro amor</h2>
+<section class="evento" id="ceremonia">
 
-    <div class="contenedor-galeria">
+    <div class="evento-intro">
+
+        <span class="eyebrow">
+            EL GRAN DÍA
+        </span>
+
+        <h2>
+            Celebremos juntos
+        </h2>
+
+        <p>
+            Queremos compartir contigo cada momento
+            de esta celebración.
+        </p>
+
+    </div>
+
+
+    <div class="evento-lista">
+
+        <!-- DISCURSO -->
+
+        <article class="evento-card">
+
+            <div class="evento-numero">
+                01
+            </div>
+
+            <div class="evento-icono">
+                <img src="img/salon.svg" alt="">
+            </div>
+
+            <div class="evento-info">
+
+                <span class="evento-tipo">
+                    CEREMONIA
+                </span>
+
+                <h3>
+                    Discurso de boda
+                </h3>
+
+                <div class="evento-fecha">
+                    Viernes 9 de octubre de 2026
+                </div>
+
+                <div class="evento-hora">
+                    3:00 p.m.
+                </div>
+
+                <p>
+                    Salón del Reino de los Testigos de Jehová<br>
+                    Calle Boreal Mz. D Lt. 1<br>
+                    Asoc. de Viv. Urbanizadora San Roque
+                </p>
+
+                <a
+                    href="https://maps.app.goo.gl/vWjHvP6BUYykY9Vy9"
+                    target="_blank"
+                    rel="noopener"
+                    class="link-mapa">
+
+                    VER UBICACIÓN
+                    <span>↗</span>
+
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- RECEPCIÓN -->
+
+        <article class="evento-card">
+
+            <div class="evento-numero">
+                02
+            </div>
+
+            <div class="evento-icono copa">
+                <img src="img/copa.svg" alt="">
+            </div>
+
+            <div class="evento-info">
+
+                <span class="evento-tipo">
+                    CELEBRACIÓN
+                </span>
+
+                <h3>
+                    Recepción
+                </h3>
+
+                <div class="evento-fecha">
+                    Viernes 9 de octubre de 2026
+                </div>
+
+                <div class="evento-hora">
+                    7:30 p.m.
+                </div>
+
+                <p>
+                    Casa familia Advíncula<br>
+                    Mz A Lt # Calle 20<br>
+                    Urb. Laura Caller - Los Olivos
+                </p>
+
+                <a
+                    href="https://maps.app.goo.gl/iJSi6noZ2xpN7yV56"
+                    target="_blank"
+                    rel="noopener"
+                    class="link-mapa">
+
+                    VER UBICACIÓN
+                    <span>↗</span>
+
+                </a>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     GALERÍA
+===================================================== -->
+
+<section class="historia">
+
+    <div class="historia-header">
+
+        <span class="eyebrow">
+            NUESTRA HISTORIA
+        </span>
+
+        <h2>
+            Algunos recuerdos<br>
+            que guardamos en el corazón
+        </h2>
+
+    </div>
+
+
+    <div class="galeria-wrapper">
 
         <button
             type="button"
-            class="flecha-galeria izquierda"
-            id="galeriaAnterior">
+            class="galeria-control anterior"
+            id="galeriaAnterior"
+            aria-label="Foto anterior">
+
             ‹
+
         </button>
+
 
         <div class="galeria-fotos">
-            <img src="img/Imagen 2.jpg" alt="Recuerdo 2">
-            <img src="img/Imagen 3.jpg" alt="Recuerdo 3">
-            <img src="img/Imagen 4.jpg" alt="Recuerdo 4">
-            <img src="img/Imagen 5.jpg" alt="Recuerdo 5">
-            <img src="img/Imagen 9.jpg" alt="Recuerdo 6">
-            <img src="img/Imagen 10.jpg" alt="Recuerdo 7">
+
+            <img src="img/Imagen 2.jpg" alt="Recuerdo de Omar y Wendy">
+            <img src="img/Imagen 3.jpg" alt="Recuerdo de Omar y Wendy">
+            <img src="img/Imagen 4.jpg" alt="Recuerdo de Omar y Wendy">
+            <img src="img/Imagen 5.jpg" alt="Recuerdo de Omar y Wendy">
+            <img src="img/Imagen 9.jpg" alt="Recuerdo de Omar y Wendy">
+            <img src="img/Imagen 10.jpg" alt="Recuerdo de Omar y Wendy">
+
         </div>
+
 
         <button
             type="button"
-            class="flecha-galeria derecha"
-            id="galeriaSiguiente">
+            class="galeria-control siguiente"
+            id="galeriaSiguiente"
+            aria-label="Foto siguiente">
+
             ›
+
         </button>
 
     </div>
+
 </section>
 
 
-<!-- ================= LIGHTBOX ================= -->
-<div class="lightbox" id="lightbox" aria-hidden="true">
+<!-- =====================================================
+     LIGHTBOX
+===================================================== -->
+
+<div
+    class="lightbox"
+    id="lightbox"
+    aria-hidden="true">
 
     <button
         type="button"
-        class="cerrar"
-        id="cerrarLightbox">
+        class="lightbox-cerrar"
+        id="cerrarLightbox"
+        aria-label="Cerrar">
+
         ×
+
     </button>
 
-    <img id="imagenGrande" src="" alt="">
+    <img
+        id="imagenGrande"
+        src=""
+        alt="">
+
 </div>
 
 
-<!-- ================= CONFIRMACIÓN ================= -->
-<section class="confirmacion" id="confirmacion">
+<!-- =====================================================
+     CONFIRMACIÓN
+===================================================== -->
 
-    <div class="confirmacion-contenedor">
+<section class="rsvp" id="confirmacion">
 
-        <span class="titulo-seccion">RSVP</span>
+    <div class="rsvp-card">
 
-        <h2>¿Podrás acompañarnos?</h2>
+        <span class="eyebrow">
+            RSVP
+        </span>
 
-        <p id="nombreInvitado" class="nombre-invitado"></p>
+        <h2>
+            ¿Nos acompañas?
+        </h2>
 
-        <div class="decoracion">
+        <p
+            id="nombreInvitado"
+            class="nombre-invitado">
+        </p>
+
+        <div class="ornamento">
             <span></span>
-            <span>♡</span>
+            <b>♡</b>
             <span></span>
         </div>
 
-        <p class="mensaje-confirmacion">
-            Será una alegría compartir este día tan especial contigo.
-            <br><br>
-            Por favor, indícanos cómo nos acompañarás.
+        <p class="rsvp-texto">
+            Para nosotros será muy especial contar contigo
+            en este día. Por favor, confirma cómo nos acompañarás.
         </p>
 
-        <div class="botones-asistencia">
+
+        <div class="rsvp-opciones">
 
             <button
                 type="button"
                 id="btnAsistire"
-                class="btn-asistencia principal">
-                ❤️ Sí, ahí estaré
+                class="rsvp-btn principal">
+
+                <span class="btn-icono">♥</span>
+
+                <span>
+                    <strong>Sí, ahí estaré</strong>
+                    <small>Asistiré presencialmente</small>
+                </span>
+
+                <b>→</b>
+
             </button>
+
 
             <button
                 type="button"
                 id="btnZoom"
-                class="btn-asistencia zoom">
-                💻 Sí, pero podré asistir por Zoom
+                class="rsvp-btn">
+
+                <span class="btn-icono">⌁</span>
+
+                <span>
+                    <strong>Me conectaré por Zoom</strong>
+                    <small>Acompañaré la celebración a distancia</small>
+                </span>
+
+                <b>→</b>
+
             </button>
+
 
             <button
                 type="button"
                 id="btnNoAsistire"
-                class="btn-asistencia no-asistire">
-                🤍 Disculpa, no podré asistir
+                class="rsvp-btn discreto">
+
+                <span class="btn-icono">♡</span>
+
+                <span>
+                    <strong>No podré asistir</strong>
+                    <small>Gracias por avisarnos</small>
+                </span>
+
+                <b>→</b>
+
             </button>
 
         </div>
 
+
         <button
             type="button"
-            class="btn-calendario"
+            class="guardar-fecha"
             id="btnMostrarCalendario">
-            📅 Guardar la fecha
+
+            <span>＋</span>
+            GUARDAR LA FECHA
+
         </button>
+
 
         <div
             class="opciones-calendario"
@@ -251,32 +488,46 @@
 
             <a
                 href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Omar+y+Wendy&dates=20261009T150000/20261009T160000"
-                target="_blank">
-                📅 Google Calendar
+                target="_blank"
+                rel="noopener">
+
+                Google Calendar
+
             </a>
 
-            <a href="evento-boda.ics" download>
-                📆 Descargar calendario
+            <a
+                href="evento-boda.ics"
+                download>
+
+                Descargar calendario
+
             </a>
 
         </div>
 
     </div>
+
 </section>
 
 
-<!-- ================= REGALOS ================= -->
+<!-- =====================================================
+     REGALOS
+===================================================== -->
+
 <section class="regalos" id="regalos">
 
-    <div class="regalos-contenedor">
+    <div class="regalos-contenido">
 
-        <span class="titulo-seccion">
+        <span class="eyebrow">
             UN DETALLE DE AMOR
         </span>
 
-        <h2>Regalos</h2>
+        <h2>
+            Si deseas hacernos<br>
+            un regalo
+        </h2>
 
-        <div class="regalos-decoracion">
+        <div class="ornamento">
             <span></span>
             <b>♡</b>
             <span></span>
@@ -288,84 +539,106 @@
         </p>
 
         <p class="regalos-intro">
-            Si deseas hacernos un regalo, puedes hacerlo mediante
-            <strong>Yape</strong> o, si prefieres obsequiarnos algo
-            físico, estaremos felices de recibirlo en nuestro nuevo hogar.
+            Si deseas tener un detalle con nosotros,
+            puedes hacerlo mediante Yape o regalarnos algo
+            para nuestro nuevo hogar.
         </p>
 
 
-        <!-- YAPE -->
-        <div class="regalo-card">
+        <div class="regalos-grid">
 
-            <div class="regalo-icono">♡</div>
+            <!-- YAPE -->
 
-            <span class="regalo-etiqueta">
-                YAPE
-            </span>
+            <div class="regalo">
 
-            <h3>
-                Un detalle para nuestro nuevo comienzo
-            </h3>
+                <div class="regalo-icono">
+                    S/
+                </div>
 
-            <div class="numero-yape">
-                <span id="numeroYape">
-                    +51 992 418 572
+                <span class="regalo-tipo">
+                    YAPE
                 </span>
 
-                <button
-                    type="button"
-                    id="copiarYape"
-                    aria-label="Copiar número de Yape">
-                    ⧉
-                </button>
+                <h3>
+                    Un detalle para<br>
+                    nuestro nuevo comienzo
+                </h3>
+
+                <div class="yape-numero">
+
+                    <span id="numeroYape">
+                        +51 992 418 572
+                    </span>
+
+                    <button
+                        type="button"
+                        id="copiarYape"
+                        aria-label="Copiar número de Yape">
+
+                        ⧉
+
+                    </button>
+
+                </div>
+
+                <span
+                    class="copiado"
+                    id="mensajeCopiado">
+
+                    Número copiado ✓
+
+                </span>
+
             </div>
 
-            <span
-                class="copiado"
-                id="mensajeCopiado">
-                Número copiado ✓
-            </span>
+
+            <!-- REGALO FÍSICO -->
+
+            <div class="regalo">
+
+                <div class="regalo-icono casa">
+                    ♡
+                </div>
+
+                <span class="regalo-tipo">
+                    NUEVO HOGAR
+                </span>
+
+                <h3>
+                    Un regalo para<br>
+                    nuestra nueva casa
+                </h3>
+
+                <p>
+                    Si prefieres obsequiarnos algo físico,
+                    estaremos felices de recibirlo.
+                </p>
+
+                <small>
+                    La dirección podrá coordinarse
+                    directamente con nosotros.
+                </small>
+
+            </div>
 
         </div>
 
 
-        <!-- REGALO FÍSICO -->
-        <div class="regalo-card fisico">
-
-            <div class="regalo-icono">
-                🏠
-            </div>
-
-            <span class="regalo-etiqueta">
-                REGALO FÍSICO
-            </span>
-
-            <h3>
-                Para nuestro nuevo hogar
-            </h3>
-
-            <p>
-                Si deseas entregarnos un regalo físico,
-                puedes hacerlo en nuestra nueva casa.
-            </p>
-
-            <p class="regalo-nota">
-                La dirección de nuestro hogar podrá coordinarse
-                directamente con nosotros.
-            </p>
-
-        </div>
-
-        <div class="regalo-final">
-            Gracias por acompañarnos en este nuevo capítulo
-            de nuestras vidas. ❤️
+        <div class="regalos-final">
+            Gracias por formar parte<br>
+            de este nuevo capítulo de nuestras vidas.
+            <span>♥</span>
         </div>
 
     </div>
+
 </section>
 
 
-<!-- ================= MODAL PERSONAS ================= -->
+<!-- =====================================================
+     MODAL ASISTENCIA
+===================================================== -->
+
 <div
     class="modal"
     id="modalAsistencia"
@@ -374,16 +647,21 @@
     <div class="modal-caja">
 
         <button
+            type="button"
             class="modal-cerrar"
             id="cerrarModal">
+
             ×
+
         </button>
 
-        <span class="modal-etiqueta">
+        <span class="modal-kicker">
             ¡QUÉ ALEGRÍA!
         </span>
 
-        <h3>¿Cuántas personas asistirán?</h3>
+        <h3>
+            ¿Cuántas personas asistirán?
+        </h3>
 
         <p>
             Indica el número de personas que asistirán contigo.
@@ -391,46 +669,64 @@
 
         <div class="selector-personas">
 
-            <button id="restarPersona">−</button>
+            <button
+                type="button"
+                id="restarPersona">
+                −
+            </button>
 
             <div>
                 <strong id="cantidadPersonas">1</strong>
                 <small id="textoPersonas">persona</small>
             </div>
 
-            <button id="sumarPersona">+</button>
+            <button
+                type="button"
+                id="sumarPersona">
+                +
+            </button>
 
         </div>
 
         <button
+            type="button"
             id="confirmarPresencial"
             class="modal-confirmar">
+
             CONFIRMAR ASISTENCIA
+
         </button>
 
     </div>
+
 </div>
 
 
-<!-- ================= MODAL ZOOM ================= -->
+<!-- =====================================================
+     MODAL ZOOM
+===================================================== -->
+
 <div
     class="modal"
     id="modalZoom"
     aria-hidden="true">
 
-    <div class="modal-caja modal-zoom">
+    <div class="modal-caja">
 
         <button
+            type="button"
             class="modal-cerrar"
             id="cerrarZoom">
+
             ×
+
         </button>
 
-        <div class="modal-icono zoom-icono">
-            💻
+        <div class="modal-icono zoom">
+            ⌁
         </div>
 
-        <span class="modal-etiqueta">
+        <span class="modal-kicker">
             ACOMPAÑARNOS A DISTANCIA
         </span>
 
@@ -439,7 +735,8 @@
         </h3>
 
         <p>
-            ¿Confirmas que participarás de la boda por Zoom?
+            ¿Confirmas que participarás de la boda
+            por Zoom?
         </p>
 
         <div class="modal-acciones">
@@ -448,41 +745,52 @@
                 type="button"
                 class="modal-cancelar"
                 id="cancelarZoom">
+
                 CANCELAR
+
             </button>
 
             <button
                 type="button"
                 class="modal-confirmar"
                 id="confirmarZoom">
+
                 SÍ, CONFIRMAR
+
             </button>
 
         </div>
 
     </div>
+
 </div>
 
 
-<!-- ================= MODAL NO ASISTIR ================= -->
+<!-- =====================================================
+     MODAL NO ASISTIR
+===================================================== -->
+
 <div
     class="modal"
     id="modalNoAsistire"
     aria-hidden="true">
 
-    <div class="modal-caja modal-no">
+    <div class="modal-caja">
 
         <button
+            type="button"
             class="modal-cerrar"
             id="cerrarNoAsistire">
+
             ×
+
         </button>
 
-        <div class="modal-icono no-icono">
+        <div class="modal-icono triste">
             ♡
         </div>
 
-        <span class="modal-etiqueta">
+        <span class="modal-kicker">
             GRACIAS POR AVISARNOS
         </span>
 
@@ -501,33 +809,49 @@
                 type="button"
                 class="modal-cancelar"
                 id="cancelarNoAsistire">
+
                 CANCELAR
+
             </button>
 
             <button
                 type="button"
-                class="modal-confirmar btn-no-confirmar"
+                class="modal-confirmar no"
                 id="confirmarNoAsistire">
+
                 SÍ, CONFIRMAR
+
             </button>
 
         </div>
 
     </div>
+
 </div>
 
 
-<!-- ================= ÉXITO ================= -->
+<!-- =====================================================
+     MODAL ÉXITO
+===================================================== -->
+
 <div
     class="modal"
     id="mensajeExito"
     aria-hidden="true">
 
-    <div class="modal-caja exito-caja">
+    <div class="modal-caja exito">
 
-        <div class="icono-exito">✓</div>
+        <div class="icono-exito">
+            ✓
+        </div>
 
-        <h3>¡Muchas gracias!</h3>
+        <span class="modal-kicker">
+            RESPUESTA REGISTRADA
+        </span>
+
+        <h3>
+            ¡Muchas gracias!
+        </h3>
 
         <p id="textoExito"></p>
 
@@ -535,25 +859,44 @@
             type="button"
             class="modal-confirmar"
             id="volverConfirmacion">
+
             CERRAR
+
         </button>
 
     </div>
+
 </div>
 
 
-<!-- ================= MÚSICA ================= -->
-<audio id="musicaBoda" loop>
-    <source src="audio/caraluna.mp3" type="audio/mpeg">
+<!-- =====================================================
+     MÚSICA
+===================================================== -->
+
+<audio
+    id="musicaBoda"
+    loop>
+
+    <source
+        src="audio/caraluna.mp3"
+        type="audio/mpeg">
+
 </audio>
 
 <button
     type="button"
     class="boton-musica"
-    id="botonMusica">
-    🎵
+    id="botonMusica"
+    aria-label="Reproducir música">
+
+    ♪
+
 </button>
 
+
+<!-- =====================================================
+     SCRIPT
+===================================================== -->
 
 <script src="script.js"></script>
 
