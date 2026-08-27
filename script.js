@@ -249,19 +249,6 @@ setInterval(
    CÓDIGO DEL INVITADO
 ===================================================== */
 
-/*
-   El código se obtiene automáticamente
-   desde la URL.
-
-   Ejemplo:
-
-   ?codigo=001
-
-   ?codigo=002
-
-   ?codigo=003
-*/
-
 const parametros =
     new URLSearchParams(
         window.location.search
@@ -342,11 +329,6 @@ async function enviarRespuesta(
     respuesta,
     personas
 ) {
-
-    /*
-       Primero comprobamos que exista
-       el código del invitado.
-    */
 
     if (!codigoInvitado) {
 
@@ -510,10 +492,6 @@ restarPersona.addEventListener(
 sumarPersona.addEventListener(
     "click",
     () => {
-
-        /*
-           Máximo de 10 personas.
-        */
 
         if (cantidad < 10) {
 
@@ -800,14 +778,17 @@ volverConfirmacion.addEventListener(
             "mostrar"
         );
 
+
         mensajeExito.setAttribute(
             "aria-hidden",
             "true"
         );
 
+
         document.documentElement.classList.remove(
             "no-scroll"
         );
+
 
         document.body.classList.remove(
             "no-scroll"
