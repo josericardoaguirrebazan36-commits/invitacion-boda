@@ -42,6 +42,7 @@ body.no-scroll {
 
 .inicio {
     min-height: 100vh;
+
     background:
         radial-gradient(
             circle at center,
@@ -64,10 +65,14 @@ body.no-scroll {
 .inicio::before,
 .inicio::after {
     content: "";
+
     position: absolute;
+
     width: 180px;
     height: 180px;
+
     border: 1px solid rgba(202, 162, 79, .25);
+
     border-radius: 50%;
 }
 
@@ -83,74 +88,106 @@ body.no-scroll {
 
 .inicio-contenido {
     max-width: 700px;
+
     position: relative;
+
     z-index: 2;
 }
 
 .subtitulo {
     display: block;
+
     color: #c7a15a;
+
     font-size: 13px;
+
     letter-spacing: 6px;
+
     margin-bottom: 25px;
 }
 
 .inicio h1 {
     font-family: Georgia, serif;
+
     font-size: 82px;
+
     font-weight: 300;
+
     line-height: 1;
+
     color: #222;
+
     margin-bottom: 30px;
 }
 
 .linea {
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     gap: 18px;
+
     color: #caa24f;
+
     margin-bottom: 30px;
 }
 
 .linea span {
     width: 120px;
+
     height: 1px;
+
     background: #caa24f;
 }
 
 .linea b {
     font-size: 20px;
+
     font-weight: normal;
 }
 
 .inicio h2 {
     font-family: Georgia, serif;
+
     font-size: 30px;
+
     font-weight: 300;
+
     color: #444;
+
     margin-bottom: 25px;
 }
 
 .inicio p {
     max-width: 600px;
+
     margin: 0 auto 40px;
+
     color: #777;
+
     font-size: 19px;
+
     line-height: 1.8;
 }
 
 .botones-inicio {
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     gap: 14px;
 }
 
 .btn-dorado,
 .btn-transparente {
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     width: 320px;
@@ -162,6 +199,7 @@ body.no-scroll {
     text-decoration: none;
 
     font-weight: bold;
+
     letter-spacing: 1px;
 
     transition: .3s;
@@ -169,28 +207,35 @@ body.no-scroll {
 
 .btn-dorado {
     background: #caa24f;
+
     color: white;
 }
 
 .btn-dorado:hover {
     background: #b68d3c;
+
     transform: translateY(-2px);
 }
 
 .btn-transparente {
     border: 1px solid #caa24f;
+
     color: #a17d35;
 }
 
 .btn-transparente:hover {
     background: #caa24f;
+
     color: white;
 }
 
 .flecha {
     margin-top: 50px;
+
     color: #caa24f;
+
     font-size: 35px;
+
     animation: subirBajar 2s infinite;
 }
 
@@ -213,10 +258,15 @@ body.no-scroll {
 
 .titulo-seccion {
     display: block;
+
     color: #c7a15a;
+
     font-size: 13px;
+
     letter-spacing: 6px;
+
     margin-bottom: 15px;
+
     text-transform: uppercase;
 }
 
@@ -227,21 +277,29 @@ body.no-scroll {
 
 .contador {
     padding: 130px 20px;
+
     background: white;
+
     text-align: center;
 }
 
 .contador h2 {
     font-family: Georgia, serif;
+
     font-size: 55px;
+
     font-weight: 300;
+
     margin-bottom: 70px;
 }
 
 .countdown {
     display: flex;
+
     justify-content: center;
+
     gap: 55px;
+
     flex-wrap: wrap;
 }
 
@@ -251,31 +309,45 @@ body.no-scroll {
 
 .item span {
     display: block;
+
     font-family: Georgia, serif;
+
     font-size: 78px;
+
     font-weight: 300;
 }
 
 .item::after {
     content: "";
+
     display: block;
+
     width: 60px;
+
     height: 2px;
+
     background: #caa24f;
+
     margin: 18px auto;
 }
 
 .item small {
     color: #777;
+
     letter-spacing: 3px;
+
     text-transform: uppercase;
 }
 
 .contador p {
     max-width: 700px;
+
     margin: 70px auto 0;
+
     color: #777;
+
     line-height: 1.8;
+
     font-size: 17px;
 }
 
@@ -286,30 +358,43 @@ body.no-scroll {
 
 .ceremonia {
     padding: 100px 20px;
+
     background: #f9f7f2;
+
     text-align: center;
 }
 
 .ceremonia h2 {
     font-family: Georgia, serif;
+
     font-size: 45px;
+
     font-weight: 300;
+
     margin-bottom: 60px;
 }
 
 .contenedor-tarjetas {
     display: flex;
+
     justify-content: center;
+
     gap: 35px;
+
     flex-wrap: wrap;
 }
 
 .tarjeta {
     width: 380px;
+
     background: white;
+
     padding: 45px 40px;
+
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .07);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .07);
 }
 
 .icono {
@@ -330,46 +415,67 @@ body.no-scroll {
 
 .tarjeta h3 {
     font-family: Georgia, serif;
+
     font-size: 30px;
+
     font-weight: 300;
+
     margin-bottom: 20px;
 }
 
 .dia {
     color: #caa24f;
+
     font-family: Georgia, serif;
+
     font-size: 20px;
+
     margin-bottom: 12px;
 }
 
 .hora {
     color: #caa24f;
+
     font-size: 24px;
+
     font-weight: bold;
+
     margin-bottom: 20px;
 }
 
 .direccion {
     color: #666;
+
     line-height: 1.8;
+
     margin-bottom: 30px;
 }
 
 .btn-mapa {
     display: inline-block;
+
     padding: 14px 25px;
+
     background: #caa24f;
+
     color: white;
+
     text-decoration: none;
+
     border-radius: 8px;
+
     font-size: 13px;
+
     font-weight: bold;
+
     letter-spacing: 1px;
+
     transition: .3s;
 }
 
 .btn-mapa:hover {
     background: #b68d3c;
+
     transform: translateY(-2px);
 }
 
@@ -380,29 +486,41 @@ body.no-scroll {
 
 .recuerdos {
     padding: 110px 20px;
+
     background: white;
+
     text-align: center;
 }
 
 .recuerdos h2 {
     font-family: Georgia, serif;
+
     font-size: 50px;
+
     font-weight: 300;
+
     margin-bottom: 50px;
 }
 
 .contenedor-galeria {
     position: relative;
+
     max-width: 1200px;
+
     margin: auto;
 }
 
 .galeria-fotos {
     display: flex;
+
     gap: 20px;
+
     overflow-x: auto;
+
     padding: 10px;
+
     scrollbar-width: none;
+
     scroll-behavior: smooth;
 }
 
@@ -412,37 +530,52 @@ body.no-scroll {
 
 .galeria-fotos img {
     flex: 0 0 260px;
+
     width: 260px;
+
     height: 320px;
+
     object-fit: cover;
+
     border-radius: 16px;
+
     cursor: pointer;
+
     transition: .3s;
 }
 
 .galeria-fotos img:hover {
     transform: scale(1.02);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, .2);
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, .2);
 }
 
 .flecha-galeria {
     position: absolute;
+
     top: 50%;
+
     transform: translateY(-50%);
 
     width: 45px;
+
     height: 45px;
 
     border: none;
+
     border-radius: 50%;
 
     background: #caa24f;
+
     color: white;
 
     font-size: 35px;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     z-index: 5;
@@ -469,17 +602,21 @@ body.no-scroll {
 
 .lightbox {
     position: fixed;
+
     inset: 0;
 
     background: rgba(0, 0, 0, .95);
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     padding: 20px;
 
     opacity: 0;
+
     visibility: hidden;
 
     transition: .25s;
@@ -489,25 +626,33 @@ body.no-scroll {
 
 .lightbox.activo {
     opacity: 1;
+
     visibility: visible;
 }
 
 .lightbox img {
     max-width: 92vw;
+
     max-height: 90vh;
+
     object-fit: contain;
+
     border-radius: 12px;
 }
 
 .cerrar {
     position: absolute;
+
     top: 20px;
+
     right: 25px;
 
     width: 45px;
+
     height: 45px;
 
     border: none;
+
     background: transparent;
 
     color: white;
@@ -524,12 +669,15 @@ body.no-scroll {
 
 .confirmacion {
     padding: 100px 20px;
+
     background: #f9f7f2;
+
     text-align: center;
 }
 
 .confirmacion-contenedor {
     max-width: 650px;
+
     margin: auto;
 
     background: white;
@@ -544,30 +692,43 @@ body.no-scroll {
 
 .confirmacion h2 {
     font-family: Georgia, serif;
+
     font-size: 44px;
+
     font-weight: 300;
 }
 
 .nombre-invitado {
     margin-top: 15px;
+
     color: #caa24f;
+
     font-family: Georgia, serif;
+
     font-size: 22px;
+
     font-weight: bold;
 }
 
 .decoracion {
     display: flex;
+
     justify-content: center;
+
     align-items: center;
+
     gap: 15px;
+
     margin: 25px 0 30px;
+
     color: #caa24f;
 }
 
 .decoracion span:not(:nth-child(2)) {
     width: 60px;
+
     height: 1px;
+
     background: #caa24f;
 }
 
@@ -577,8 +738,11 @@ body.no-scroll {
 
 .mensaje-confirmacion {
     color: #777;
+
     line-height: 1.8;
+
     font-size: 16px;
+
     margin-bottom: 35px;
 }
 
@@ -589,21 +753,27 @@ body.no-scroll {
 
 .botones-asistencia {
     display: flex;
+
     flex-direction: column;
+
     gap: 12px;
 }
 
 .btn-asistencia {
     width: 100%;
+
     padding: 17px 20px;
 
     border: 1px solid #caa24f;
+
     border-radius: 10px;
 
     background: white;
+
     color: #9a762f;
 
     font-size: 15px;
+
     font-weight: bold;
 
     transition: .3s;
@@ -611,17 +781,185 @@ body.no-scroll {
 
 .btn-asistencia:hover {
     background: #caa24f;
+
     color: white;
+
     transform: translateY(-2px);
 }
 
 .btn-asistencia.principal {
     background: #caa24f;
+
     color: white;
 }
 
 .btn-asistencia.principal:hover {
     background: #b68d3c;
+}
+
+
+/* =====================================================
+   REGALOS
+===================================================== */
+
+.regalos {
+    padding: 110px 20px;
+
+    background: white;
+
+    text-align: center;
+}
+
+.regalos-contenedor {
+    max-width: 900px;
+
+    margin: auto;
+}
+
+.regalos h2 {
+    font-family: Georgia, serif;
+
+    font-size: 52px;
+
+    font-weight: 300;
+
+    margin-bottom: 10px;
+
+    color: #333;
+}
+
+.mensaje-regalos {
+    max-width: 720px;
+
+    margin: 0 auto 55px;
+
+    color: #777;
+
+    font-size: 17px;
+
+    line-height: 1.9;
+}
+
+.contenedor-regalos {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 30px;
+
+    flex-wrap: wrap;
+}
+
+.tarjeta-regalo {
+    width: 380px;
+
+    background: #f9f7f2;
+
+    border: 1px solid rgba(202, 162, 79, .25);
+
+    border-radius: 18px;
+
+    padding: 45px 35px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .05);
+
+    transition: .3s;
+}
+
+.tarjeta-regalo:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, .08);
+}
+
+.icono-regalo {
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 25px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    border: 1px solid #caa24f;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 30px;
+}
+
+.tarjeta-regalo h3 {
+    font-family: Georgia, serif;
+
+    font-size: 28px;
+
+    font-weight: 300;
+
+    margin-bottom: 18px;
+
+    color: #333;
+}
+
+.tarjeta-regalo > p {
+    color: #777;
+
+    line-height: 1.7;
+
+    font-size: 15px;
+
+    margin-bottom: 25px;
+}
+
+.datos-regalo {
+    padding-top: 20px;
+
+    border-top: 1px solid rgba(202, 162, 79, .25);
+
+    color: #666;
+
+    line-height: 1.7;
+}
+
+.datos-regalo strong {
+    display: block;
+
+    font-family: Georgia, serif;
+
+    color: #caa24f;
+
+    font-size: 20px;
+
+    font-weight: normal;
+
+    margin-bottom: 5px;
+}
+
+.datos-regalo span {
+    color: #444;
+
+    font-weight: bold;
+}
+
+.mensaje-final-regalos {
+    max-width: 650px;
+
+    margin: 55px auto 0;
+
+    color: #888;
+
+    font-family: Georgia, serif;
+
+    font-size: 18px;
+
+    line-height: 1.8;
 }
 
 
@@ -632,17 +970,21 @@ body.no-scroll {
 .modal-asistencia,
 .mensaje-exito {
     position: fixed;
+
     inset: 0;
 
     background: rgba(0, 0, 0, .65);
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     padding: 20px;
 
     opacity: 0;
+
     visibility: hidden;
 
     transition: .25s;
@@ -653,12 +995,14 @@ body.no-scroll {
 .modal-asistencia.activo,
 .mensaje-exito.mostrar {
     opacity: 1;
+
     visibility: visible;
 }
 
 .modal-contenido,
 .exito-contenido {
     width: 100%;
+
     max-width: 450px;
 
     background: white;
@@ -677,42 +1021,57 @@ body.no-scroll {
 
 .cerrar-modal {
     position: absolute;
+
     top: 12px;
+
     right: 15px;
 
     width: 40px;
+
     height: 40px;
 
     border: none;
+
     background: transparent;
 
     font-size: 32px;
+
     color: #777;
 }
 
 .titulo-modal {
     color: #caa24f;
+
     letter-spacing: 3px;
+
     font-size: 13px;
+
     text-transform: uppercase;
 }
 
 .modal-contenido h3 {
     font-family: Georgia, serif;
+
     font-size: 30px;
+
     font-weight: 300;
+
     margin: 15px 0;
 }
 
 .modal-contenido p {
     color: #777;
+
     line-height: 1.6;
 }
 
 .selector-personas {
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     gap: 30px;
 
     margin: 35px 0;
@@ -720,18 +1079,23 @@ body.no-scroll {
 
 .btn-personas {
     width: 60px;
+
     height: 60px;
 
     border: 1px solid #caa24f;
+
     border-radius: 50%;
 
     background: white;
+
     color: #caa24f;
 
     font-size: 35px;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     transition: .25s;
@@ -739,6 +1103,7 @@ body.no-scroll {
 
 .btn-personas:hover {
     background: #caa24f;
+
     color: white;
 }
 
@@ -748,6 +1113,7 @@ body.no-scroll {
     font-family: Georgia, serif;
 
     font-size: 65px;
+
     line-height: 1;
 
     color: #333;
@@ -755,6 +1121,7 @@ body.no-scroll {
 
 .cantidad small {
     color: #888;
+
     font-size: 14px;
 }
 
@@ -762,14 +1129,17 @@ body.no-scroll {
     width: 100%;
 
     border: none;
+
     border-radius: 10px;
 
     padding: 17px;
 
     background: #caa24f;
+
     color: white;
 
     font-weight: bold;
+
     letter-spacing: 1px;
 
     transition: .3s;
@@ -786,6 +1156,7 @@ body.no-scroll {
 
 .icono-exito {
     width: 70px;
+
     height: 70px;
 
     margin: 0 auto 20px;
@@ -793,25 +1164,33 @@ body.no-scroll {
     border-radius: 50%;
 
     background: #caa24f;
+
     color: white;
 
     font-size: 40px;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 }
 
 .exito-contenido h3 {
     font-family: Georgia, serif;
+
     font-size: 30px;
+
     font-weight: 300;
+
     margin-bottom: 15px;
 }
 
 .exito-contenido p {
     color: #777;
+
     line-height: 1.7;
+
     margin-bottom: 25px;
 }
 
@@ -819,11 +1198,13 @@ body.no-scroll {
     width: 100%;
 
     border: none;
+
     border-radius: 8px;
 
     padding: 15px;
 
     background: #caa24f;
+
     color: white;
 
     font-weight: bold;
@@ -838,7 +1219,9 @@ body.no-scroll {
     margin-top: 30px;
 
     display: inline-flex;
+
     justify-content: center;
+
     align-items: center;
 
     gap: 8px;
@@ -846,9 +1229,11 @@ body.no-scroll {
     padding: 15px 30px;
 
     border: 2px solid #caa24f;
+
     border-radius: 30px;
 
     background: #caa24f;
+
     color: white;
 
     font-weight: bold;
@@ -858,18 +1243,23 @@ body.no-scroll {
 
 .btn-calendario:hover {
     background: white;
+
     color: #caa24f;
 }
 
 .opciones-calendario {
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     gap: 10px;
 
     max-height: 0;
 
     opacity: 0;
+
     overflow: hidden;
 
     transform: translateY(-10px);
@@ -881,7 +1271,9 @@ body.no-scroll {
 
 .opciones-calendario.mostrar {
     max-height: 150px;
+
     opacity: 1;
+
     transform: translateY(0);
 }
 
@@ -891,6 +1283,7 @@ body.no-scroll {
     padding: 13px;
 
     border: 1px solid #caa24f;
+
     border-radius: 25px;
 
     background: white;
@@ -906,6 +1299,7 @@ body.no-scroll {
 
 .opciones-calendario a:hover {
     background: #caa24f;
+
     color: white;
 }
 
@@ -918,9 +1312,11 @@ body.no-scroll {
     position: fixed;
 
     bottom: 25px;
+
     right: 25px;
 
     width: 58px;
+
     height: 58px;
 
     border-radius: 50%;
@@ -928,12 +1324,15 @@ body.no-scroll {
     border: 2px solid #caa24f;
 
     background: white;
+
     color: #caa24f;
 
     font-size: 25px;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     box-shadow:
@@ -946,7 +1345,9 @@ body.no-scroll {
 
 .boton-musica:hover {
     background: #caa24f;
+
     color: white;
+
     transform: scale(1.08);
 }
 
@@ -976,6 +1377,7 @@ body.no-scroll {
 
     .inicio {
         min-height: 100svh;
+
         padding: 60px 20px;
     }
 
@@ -989,11 +1391,13 @@ body.no-scroll {
 
     .inicio p {
         font-size: 16px;
+
         line-height: 1.6;
     }
 
     .subtitulo {
         font-size: 10px;
+
         letter-spacing: 4px;
     }
 
@@ -1004,8 +1408,11 @@ body.no-scroll {
     .btn-dorado,
     .btn-transparente {
         width: 90%;
+
         max-width: 300px;
+
         padding: 14px;
+
         font-size: 13px;
     }
 
@@ -1022,12 +1429,15 @@ body.no-scroll {
 
     .contador h2 {
         font-size: 36px;
+
         margin-bottom: 45px;
     }
 
     .countdown {
         display: grid;
+
         grid-template-columns: repeat(2, 1fr);
+
         gap: 35px 15px;
     }
 
@@ -1041,11 +1451,13 @@ body.no-scroll {
 
     .item small {
         font-size: 11px;
+
         letter-spacing: 2px;
     }
 
     .contador p {
         font-size: 15px;
+
         margin-top: 50px;
     }
 
@@ -1058,12 +1470,15 @@ body.no-scroll {
 
     .ceremonia h2 {
         font-size: 34px;
+
         margin-bottom: 40px;
     }
 
     .tarjeta {
         width: 100%;
+
         max-width: 380px;
+
         padding: 35px 25px;
     }
 
@@ -1072,11 +1487,13 @@ body.no-scroll {
 
     .recuerdos {
         padding: 75px 0;
+
         overflow: hidden;
     }
 
     .recuerdos h2 {
         font-size: 34px;
+
         padding: 0 20px;
     }
 
@@ -1086,19 +1503,25 @@ body.no-scroll {
 
     .galeria-fotos {
         padding: 10px 20px 25px;
+
         gap: 12px;
     }
 
     .galeria-fotos img {
         flex: 0 0 150px;
+
         width: 150px;
+
         height: 190px;
+
         border-radius: 14px;
     }
 
     .flecha-galeria {
         width: 40px;
+
         height: 40px;
+
         font-size: 28px;
     }
 
@@ -1134,6 +1557,47 @@ body.no-scroll {
     }
 
 
+    /* REGALOS */
+
+    .regalos {
+        padding: 75px 20px;
+    }
+
+    .regalos h2 {
+        font-size: 38px;
+    }
+
+    .mensaje-regalos {
+        font-size: 15px;
+
+        line-height: 1.8;
+
+        margin-bottom: 40px;
+    }
+
+    .contenedor-regalos {
+        gap: 20px;
+    }
+
+    .tarjeta-regalo {
+        width: 100%;
+
+        max-width: 380px;
+
+        padding: 35px 25px;
+    }
+
+    .tarjeta-regalo h3 {
+        font-size: 27px;
+    }
+
+    .mensaje-final-regalos {
+        font-size: 16px;
+
+        margin-top: 40px;
+    }
+
+
     /* MODAL */
 
     .modal-contenido {
@@ -1150,6 +1614,7 @@ body.no-scroll {
 
     .btn-personas {
         width: 55px;
+
         height: 55px;
     }
 
@@ -1162,11 +1627,13 @@ body.no-scroll {
 
     .btn-calendario {
         width: 90%;
+
         max-width: 320px;
     }
 
     .opciones-calendario a {
         width: 90%;
+
         max-width: 300px;
     }
 
@@ -1175,8 +1642,11 @@ body.no-scroll {
 
     .boton-musica {
         width: 52px;
+
         height: 52px;
+
         bottom: 18px;
+
         right: 18px;
     }
 
