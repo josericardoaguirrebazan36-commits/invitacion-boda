@@ -1,3 +1,4 @@
+
 /* =====================================================
    UTILIDADES
 ===================================================== */
@@ -10,8 +11,15 @@ const $$ = selector => document.querySelectorAll(selector);
    CONTADOR
 ===================================================== */
 
+/*
+    Ceremonia:
+    9 de octubre de 2026
+    3:00 p. m.
+    Hora de Perú: UTC-5
+*/
+
 const fechaBoda = new Date(
-    "2026-10-09T00:00:00-05:00"
+    "2026-10-09T15:00:00-05:00"
 ).getTime();
 
 
@@ -22,6 +30,7 @@ function actualizarContador(){
     if(diferencia < 0){
         diferencia = 0;
     }
+
 
     const dias = Math.floor(
         diferencia / 86400000
@@ -51,6 +60,7 @@ function actualizarContador(){
 
     $("#segundos").textContent =
         String(segundos).padStart(2,"0");
+
 }
 
 
@@ -82,26 +92,11 @@ console.log(
 
 
 /* =====================================================
-   MOSTRAR NOMBRE DEL INVITADO
-===================================================== */
-
-/*
-    Si tu Google Apps Script actualmente
-    obtiene el nombre mediante el código,
-    puedes mantenerlo allí.
-
-    Esta parte deja preparado el elemento
-    para mostrar el nombre si posteriormente
-    decides obtenerlo mediante una API.
-*/
-
-
-/* =====================================================
    GOOGLE APPS SCRIPT
 ===================================================== */
 
 const URL_GOOGLE_SCRIPT =
-"https://script.google.com/macros/s/AKfycbywp4BXSX_viv4KHA2MI0AUTD70ugkNtQ0e0Ah4laVR3RPf9TlowYJbGl3YbBf9uDA/exec";
+    "https://script.google.com/macros/s/AKfycbywp4BXSX_viv4KHA2MI0AUTD70ugkNtQ0e0Ah4laVR3RPf9TlowYJbGl3YbBf9uDA/exec";
 
 
 async function enviarRespuesta(
@@ -182,6 +177,7 @@ function abrirModal(modal){
 
     document.body
         .classList.add("no-scroll");
+
 }
 
 
@@ -196,6 +192,7 @@ function cerrarModal(modal){
         "true"
     );
 
+
     if(!$(".modal.activo")){
 
         document.documentElement
@@ -203,7 +200,9 @@ function cerrarModal(modal){
 
         document.body
             .classList.remove("no-scroll");
+
     }
+
 }
 
 
@@ -227,6 +226,7 @@ function actualizarCantidad(){
             cantidad === 1
                 ? "persona"
                 : "personas";
+
 }
 
 
@@ -242,6 +242,7 @@ $("#btnAsistire")
             abrirModal(
                 modalAsistencia
             );
+
         }
     );
 
@@ -256,7 +257,9 @@ $("#restarPersona")
                 cantidad--;
 
                 actualizarCantidad();
+
             }
+
         }
     );
 
@@ -271,7 +274,9 @@ $("#sumarPersona")
                 cantidad++;
 
                 actualizarCantidad();
+
             }
+
         }
     );
 
@@ -332,7 +337,9 @@ $("#confirmarPresencial")
                 alert(
                     "No se pudo registrar la respuesta. Inténtalo nuevamente."
                 );
+
             }
+
         }
     );
 
@@ -409,7 +416,9 @@ $("#confirmarZoom")
                 alert(
                     "No se pudo registrar la respuesta. Inténtalo nuevamente."
                 );
+
             }
+
         }
     );
 
@@ -492,7 +501,9 @@ $("#confirmarNoAsistire")
                 alert(
                     "No se pudo registrar la respuesta. Inténtalo nuevamente."
                 );
+
             }
+
         }
     );
 
@@ -513,6 +524,7 @@ function mostrarExito(mensaje){
     abrirModal(
         mensajeExito
     );
+
 }
 
 
@@ -526,7 +538,7 @@ $("#volverConfirmacion")
 
 
 /* =====================================================
-   CERRAR MODALES
+   CERRAR MODALES AL HACER CLIC FUERA
 ===================================================== */
 
 $$(".modal")
@@ -541,9 +553,12 @@ $$(".modal")
                 ){
 
                     cerrarModal(modal);
+
                 }
+
             }
         );
+
     });
 
 
@@ -558,8 +573,11 @@ document.addEventListener(
         if(
             event.key !== "Escape"
         ){
+
             return;
+
         }
+
 
         $$(".modal.activo")
             .forEach(modal => {
@@ -568,7 +586,9 @@ document.addEventListener(
 
             });
 
+
         cerrarLightbox();
+
     }
 );
 
@@ -603,22 +623,27 @@ fotos.forEach(
                 imagenGrande.alt =
                     foto.alt;
 
+
                 lightbox
                     .classList
                     .add("activo");
+
 
                 lightbox.setAttribute(
                     "aria-hidden",
                     "false"
                 );
 
+
                 document.documentElement
                     .classList
                     .add("no-scroll");
 
+
                 document.body
                     .classList
                     .add("no-scroll");
+
             }
         );
 
@@ -628,6 +653,7 @@ fotos.forEach(
             event =>
                 event.preventDefault()
         );
+
     }
 );
 
@@ -636,14 +662,17 @@ function cerrarLightbox(){
 
     if(!lightbox) return;
 
+
     lightbox
         .classList
         .remove("activo");
+
 
     lightbox.setAttribute(
         "aria-hidden",
         "true"
     );
+
 
     if(!$(".modal.activo")){
 
@@ -654,7 +683,9 @@ function cerrarLightbox(){
         document.body
             .classList
             .remove("no-scroll");
+
     }
+
 }
 
 
@@ -674,7 +705,9 @@ lightbox.addEventListener(
         ){
 
             cerrarLightbox();
+
         }
+
     }
 );
 
@@ -691,12 +724,12 @@ $("#galeriaSiguiente")
             galeria.scrollBy({
 
                 left:
-                    galeria.clientWidth *
-                    .65,
+                    galeria.clientWidth * .65,
 
                 behavior:"smooth"
 
             });
+
         }
     );
 
@@ -709,12 +742,12 @@ $("#galeriaAnterior")
             galeria.scrollBy({
 
                 left:
-                    -galeria.clientWidth *
-                    .65,
+                    -galeria.clientWidth * .65,
 
                 behavior:"smooth"
 
             });
+
         }
     );
 
@@ -728,7 +761,10 @@ $("#btnMostrarCalendario")
         "click",
         () => {
 
-            $("#opcionesCalendario")
+            const opciones =
+                $("#opcionesCalendario");
+
+            opciones
                 .classList
                 .toggle("mostrar");
 
@@ -750,6 +786,12 @@ $("#copiarYape")
                     .textContent
                     .trim();
 
+            const boton =
+                $("#copiarYape");
+
+            const mensaje =
+                $("#mensajeCopiado");
+
 
             try{
 
@@ -758,8 +800,13 @@ $("#copiarYape")
                     .writeText(numero);
 
 
-                const mensaje =
-                    $("#mensajeCopiado");
+                boton.textContent =
+                    "✓";
+
+                boton.setAttribute(
+                    "aria-label",
+                    "Número copiado"
+                );
 
 
                 mensaje
@@ -770,12 +817,20 @@ $("#copiarYape")
                 setTimeout(
                     () => {
 
+                        boton.textContent =
+                            "⧉";
+
+                        boton.setAttribute(
+                            "aria-label",
+                            "Copiar número de Yape"
+                        );
+
                         mensaje
                             .classList
                             .remove("mostrar");
 
                     },
-                    2000
+                    2500
                 );
 
 
@@ -784,9 +839,11 @@ $("#copiarYape")
                 console.error(error);
 
                 alert(
-                    "No se pudo copiar el número."
+                    "No se pudo copiar el número. Puedes mantener presionado el número para copiarlo."
                 );
+
             }
+
         }
     );
 
@@ -822,6 +879,12 @@ botonMusica
                         .textContent = "Ⅱ";
 
                     botonMusica
+                        .setAttribute(
+                            "aria-label",
+                            "Pausar música"
+                        );
+
+                    botonMusica
                         .classList
                         .add("reproduciendo");
 
@@ -836,10 +899,17 @@ botonMusica
                         .textContent = "♪";
 
                     botonMusica
+                        .setAttribute(
+                            "aria-label",
+                            "Reproducir música"
+                        );
+
+                    botonMusica
                         .classList
                         .remove(
                             "reproduciendo"
                         );
+
                 }
 
             }catch(error){
@@ -848,6 +918,8 @@ botonMusica
                     "No se pudo reproducir la música:",
                     error
                 );
+
             }
+
         }
     );
