@@ -1,8 +1,9 @@
+```css
 /* =====================================================
    FUENTES
 ===================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap');
 
 
 /* =====================================================
@@ -16,16 +17,16 @@
     --blanco:#fffdf9;
 
     --negro:#25231f;
-    --gris:#777169;
-    --gris-claro:#aaa39a;
+    --gris:#69645e;
+    --gris-claro:#918b83;
 
     --dorado:#b89558;
     --dorado-claro:#d7bd8b;
 
     --linea:#ded5c6;
 
-    --serif:"Cormorant Garamond",Georgia,serif;
-    --sans:"DM Sans",Arial,sans-serif;
+    --serif:"Cormorant Garamond", Georgia, serif;
+    --sans:"DM Sans", Arial, sans-serif;
 
     --sombra:0 20px 60px rgba(50,40,25,.08);
 
@@ -44,6 +45,7 @@
 
 html{
     scroll-behavior:smooth;
+    font-size:16px;
 }
 
 body{
@@ -51,6 +53,7 @@ body{
     background:var(--crema);
     color:var(--negro);
     overflow-x:hidden;
+    line-height:1.5;
 }
 
 body.no-scroll,
@@ -71,25 +74,34 @@ img{
     max-width:100%;
 }
 
+button:focus-visible,
+a:focus-visible{
+    outline:3px solid rgba(184,149,88,.55);
+    outline-offset:4px;
+}
+
 
 /* =====================================================
    UTILIDADES
 ===================================================== */
 
 .eyebrow{
+
     display:block;
 
     color:var(--dorado);
 
-    font-size:10px;
+    font-size:12px;
     font-weight:600;
 
-    letter-spacing:4px;
+    letter-spacing:3px;
 
     text-transform:uppercase;
+
 }
 
 .ornamento{
+
     display:flex;
     align-items:center;
     justify-content:center;
@@ -97,21 +109,26 @@ img{
     gap:15px;
 
     margin:28px 0;
+
 }
 
 .ornamento span{
+
     width:70px;
     height:1px;
 
     background:var(--dorado-claro);
+
 }
 
 .ornamento b{
+
     color:var(--dorado);
 
     font-family:var(--serif);
-    font-size:22px;
+    font-size:24px;
     font-weight:400;
+
 }
 
 
@@ -184,6 +201,7 @@ img{
 }
 
 .hero-overlay{
+
     position:absolute;
     inset:0;
 
@@ -194,6 +212,7 @@ img{
             transparent 45%,
             rgba(220,207,187,.15)
         );
+
 }
 
 .hero-content{
@@ -216,10 +235,10 @@ img{
 
     color:var(--dorado);
 
-    font-size:11px;
-    font-weight:500;
+    font-size:12px;
+    font-weight:600;
 
-    letter-spacing:7px;
+    letter-spacing:5px;
 
 }
 
@@ -239,7 +258,7 @@ img{
 
     font-weight:300;
 
-    line-height:.8;
+    line-height:.85;
 
 }
 
@@ -282,7 +301,7 @@ img{
 
     font-family:var(--serif);
 
-    font-size:20px;
+    font-size:22px;
 
     font-weight:400;
 
@@ -290,7 +309,7 @@ img{
 
 .hero-frase{
 
-    max-width:500px;
+    max-width:560px;
 
     margin:0 auto;
 
@@ -300,7 +319,7 @@ img{
 
     font-size:23px;
 
-    line-height:1.45;
+    line-height:1.5;
 
 }
 
@@ -322,7 +341,7 @@ img{
 
     font-family:var(--serif);
 
-    font-size:70px;
+    font-size:72px;
 
     font-weight:300;
 
@@ -346,7 +365,7 @@ img{
 
     color:var(--dorado);
 
-    font-size:10px;
+    font-size:12px;
 
     letter-spacing:3px;
 
@@ -362,7 +381,7 @@ img{
 
     font-family:var(--serif);
 
-    font-size:25px;
+    font-size:27px;
 
     font-weight:400;
 
@@ -371,13 +390,13 @@ img{
 .hero-boton{
 
     display:inline-flex;
-
     align-items:center;
     justify-content:center;
 
-    min-width:250px;
+    min-width:270px;
+    min-height:52px;
 
-    padding:15px 25px;
+    padding:15px 28px;
 
     border:1px solid var(--dorado);
 
@@ -387,10 +406,10 @@ img{
 
     text-decoration:none;
 
-    font-size:10px;
+    font-size:13px;
     font-weight:600;
 
-    letter-spacing:2px;
+    letter-spacing:1.5px;
 
     transition:.3s;
 
@@ -419,9 +438,9 @@ img{
 
     text-decoration:none;
 
-    font-size:9px;
+    font-size:11px;
 
-    letter-spacing:3px;
+    letter-spacing:2px;
 
 }
 
@@ -429,7 +448,7 @@ img{
 
     color:var(--dorado);
 
-    font-size:22px;
+    font-size:24px;
 
     font-weight:300;
 
@@ -442,58 +461,6 @@ img{
     50%{
         transform:translateY(8px);
     }
-
-}
-
-
-/* =====================================================
-   INTRODUCCIÓN
-===================================================== */
-
-.introduccion{
-
-    padding:150px 25px;
-
-    background:var(--blanco);
-
-    text-align:center;
-
-}
-
-.seccion-contenido{
-
-    max-width:700px;
-    margin:auto;
-
-}
-
-.introduccion h2{
-
-    margin-top:22px;
-
-    font-family:var(--serif);
-
-    font-size:clamp(48px,7vw,75px);
-
-    font-weight:300;
-
-    line-height:.95;
-
-}
-
-.introduccion p{
-
-    max-width:570px;
-
-    margin:0 auto 10px;
-
-    color:var(--gris);
-
-    font-family:var(--serif);
-
-    font-size:21px;
-
-    line-height:1.6;
 
 }
 
@@ -529,12 +496,13 @@ img{
 
     font-weight:300;
 
+    line-height:1;
+
 }
 
 .contador-grid{
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
@@ -568,9 +536,10 @@ img{
 
     color:var(--dorado);
 
-    font-size:9px;
+    font-size:12px;
+    font-weight:600;
 
-    letter-spacing:3px;
+    letter-spacing:2px;
 
 }
 
@@ -594,7 +563,7 @@ img{
 
     font-family:var(--serif);
 
-    font-size:19px;
+    font-size:20px;
 
 }
 
@@ -631,6 +600,8 @@ img{
 
     font-weight:300;
 
+    line-height:1;
+
 }
 
 .evento-intro p{
@@ -639,7 +610,7 @@ img{
 
     font-family:var(--serif);
 
-    font-size:20px;
+    font-size:21px;
 
 }
 
@@ -680,9 +651,9 @@ img{
     top:30px;
     right:35px;
 
-    color:#d9d1c4;
+    color:#cfc7ba;
 
-    font-size:10px;
+    font-size:12px;
 
     letter-spacing:2px;
 
@@ -707,7 +678,7 @@ img{
 
 .evento-icono.copa img{
 
-    width:35px;
+    width:38px;
 
 }
 
@@ -715,10 +686,10 @@ img{
 
     color:var(--dorado);
 
-    font-size:9px;
+    font-size:12px;
     font-weight:600;
 
-    letter-spacing:3px;
+    letter-spacing:2.5px;
 
 }
 
@@ -732,6 +703,8 @@ img{
 
     font-weight:400;
 
+    line-height:1;
+
 }
 
 .evento-fecha{
@@ -740,7 +713,7 @@ img{
 
     font-family:var(--serif);
 
-    font-size:19px;
+    font-size:20px;
 
 }
 
@@ -752,17 +725,17 @@ img{
 
     font-family:var(--serif);
 
-    font-size:27px;
+    font-size:29px;
 
 }
 
-.evento-info p{
+.evento-direccion{
 
     margin:25px 0;
 
     color:var(--gris);
 
-    font-size:14px;
+    font-size:16px;
 
     line-height:1.8;
 
@@ -775,26 +748,26 @@ img{
 
     gap:10px;
 
+    min-height:44px;
+
     color:var(--negro);
 
     text-decoration:none;
 
-    font-size:9px;
+    font-size:12px;
     font-weight:600;
 
-    letter-spacing:2px;
+    letter-spacing:1.5px;
 
     border-bottom:1px solid var(--dorado);
 
-    padding-bottom:5px;
-
 }
 
-.link-mapa span{
+.link-mapa b{
 
     color:var(--dorado);
 
-    font-size:14px;
+    font-size:18px;
 
 }
 
@@ -833,7 +806,7 @@ img{
 
     font-weight:300;
 
-    line-height:.95;
+    line-height:.98;
 
 }
 
@@ -908,20 +881,20 @@ img{
 
     z-index:5;
 
-    width:48px;
-    height:48px;
+    width:52px;
+    height:52px;
 
     border:1px solid var(--dorado);
 
     border-radius:50%;
 
-    background:rgba(255,253,249,.9);
+    background:rgba(255,253,249,.95);
 
     color:var(--dorado);
 
     font-family:var(--serif);
 
-    font-size:30px;
+    font-size:32px;
 
 }
 
@@ -989,10 +962,14 @@ img{
 
     position:absolute;
 
-    top:20px;
-    right:25px;
+    top:15px;
+    right:20px;
+
+    width:52px;
+    height:52px;
 
     border:0;
+
     background:none;
 
     color:#fff;
@@ -1028,7 +1005,7 @@ img{
 
     padding:70px 70px 60px;
 
-    background:rgba(255,253,249,.86);
+    background:rgba(255,253,249,.9);
 
     border:1px solid rgba(184,149,88,.25);
 
@@ -1048,6 +1025,8 @@ img{
 
     font-weight:300;
 
+    line-height:1;
+
 }
 
 .nombre-invitado{
@@ -1058,21 +1037,21 @@ img{
 
     font-family:var(--serif);
 
-    font-size:25px;
+    font-size:27px;
 
 }
 
 .rsvp-texto{
 
-    max-width:500px;
+    max-width:520px;
 
-    margin:0 auto 35px;
+    margin:18px auto 30px;
 
     color:var(--gris);
 
     font-family:var(--serif);
 
-    font-size:19px;
+    font-size:20px;
 
     line-height:1.55;
 
@@ -1083,7 +1062,7 @@ img{
     display:flex;
     flex-direction:column;
 
-    gap:10px;
+    gap:12px;
 
 }
 
@@ -1091,13 +1070,15 @@ img{
 
     display:grid;
 
-    grid-template-columns:45px 1fr 25px;
+    grid-template-columns:52px 1fr 30px;
 
     align-items:center;
 
     width:100%;
 
-    padding:18px;
+    min-height:70px;
+
+    padding:14px 18px;
 
     border:1px solid var(--linea);
 
@@ -1137,8 +1118,8 @@ img{
 
 .btn-icono{
 
-    width:35px;
-    height:35px;
+    width:40px;
+    height:40px;
 
     display:flex;
     align-items:center;
@@ -1148,7 +1129,7 @@ img{
 
     border-radius:50%;
 
-    font-size:14px;
+    font-size:16px;
 
 }
 
@@ -1156,7 +1137,7 @@ img{
 
     display:block;
 
-    font-size:13px;
+    font-size:15px;
 
     font-weight:600;
 
@@ -1168,15 +1149,17 @@ img{
 
     margin-top:4px;
 
-    font-size:10px;
+    font-size:12px;
 
-    opacity:.7;
+    line-height:1.3;
+
+    opacity:.8;
 
 }
 
 .rsvp-btn > b{
 
-    font-size:18px;
+    font-size:21px;
 
     font-weight:300;
 
@@ -1184,7 +1167,15 @@ img{
 
 .guardar-fecha{
 
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-height:48px;
+
     margin-top:30px;
+
+    padding:10px 15px;
 
     border:0;
 
@@ -1192,18 +1183,18 @@ img{
 
     color:var(--dorado);
 
-    font-size:10px;
+    font-size:13px;
     font-weight:600;
 
-    letter-spacing:2px;
+    letter-spacing:1.5px;
 
 }
 
 .guardar-fecha span{
 
-    margin-right:5px;
+    margin-right:6px;
 
-    font-size:18px;
+    font-size:21px;
 
 }
 
@@ -1212,7 +1203,7 @@ img{
     display:flex;
     flex-direction:column;
 
-    gap:8px;
+    gap:10px;
 
     max-height:0;
 
@@ -1240,7 +1231,7 @@ img{
 
     text-decoration:none;
 
-    font-size:11px;
+    font-size:14px;
 
 }
 
@@ -1283,7 +1274,7 @@ img{
 
     font-weight:300;
 
-    line-height:.95;
+    line-height:1;
 
 }
 
@@ -1297,9 +1288,9 @@ img{
 
     font-family:var(--serif);
 
-    font-size:19px;
+    font-size:20px;
 
-    line-height:1.55;
+    line-height:1.6;
 
 }
 
@@ -1319,7 +1310,13 @@ img{
 
 .regalo{
 
+    min-height:370px;
+
     padding:55px 40px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
 
 }
 
@@ -1331,10 +1328,10 @@ img{
 
 .regalo-icono{
 
-    width:55px;
-    height:55px;
+    width:60px;
+    height:60px;
 
-    margin:0 auto 20px;
+    margin:0 auto 22px;
 
     display:flex;
     align-items:center;
@@ -1348,7 +1345,7 @@ img{
 
     font-family:var(--serif);
 
-    font-size:22px;
+    font-size:24px;
 
 }
 
@@ -1356,24 +1353,40 @@ img{
 
     color:var(--dorado);
 
-    font-size:9px;
+    font-size:12px;
     font-weight:600;
 
-    letter-spacing:3px;
+    letter-spacing:2px;
 
 }
 
 .regalo h3{
 
-    margin:15px 0 25px;
+    margin:15px 0 22px;
 
     font-family:var(--serif);
 
-    font-size:31px;
+    font-size:34px;
 
     font-weight:400;
 
-    line-height:1;
+    line-height:1.05;
+
+}
+
+.regalo-descripcion{
+
+    max-width:360px;
+
+    margin:0 auto 25px;
+
+    color:var(--gris);
+
+    font-family:var(--serif);
+
+    font-size:19px;
+
+    line-height:1.55;
 
 }
 
@@ -1383,7 +1396,9 @@ img{
     align-items:center;
     justify-content:center;
 
-    gap:10px;
+    gap:12px;
+
+    margin-top:5px;
 
 }
 
@@ -1391,8 +1406,8 @@ img{
 
     color:var(--negro);
 
-    font-size:17px;
-    font-weight:500;
+    font-size:18px;
+    font-weight:600;
 
     letter-spacing:1px;
 
@@ -1400,8 +1415,10 @@ img{
 
 .yape-numero button{
 
-    width:38px;
-    height:38px;
+    width:46px;
+    height:46px;
+
+    flex-shrink:0;
 
     border:1px solid var(--dorado);
 
@@ -1410,6 +1427,8 @@ img{
     background:transparent;
 
     color:var(--dorado);
+
+    font-size:18px;
 
 }
 
@@ -1435,7 +1454,7 @@ img{
 
     color:var(--dorado);
 
-    font-size:11px;
+    font-size:13px;
 
     transition:.3s;
 
@@ -1443,46 +1462,17 @@ img{
 
 .copiado.mostrar{
 
-    height:20px;
+    height:22px;
+
     opacity:1;
-
-}
-
-.regalo p{
-
-    max-width:330px;
-
-    margin:auto;
-
-    color:var(--gris);
-
-    font-family:var(--serif);
-
-    font-size:18px;
-
-    line-height:1.5;
-
-}
-
-.regalo small{
-
-    display:block;
-
-    max-width:300px;
-
-    margin:15px auto 0;
-
-    color:var(--gris-claro);
-
-    font-size:11px;
-
-    line-height:1.6;
 
 }
 
 .regalos-final{
 
-    margin-top:55px;
+    max-width:600px;
+
+    margin:55px auto 0;
 
     color:var(--gris);
 
@@ -1492,13 +1482,19 @@ img{
 
     font-style:italic;
 
-    line-height:1.5;
+    line-height:1.55;
 
 }
 
 .regalos-final span{
 
+    display:block;
+
+    margin-top:12px;
+
     color:var(--dorado);
+
+    font-size:20px;
 
 }
 
@@ -1549,7 +1545,7 @@ img{
     width:100%;
     max-width:460px;
 
-    padding:55px 40px;
+    padding:60px 40px 45px;
 
     background:var(--blanco);
 
@@ -1575,21 +1571,21 @@ img{
 
     position:absolute;
 
-    top:14px;
-    right:17px;
+    top:12px;
+    right:14px;
 
-    width:35px;
-    height:35px;
+    width:46px;
+    height:46px;
 
     border:0;
 
     background:none;
 
-    color:#999;
+    color:#888;
 
     font-family:var(--serif);
 
-    font-size:30px;
+    font-size:34px;
 
 }
 
@@ -1607,10 +1603,10 @@ img{
 
     color:var(--dorado);
 
-    font-size:9px;
+    font-size:12px;
     font-weight:600;
 
-    letter-spacing:3px;
+    letter-spacing:2px;
 
 }
 
@@ -1620,11 +1616,11 @@ img{
 
     font-family:var(--serif);
 
-    font-size:38px;
+    font-size:40px;
 
     font-weight:400;
 
-    line-height:1;
+    line-height:1.05;
 
 }
 
@@ -1634,16 +1630,16 @@ img{
 
     font-family:var(--serif);
 
-    font-size:18px;
+    font-size:19px;
 
-    line-height:1.5;
+    line-height:1.55;
 
 }
 
 .modal-icono{
 
-    width:65px;
-    height:65px;
+    width:68px;
+    height:68px;
 
     margin:0 auto 25px;
 
@@ -1659,7 +1655,7 @@ img{
 
     font-family:var(--serif);
 
-    font-size:27px;
+    font-size:29px;
 
 }
 
@@ -1690,8 +1686,8 @@ img{
 
 .selector-personas button{
 
-    width:50px;
-    height:50px;
+    width:54px;
+    height:54px;
 
     border:1px solid var(--dorado);
 
@@ -1701,7 +1697,7 @@ img{
 
     color:var(--dorado);
 
-    font-size:25px;
+    font-size:28px;
 
 }
 
@@ -1719,7 +1715,7 @@ img{
 
     font-family:var(--serif);
 
-    font-size:65px;
+    font-size:68px;
 
     font-weight:300;
 
@@ -1733,11 +1729,11 @@ img{
 
     margin-top:10px;
 
-    color:var(--gris-claro);
+    color:var(--gris);
 
-    font-size:9px;
+    font-size:12px;
 
-    letter-spacing:2px;
+    letter-spacing:1.5px;
 
     text-transform:uppercase;
 
@@ -1753,16 +1749,16 @@ img{
 
     width:100%;
 
-    min-height:50px;
+    min-height:54px;
 
     border:1px solid var(--dorado);
 
     padding:14px;
 
-    font-size:10px;
+    font-size:13px;
     font-weight:600;
 
-    letter-spacing:2px;
+    letter-spacing:1.5px;
 
 }
 
@@ -1825,8 +1821,8 @@ img{
 
 .exito .icono-exito{
 
-    width:70px;
-    height:70px;
+    width:72px;
+    height:72px;
 
     margin:0 auto 25px;
 
@@ -1840,13 +1836,14 @@ img{
 
     color:#fff;
 
-    font-size:30px;
+    font-size:31px;
 
 }
 
 .exito .modal-confirmar{
 
     margin-top:30px;
+
 }
 
 
@@ -1863,20 +1860,20 @@ img{
 
     z-index:9000;
 
-    width:52px;
-    height:52px;
+    width:56px;
+    height:56px;
 
     border:1px solid var(--dorado);
 
     border-radius:50%;
 
-    background:rgba(255,253,249,.9);
+    background:rgba(255,253,249,.95);
 
     color:var(--dorado);
 
     font-family:var(--serif);
 
-    font-size:25px;
+    font-size:26px;
 
     box-shadow:0 8px 25px rgba(0,0,0,.12);
 
@@ -1898,7 +1895,7 @@ img{
 
 
 /* =====================================================
-   RESPONSIVE
+   TABLET
 ===================================================== */
 
 @media(max-width:800px){
@@ -1941,6 +1938,8 @@ img{
 
     .hero-frase{
 
+        max-width:500px;
+
         font-size:20px;
 
     }
@@ -1965,8 +1964,8 @@ img{
     .rsvp,
     .regalos{
 
-        padding-top:90px;
-        padding-bottom:90px;
+        padding-top:95px;
+        padding-bottom:95px;
 
     }
 
@@ -1977,7 +1976,7 @@ img{
 
         grid-template-columns:1fr 1fr;
 
-        gap:45px 20px;
+        gap:50px 20px;
 
     }
 
@@ -1996,7 +1995,7 @@ img{
 
     .evento-card{
 
-        padding:45px 25px;
+        padding:50px 30px;
 
     }
 
@@ -2038,8 +2037,8 @@ img{
 
     .galeria-control{
 
-        width:40px;
-        height:40px;
+        width:46px;
+        height:46px;
 
     }
 
@@ -2058,13 +2057,13 @@ img{
 
     .rsvp-card{
 
-        padding:50px 22px;
+        padding:55px 28px;
 
     }
 
     .rsvp-card h2{
 
-        font-size:50px;
+        font-size:52px;
 
     }
 
@@ -2072,6 +2071,14 @@ img{
     .regalos-grid{
 
         grid-template-columns:1fr;
+
+    }
+
+    .regalo{
+
+        min-height:auto;
+
+        padding:55px 30px;
 
     }
 
@@ -2086,7 +2093,7 @@ img{
 
     .modal-caja{
 
-        padding:50px 23px 30px;
+        padding:55px 25px 35px;
 
         max-height:90dvh;
 
@@ -2096,14 +2103,35 @@ img{
 
     .modal-caja h3{
 
-        font-size:34px;
+        font-size:36px;
 
     }
 
 }
 
 
+/* =====================================================
+   CELULAR
+===================================================== */
+
 @media(max-width:480px){
+
+    .eyebrow{
+
+        font-size:11px;
+
+        letter-spacing:2.5px;
+
+    }
+
+
+    .hero{
+
+        min-height:100svh;
+
+        padding:45px 18px;
+
+    }
 
     .hero-nombres{
 
@@ -2113,73 +2141,251 @@ img{
 
     .hero-kicker{
 
-        font-size:9px;
-        letter-spacing:5px;
+        font-size:10px;
+
+        letter-spacing:4px;
 
     }
 
     .hero-frase{
 
-        font-size:18px;
+        font-size:19px;
+
+        line-height:1.5;
 
     }
 
-    .hero-scroll{
+    .hero-boton{
 
-        margin-top:40px;
+        width:100%;
 
-    }
-
-    .introduccion h2,
-    .contador h2,
-    .evento-intro h2,
-    .regalos h2{
-
-        font-size:47px;
-
-    }
-
-    .contador-item strong{
-
-        font-size:55px;
-
-    }
-
-    .evento-info h3{
-
-        font-size:36px;
-
-    }
-
-    .rsvp-card h2{
-
-        font-size:46px;
-
-    }
-
-    .rsvp-btn{
-
-        grid-template-columns:40px 1fr 20px;
-
-        padding:14px;
-
-    }
-
-    .rsvp-btn strong{
+        min-height:54px;
 
         font-size:12px;
 
     }
 
+    .hero-scroll{
+
+        margin-top:38px;
+
+        font-size:10px;
+
+    }
+
+
+    .contador,
+    .evento,
+    .historia,
+    .rsvp,
+    .regalos{
+
+        padding-top:80px;
+        padding-bottom:80px;
+
+    }
+
+
+    .contador h2,
+    .evento-intro h2,
+    .regalos h2{
+
+        font-size:46px;
+
+    }
+
+    .contador-grid{
+
+        gap:42px 10px;
+
+        margin-top:55px;
+
+    }
+
+    .contador-item strong{
+
+        font-size:52px;
+
+    }
+
+    .contador-item span{
+
+        font-size:11px;
+
+        letter-spacing:1.5px;
+
+    }
+
+    .contador p{
+
+        font-size:19px;
+
+    }
+
+
+    .evento-card{
+
+        padding:45px 22px;
+
+    }
+
+    .evento-info h3{
+
+        font-size:37px;
+
+    }
+
+    .evento-fecha{
+
+        font-size:19px;
+
+    }
+
+    .evento-hora{
+
+        font-size:28px;
+
+    }
+
+    .evento-direccion{
+
+        font-size:16px;
+
+        line-height:1.75;
+
+    }
+
+    .link-mapa{
+
+        font-size:11px;
+
+    }
+
+
+    .historia-header h2{
+
+        font-size:44px;
+
+    }
+
+
+    .galeria-fotos{
+
+        padding-left:28px;
+        padding-right:28px;
+
+    }
+
+    .galeria-fotos img{
+
+        flex-basis:230px;
+
+        width:230px;
+        height:310px;
+
+    }
+
+
+    .rsvp-card{
+
+        padding:48px 18px;
+
+    }
+
+    .rsvp-card h2{
+
+        font-size:47px;
+
+    }
+
+    .nombre-invitado{
+
+        font-size:25px;
+
+    }
+
+    .rsvp-texto{
+
+        font-size:19px;
+
+    }
+
+    .rsvp-btn{
+
+        grid-template-columns:44px 1fr 20px;
+
+        min-height:74px;
+
+        padding:13px;
+
+    }
+
+    .btn-icono{
+
+        width:38px;
+        height:38px;
+
+    }
+
+    .rsvp-btn strong{
+
+        font-size:14px;
+
+    }
+
     .rsvp-btn small{
 
-        font-size:9px;
+        font-size:11px;
+
+    }
+
+
+    .regalos h2{
+
+        font-size:45px;
+
+    }
+
+    .regalos-intro{
+
+        font-size:19px;
+
+    }
+
+    .regalo h3{
+
+        font-size:32px;
+
+    }
+
+    .regalo-descripcion{
+
+        font-size:19px;
 
     }
 
     .yape-numero span{
 
-        font-size:15px;
+        font-size:16px;
+
+    }
+
+
+    .modal-caja{
+
+        padding:55px 20px 30px;
+
+    }
+
+    .modal-caja h3{
+
+        font-size:34px;
+
+    }
+
+    .modal-caja p{
+
+        font-size:18px;
 
     }
 
@@ -2189,4 +2395,40 @@ img{
 
     }
 
+
+    .boton-musica{
+
+        right:18px;
+        bottom:18px;
+
+        width:52px;
+        height:52px;
+
+    }
+
 }
+
+
+/* =====================================================
+   PREFERENCIA POR MENOS ANIMACIONES
+===================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+    html{
+        scroll-behavior:auto;
+    }
+
+    *,
+    *::before,
+    *::after{
+
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+        scroll-behavior:auto !important;
+
+    }
+
+}
+```
