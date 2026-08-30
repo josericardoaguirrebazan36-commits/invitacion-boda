@@ -6,8 +6,8 @@ const FECHA_BODA = new Date("2026-10-09T15:00:00-05:00");
 
 /*
 
-* Reemplaza esta URL por la URL de tu Google Apps Script
-* si utilizas el formulario de confirmación.
+* Coloca aquí la URL de tu Google Apps Script
+* cuando quieras guardar las confirmaciones.
   */
   const GOOGLE_SCRIPT_URL = "";
 
@@ -26,7 +26,9 @@ const horas = document.getElementById("horas");
 const minutos = document.getElementById("minutos");
 const segundos = document.getElementById("segundos");
 
-if (!dias || !horas || !minutos || !segundos) return;
+if (!dias || !horas || !minutos || !segundos) {
+    return;
+}
 
 if (diferencia <= 0) {
 
@@ -72,16 +74,30 @@ let indiceGaleria = 0;
 function actualizarGaleria() {
 
 ```
-if (window.innerWidth > 900) return;
+if (!fotos.length) {
+    return;
+}
+
+/*
+ * En escritorio se muestran todas las fotos.
+ * En móvil se muestran dos fotografías.
+ */
+if (window.innerWidth > 900) {
+
+    fotos.forEach(foto => {
+        foto.style.display = "block";
+    });
+
+    return;
+}
 
 fotos.forEach((foto, indice) => {
 
-    foto.style.display =
+    const mostrar =
         indice === indiceGaleria ||
-        indice === (indiceGaleria + 1) % fotos.length
-            ? "block"
-            : "none";
+        indice === (indiceGaleria + 1) % fotos.length;
 
+    foto.style.display = mostrar ? "block" : "none";
 });
 ```
 
@@ -90,7 +106,9 @@ fotos.forEach((foto, indice) => {
 function siguienteFoto() {
 
 ```
-if (!fotos.length) return;
+if (!fotos.length) {
+    return;
+}
 
 indiceGaleria =
     (indiceGaleria + 1) % fotos.length;
@@ -103,7 +121,9 @@ actualizarGaleria();
 function anteriorFoto() {
 
 ```
-if (!fotos.length) return;
+if (!fotos.length) {
+    return;
+}
 
 indiceGaleria =
     (indiceGaleria - 1 + fotos.length) % fotos.length;
@@ -114,17 +134,24 @@ actualizarGaleria();
 }
 
 if (btnSiguiente) {
+
+```
 btnSiguiente.addEventListener(
-"click",
-siguienteFoto
+    "click",
+    siguienteFoto
 );
+```
+
 }
 
 if (btnAnterior) {
+
+```
 btnAnterior.addEventListener(
-"click",
-anteriorFoto
+    "click",
+    anteriorFoto
 );
+```
 
 }
 
@@ -139,25 +166,34 @@ actualizarGaleria();
 LIGHTBOX
 ===================================================== */
 
-const lightbox = document.getElementById("lightbox");
-const imagenGrande = document.getElementById("imagenGrande");
-const cerrarLightbox = document.getElementById("cerrarLightbox");
+const lightbox =
+document.getElementById("lightbox");
+
+const imagenGrande =
+document.getElementById("imagenGrande");
+
+const cerrarLightbox =
+document.getElementById("cerrarLightbox");
 
 fotos.forEach(foto => {
 
 ```
 foto.addEventListener("click", () => {
 
-    if (!lightbox || !imagenGrande) return;
+    if (!lightbox || !imagenGrande) {
+        return;
+    }
 
     imagenGrande.src = foto.src;
     imagenGrande.alt = foto.alt;
 
     lightbox.classList.add("activo");
-    lightbox.setAttribute("aria-hidden", "false");
+    lightbox.setAttribute(
+        "aria-hidden",
+        "false"
+    );
 
     document.body.classList.add("no-scroll");
-
 });
 ```
 
@@ -166,10 +202,16 @@ foto.addEventListener("click", () => {
 function cerrarGaleria() {
 
 ```
-if (!lightbox) return;
+if (!lightbox) {
+    return;
+}
 
 lightbox.classList.remove("activo");
-lightbox.setAttribute("aria-hidden", "true");
+
+lightbox.setAttribute(
+    "aria-hidden",
+    "true"
+);
 
 document.body.classList.remove("no-scroll");
 ```
@@ -177,22 +219,29 @@ document.body.classList.remove("no-scroll");
 }
 
 if (cerrarLightbox) {
+
+```
 cerrarLightbox.addEventListener(
-"click",
-cerrarGaleria
+    "click",
+    cerrarGaleria
 );
+```
+
 }
 
 if (lightbox) {
 
 ```
-lightbox.addEventListener("click", event => {
+lightbox.addEventListener(
+    "click",
+    event => {
 
-    if (event.target === lightbox) {
-        cerrarGaleria();
+        if (event.target === lightbox) {
+            cerrarGaleria();
+        }
+
     }
-
-});
+);
 ```
 
 }
@@ -240,7 +289,9 @@ let cantidad = 1;
 function actualizarCantidad() {
 
 ```
-if (!cantidadPersonas || !textoPersonas) return;
+if (!cantidadPersonas || !textoPersonas) {
+    return;
+}
 
 cantidadPersonas.textContent = cantidad;
 
@@ -255,10 +306,16 @@ textoPersonas.textContent =
 function abrirModal(modal) {
 
 ```
-if (!modal) return;
+if (!modal) {
+    return;
+}
 
 modal.classList.add("activo");
-modal.setAttribute("aria-hidden", "false");
+
+modal.setAttribute(
+    "aria-hidden",
+    "false"
+);
 
 document.body.classList.add("no-scroll");
 ```
@@ -268,10 +325,16 @@ document.body.classList.add("no-scroll");
 function cerrarModalGenerico(modal) {
 
 ```
-if (!modal) return;
+if (!modal) {
+    return;
+}
 
 modal.classList.remove("activo");
-modal.setAttribute("aria-hidden", "true");
+
+modal.setAttribute(
+    "aria-hidden",
+    "true"
+);
 
 document.body.classList.remove("no-scroll");
 ```
@@ -281,14 +344,17 @@ document.body.classList.remove("no-scroll");
 if (btnAsistire) {
 
 ```
-btnAsistire.addEventListener("click", () => {
+btnAsistire.addEventListener(
+    "click",
+    () => {
 
-    cantidad = 1;
-    actualizarCantidad();
+        cantidad = 1;
 
-    abrirModal(modalAsistencia);
+        actualizarCantidad();
 
-});
+        abrirModal(modalAsistencia);
+    }
+);
 ```
 
 }
@@ -296,14 +362,18 @@ btnAsistire.addEventListener("click", () => {
 if (restarPersona) {
 
 ```
-restarPersona.addEventListener("click", () => {
+restarPersona.addEventListener(
+    "click",
+    () => {
 
-    if (cantidad > 1) {
-        cantidad--;
-        actualizarCantidad();
+        if (cantidad > 1) {
+
+            cantidad--;
+
+            actualizarCantidad();
+        }
     }
-
-});
+);
 ```
 
 }
@@ -311,19 +381,21 @@ restarPersona.addEventListener("click", () => {
 if (sumarPersona) {
 
 ```
-sumarPersona.addEventListener("click", () => {
+sumarPersona.addEventListener(
+    "click",
+    () => {
 
-    /*
-     * Límite de 10 personas por respuesta.
-     * Puedes cambiarlo si lo necesitas.
-     */
+        /*
+         * Máximo de 10 personas por respuesta.
+         */
+        if (cantidad < 10) {
 
-    if (cantidad < 10) {
-        cantidad++;
-        actualizarCantidad();
+            cantidad++;
+
+            actualizarCantidad();
+        }
     }
-
-});
+);
 ```
 
 }
@@ -331,9 +403,15 @@ sumarPersona.addEventListener("click", () => {
 if (cerrarModal) {
 
 ```
-cerrarModal.addEventListener("click", () => {
-    cerrarModalGenerico(modalAsistencia);
-});
+cerrarModal.addEventListener(
+    "click",
+    () => {
+
+        cerrarModalGenerico(
+            modalAsistencia
+        );
+    }
+);
 ```
 
 }
@@ -357,9 +435,13 @@ document.getElementById("confirmarZoom");
 if (btnZoom) {
 
 ```
-btnZoom.addEventListener("click", () => {
-    abrirModal(modalZoom);
-});
+btnZoom.addEventListener(
+    "click",
+    () => {
+
+        abrirModal(modalZoom);
+    }
+);
 ```
 
 }
@@ -367,9 +449,15 @@ btnZoom.addEventListener("click", () => {
 if (cerrarZoom) {
 
 ```
-cerrarZoom.addEventListener("click", () => {
-    cerrarModalGenerico(modalZoom);
-});
+cerrarZoom.addEventListener(
+    "click",
+    () => {
+
+        cerrarModalGenerico(
+            modalZoom
+        );
+    }
+);
 ```
 
 }
@@ -377,9 +465,15 @@ cerrarZoom.addEventListener("click", () => {
 if (cancelarZoom) {
 
 ```
-cancelarZoom.addEventListener("click", () => {
-    cerrarModalGenerico(modalZoom);
-});
+cancelarZoom.addEventListener(
+    "click",
+    () => {
+
+        cerrarModalGenerico(
+            modalZoom
+        );
+    }
+);
 ```
 
 }
@@ -403,9 +497,13 @@ document.getElementById("confirmarNoAsistire");
 if (btnNoAsistire) {
 
 ```
-btnNoAsistire.addEventListener("click", () => {
-    abrirModal(modalNoAsistire);
-});
+btnNoAsistire.addEventListener(
+    "click",
+    () => {
+
+        abrirModal(modalNoAsistire);
+    }
+);
 ```
 
 }
@@ -413,9 +511,15 @@ btnNoAsistire.addEventListener("click", () => {
 if (cerrarNoAsistire) {
 
 ```
-cerrarNoAsistire.addEventListener("click", () => {
-    cerrarModalGenerico(modalNoAsistire);
-});
+cerrarNoAsistire.addEventListener(
+    "click",
+    () => {
+
+        cerrarModalGenerico(
+            modalNoAsistire
+        );
+    }
+);
 ```
 
 }
@@ -423,9 +527,15 @@ cerrarNoAsistire.addEventListener("click", () => {
 if (cancelarNoAsistire) {
 
 ```
-cancelarNoAsistire.addEventListener("click", () => {
-    cerrarModalGenerico(modalNoAsistire);
-});
+cancelarNoAsistire.addEventListener(
+    "click",
+    () => {
+
+        cerrarModalGenerico(
+            modalNoAsistire
+        );
+    }
+);
 ```
 
 }
@@ -462,9 +572,15 @@ abrirModal(mensajeExito);
 if (volverConfirmacion) {
 
 ```
-volverConfirmacion.addEventListener("click", () => {
-    cerrarModalGenerico(mensajeExito);
-});
+volverConfirmacion.addEventListener(
+    "click",
+    () => {
+
+        cerrarModalGenerico(
+            mensajeExito
+        );
+    }
+);
 ```
 
 }
@@ -473,12 +589,16 @@ volverConfirmacion.addEventListener("click", () => {
 ENVÍO DE CONFIRMACIÓN
 ===================================================== */
 
-async function enviarConfirmacion(tipo, personas = 0) {
+async function enviarConfirmacion(
+tipo,
+personas = 0
+) {
 
 ```
 /*
- * Si todavía no has configurado Google Apps Script,
- * mostramos igualmente la confirmación en pantalla.
+ * Si todavía no se ha configurado
+ * Google Apps Script, la respuesta
+ * se muestra igualmente en pantalla.
  */
 
 if (!GOOGLE_SCRIPT_URL) {
@@ -487,7 +607,9 @@ if (!GOOGLE_SCRIPT_URL) {
 
         mostrarExito(
             `Hemos registrado tu confirmación para asistir presencialmente con ${personas} ${
-                personas === 1 ? "persona" : "personas"
+                personas === 1
+                    ? "persona"
+                    : "personas"
             }. ¡Nos alegra mucho contar contigo!`
         );
 
@@ -502,7 +624,6 @@ if (!GOOGLE_SCRIPT_URL) {
         mostrarExito(
             "Hemos registrado tu respuesta. Muchas gracias por avisarnos y por ser parte de este momento."
         );
-
     }
 
     return;
@@ -518,26 +639,30 @@ const datos = {
 
 try {
 
-    await fetch(GOOGLE_SCRIPT_URL, {
+    await fetch(
+        GOOGLE_SCRIPT_URL,
+        {
+            method: "POST",
 
-        method: "POST",
+            mode: "no-cors",
 
-        mode: "no-cors",
+            headers: {
+                "Content-Type":
+                    "text/plain;charset=utf-8"
+            },
 
-        headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-        },
-
-        body: JSON.stringify(datos)
-
-    });
+            body: JSON.stringify(datos)
+        }
+    );
 
 
     if (tipo === "presencial") {
 
         mostrarExito(
             `¡Gracias! Hemos registrado tu asistencia presencial con ${personas} ${
-                personas === 1 ? "persona" : "personas"
+                personas === 1
+                    ? "persona"
+                    : "personas"
             }.`
         );
 
@@ -552,7 +677,6 @@ try {
         mostrarExito(
             "Hemos registrado tu respuesta. Muchas gracias por avisarnos."
         );
-
     }
 
 } catch (error) {
@@ -565,7 +689,6 @@ try {
     mostrarExito(
         "Tu respuesta ha sido recibida. Muchas gracias por avisarnos."
     );
-
 }
 ```
 
@@ -586,7 +709,6 @@ confirmarPresencial.addEventListener(
             "presencial",
             cantidad
         );
-
     }
 );
 ```
@@ -601,7 +723,6 @@ confirmarZoom.addEventListener(
     () => {
 
         enviarConfirmacion("zoom");
-
     }
 );
 ```
@@ -615,8 +736,9 @@ confirmarNoAsistire.addEventListener(
     "click",
     () => {
 
-        enviarConfirmacion("no_asistire");
-
+        enviarConfirmacion(
+            "no_asistire"
+        );
     }
 );
 ```
@@ -627,30 +749,50 @@ confirmarNoAsistire.addEventListener(
 CERRAR MODALES CON ESC
 ===================================================== */
 
-document.addEventListener("keydown", event => {
+document.addEventListener(
+"keydown",
+event => {
 
 ```
-if (event.key !== "Escape") return;
+    if (event.key !== "Escape") {
+        return;
+    }
 
-cerrarGaleria();
+    cerrarGaleria();
 
-cerrarModalGenerico(modalAsistencia);
-cerrarModalGenerico(modalZoom);
-cerrarModalGenerico(modalNoAsistire);
-cerrarModalGenerico(mensajeExito);
+    cerrarModalGenerico(
+        modalAsistencia
+    );
+
+    cerrarModalGenerico(
+        modalZoom
+    );
+
+    cerrarModalGenerico(
+        modalNoAsistire
+    );
+
+    cerrarModalGenerico(
+        mensajeExito
+    );
+}
 ```
 
-});
+);
 
 /* =====================================================
 GUARDAR LA FECHA
 ===================================================== */
 
 const btnMostrarCalendario =
-document.getElementById("btnMostrarCalendario");
+document.getElementById(
+"btnMostrarCalendario"
+);
 
 const opcionesCalendario =
-document.getElementById("opcionesCalendario");
+document.getElementById(
+"opcionesCalendario"
+);
 
 if (btnMostrarCalendario) {
 
@@ -659,12 +801,13 @@ btnMostrarCalendario.addEventListener(
     "click",
     () => {
 
-        if (!opcionesCalendario) return;
+        if (!opcionesCalendario) {
+            return;
+        }
 
         opcionesCalendario.classList.toggle(
             "visible"
         );
-
     }
 );
 ```
@@ -691,12 +834,13 @@ copiarYape.addEventListener(
     "click",
     async () => {
 
-        if (!numeroYape) return;
+        if (!numeroYape) {
+            return;
+        }
 
         /*
-         * Solo copiamos el número.
+         * Solo se copia el número.
          */
-
         const numero =
             "+51 992 418 572";
 
@@ -712,14 +856,16 @@ copiarYape.addEventListener(
                     "visible"
                 );
 
-                setTimeout(() => {
+                setTimeout(
+                    () => {
 
-                    mensajeCopiado.classList.remove(
-                        "visible"
-                    );
+                        mensajeCopiado.classList.remove(
+                            "visible"
+                        );
 
-                }, 2500);
-
+                    },
+                    2500
+                );
             }
 
         } catch (error) {
@@ -728,9 +874,7 @@ copiarYape.addEventListener(
                 "No se pudo copiar:",
                 error
             );
-
         }
-
     }
 );
 ```
@@ -787,7 +931,6 @@ botonMusica.addEventListener(
                     "aria-label",
                     "Pausar música"
                 );
-
             }
 
         } catch (error) {
@@ -796,9 +939,7 @@ botonMusica.addEventListener(
                 "No se pudo reproducir la música:",
                 error
             );
-
         }
-
     }
 );
 ```
@@ -809,7 +950,8 @@ botonMusica.addEventListener(
 ANIMACIÓN SUAVE AL ENTRAR EN PANTALLA
 ===================================================== */
 
-const elementosAnimados = document.querySelectorAll(
+const elementosAnimados =
+document.querySelectorAll(
 ".evento-card, .regalo, .rsvp-card"
 );
 
@@ -820,42 +962,46 @@ const observer =
     new IntersectionObserver(
         entries => {
 
-            entries.forEach(entry => {
+            entries.forEach(
+                entry => {
 
-                if (
-                    entry.isIntersecting
-                ) {
+                    if (
+                        entry.isIntersecting
+                    ) {
 
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform =
-                        "translateY(0)";
+                        entry.target.style.opacity =
+                            "1";
 
-                    observer.unobserve(
-                        entry.target
-                    );
+                        entry.target.style.transform =
+                            "translateY(0)";
 
+                        observer.unobserve(
+                            entry.target
+                        );
+                    }
                 }
-
-            });
-
+            );
         },
         {
-            threshold: .12
+            threshold: 0.12
         }
     );
 
 
-elementosAnimados.forEach(elemento => {
+elementosAnimados.forEach(
+    elemento => {
 
-    elemento.style.opacity = "0";
-    elemento.style.transform =
-        "translateY(18px)";
-    elemento.style.transition =
-        "opacity .7s ease, transform .7s ease";
+        elemento.style.opacity = "0";
 
-    observer.observe(elemento);
+        elemento.style.transform =
+            "translateY(18px)";
 
-});
+        elemento.style.transition =
+            "opacity .7s ease, transform .7s ease";
+
+        observer.observe(elemento);
+    }
+);
 ```
 
 }
