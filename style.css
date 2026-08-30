@@ -135,7 +135,6 @@ h3 {
 
 .hero {
     position: relative;
-
     min-height: 100svh;
 
     display: flex;
@@ -145,9 +144,14 @@ h3 {
     background:
         linear-gradient(
             90deg,
-            rgba(25, 21, 17, .60),
-            rgba(25, 21, 17, .30),
-            rgba(25, 21, 17, .18)
+            rgba(48, 38, 27, .62),
+            rgba(92, 72, 48, .34),
+            rgba(247, 243, 235, .08)
+        ),
+        linear-gradient(
+            180deg,
+            rgba(35, 29, 23, .18),
+            rgba(35, 29, 23, .30)
         ),
         url("img/portada.jpg")
         center / cover no-repeat;
@@ -155,18 +159,6 @@ h3 {
     color: #fff;
 
     overflow: hidden;
-}
-
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(0, 0, 0, .15),
-            rgba(0, 0, 0, .30)
-        );
 }
 
 .hero-content {
