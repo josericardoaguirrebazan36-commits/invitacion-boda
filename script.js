@@ -1552,128 +1552,241 @@ Estos datos son reservados. Por favor, no los compartas con otras personas.`;
 
 
     /* =====================================================
-       MÚSICA
-    ===================================================== */
+   MÚSICA
+===================================================== */
 
-    const musica =
-        $("musicaBoda");
+const musica =
+    $("musicaBoda");
 
-
-    const botonMusica =
-        $("botonMusica");
-
-
-    let musicaReproduciendo =
-        false;
+const botonMusica =
+    $("botonMusica");
 
 
-    function actualizarEstadoMusica() {
+let musicaReproduciendo =
+    false;
 
-        toggleClass(
-            botonMusica,
-            "reproduciendo",
+
+/* =====================================================
+   ACTUALIZAR ESTADO DEL BOTÓN
+===================================================== */
+
+function actualizarEstadoMusica() {
+
+    toggleClass(
+        botonMusica,
+        "reproduciendo",
+        musicaReproduciendo
+    );
+
+
+    if (botonMusica) {
+
+        botonMusica.setAttribute(
+            "aria-label",
             musicaReproduciendo
+                ? "Pausar música"
+                : "Reproducir música"
         );
 
+    }
 
-        if (botonMusica) {
+}
 
-            botonMusica.setAttribute(
-                "aria-label",
-                musicaReproduciendo
-                    ? "Pausar música"
-                    : "Reproducir música"
+
+/* =====================================================
+   REPRODUCIR MÚSICA
+===================================================== */
+
+async function reproducirMusica() {
+
+    if (!musica) {
+        return;
+    }
+
+
+    try {
+
+        await musica.play();
+
+    }
+
+    catch (error) {
+
+        /*
+         * El navegador puede bloquear
+         * el autoplay con sonido.
+         * No mostramos ningún error al usuario.
+         */
+
+        console.log(
+            "Autoplay bloqueado. Esperando interacción del usuario."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   INTENTAR AUTOPLAY AL CARGAR
+===================================================== */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        reproducirMusica();
+
+    }
+);
+
+
+/* =====================================================
+   PRIMERA INTERACCIÓN
+===================================================== */
+
+/*
+ * Si el navegador bloqueó el autoplay,
+ * cualquier primera interacción del usuario
+ * permitirá iniciar la música.
+ */
+
+function iniciarMusicaConInteraccion() {
+
+    if (!musica) {
+        return;
+    }
+
+
+    if (musica.paused) {
+
+        musica.play()
+            .catch(() => {});
+
+    }
+
+
+    document.removeEventListener(
+        "pointerdown",
+        iniciarMusicaConInteraccion
+    );
+
+}
+
+
+document.addEventListener(
+    "pointerdown",
+    iniciarMusicaConInteraccion,
+    {
+        once: true
+    }
+);
+
+
+/* =====================================================
+   BOTÓN DE MÚSICA
+===================================================== */
+
+on(
+    botonMusica,
+    "click",
+    async () => {
+
+        if (!musica) {
+            return;
+        }
+
+
+        try {
+
+            if (
+                !musica.paused
+            ) {
+
+                musica.pause();
+
+            }
+
+            else {
+
+                await musica.play();
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "No se pudo reproducir la música:",
+                error
             );
 
         }
 
     }
+);
 
 
-    on(
-        botonMusica,
-        "click",
-        async () => {
+/* =====================================================
+   EVENTO PLAY
+===================================================== */
 
-            if (!musica) {
+on(
+    musica,
+    "play",
+    () => {
 
-                return;
+        musicaReproduciendo =
+            true;
 
-            }
+        actualizarEstadoMusica();
 
-
-            try {
-
-                if (
-                    musicaReproduciendo
-                ) {
-
-                    musica.pause();
-
-                }
-
-                else {
-
-                    await musica.play();
-
-                }
-
-            } catch (error) {
-
-                console.error(
-                    "No se pudo reproducir la música:",
-                    error
-                );
-
-            }
-
-        }
-    );
+    }
+);
 
 
-    on(
-        musica,
-        "play",
-        () => {
+/* =====================================================
+   EVENTO PAUSE
+===================================================== */
 
-            musicaReproduciendo =
-                true;
+on(
+    musica,
+    "pause",
+    () => {
 
-            actualizarEstadoMusica();
+        musicaReproduciendo =
+            false;
 
-        }
-    );
+        actualizarEstadoMusica();
 
-
-    on(
-        musica,
-        "pause",
-        () => {
-
-            musicaReproduciendo =
-                false;
-
-            actualizarEstadoMusica();
-
-        }
-    );
+    }
+);
 
 
-    on(
-        musica,
-        "ended",
-        () => {
+/* =====================================================
+   EVENTO ENDED
+===================================================== */
 
-            musicaReproduciendo =
-                false;
+on(
+    musica,
+    "ended",
+    () => {
 
-            actualizarEstadoMusica();
+        musicaReproduciendo =
+            false;
 
-        }
-    );
+        actualizarEstadoMusica();
+
+    }
+);
 
 
-    actualizarEstadoMusica();
+/* =====================================================
+   ESTADO INICIAL
+===================================================== */
+
+actualizarEstadoMusica();
 
 
     /* =====================================================
