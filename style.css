@@ -227,57 +227,83 @@ h3 {
 
     justify-content: center;
 
+    width: 100%;
+
     min-height: 100svh;
 
     overflow: hidden;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #fffdf9 0%,
-            var(--crema) 55%,
-            #eee7da 100%
-        );
+    background: var(--crema);
 
     color: var(--texto);
+
 }
 
 
-.hero::before {
+/* =====================================================
+   IMAGEN DE FONDO
+===================================================== */
 
-    content: "";
+.hero-fondo {
 
     position: absolute;
 
-    inset: 22px;
+    inset: 0;
 
-    border: 1px solid rgba(184, 149, 88, .45);
+    z-index: 0;
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+
+.hero-fondo img {
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center;
+
+}
+
+
+/* =====================================================
+   CAPA DE LECTURA
+===================================================== */
+
+.hero-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
 
     pointer-events: none;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255, 253, 249, .08) 0%,
+            rgba(255, 253, 249, .02) 45%,
+            rgba(255, 253, 249, .16) 100%
+        );
+
 }
 
 
-.hero::after {
-
-    content: "✦";
-
-    position: absolute;
-
-    top: 43px;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    color: var(--dorado);
-
-    font-family: var(--serif);
-
-    font-size: 1.25rem;
-
-    opacity: .8;
-}
-
+/* =====================================================
+   CONTENIDO
+===================================================== */
 
 .hero-content {
 
@@ -285,31 +311,54 @@ h3 {
 
     z-index: 2;
 
-    width: min(900px, 92%);
+    display: flex;
 
-    padding: 80px 20px 100px;
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: min(900px, 90%);
+
+    min-height: 100svh;
+
+    padding: 70px 20px 90px;
 
     text-align: center;
+
 }
 
+
+/* =====================================================
+   TEXTO SUPERIOR
+===================================================== */
 
 .hero-kicker {
 
     display: block;
 
-    margin-bottom: 24px;
+    margin-bottom: 25px;
 
     color: var(--dorado-oscuro);
 
-    font-size: .78rem;
+    font-size: .82rem;
 
     font-weight: 700;
 
     letter-spacing: .30em;
 
     text-transform: uppercase;
+
+    text-shadow:
+        0 1px 12px rgba(255,255,255,.55);
+
 }
 
+
+/* =====================================================
+   NOMBRES
+===================================================== */
 
 .hero-nombres {
 
@@ -321,17 +370,21 @@ h3 {
 
     gap: clamp(14px, 3vw, 30px);
 
-    color: var(--texto);
+    color: #403a2b;
 
     font-family: var(--serif);
 
-    font-size: clamp(4.2rem, 10vw, 7.8rem);
+    font-size: clamp(4.8rem, 10vw, 8.5rem);
 
     font-weight: 500;
 
-    line-height: .82;
+    line-height: .78;
 
-    letter-spacing: -.035em;
+    letter-spacing: -.045em;
+
+    text-shadow:
+        0 2px 18px rgba(255,255,255,.65);
+
 }
 
 
@@ -339,15 +392,20 @@ h3 {
 
     color: var(--dorado);
 
-    font-size: .42em;
+    font-size: .40em;
 
     font-style: normal;
 
     font-weight: 400;
 
     letter-spacing: 0;
+
 }
 
+
+/* =====================================================
+   ORNAMENTO
+===================================================== */
 
 .hero-linea {
 
@@ -357,11 +415,12 @@ h3 {
 
     justify-content: center;
 
-    gap: 15px;
+    gap: 14px;
 
-    width: min(360px, 80%);
+    width: min(360px, 75%);
 
-    margin: 34px auto 28px;
+    margin: 32px auto 26px;
+
 }
 
 
@@ -371,7 +430,10 @@ h3 {
 
     height: 1px;
 
-    background: var(--dorado-claro);
+    background: var(--dorado);
+
+    opacity: .75;
+
 }
 
 
@@ -381,51 +443,57 @@ h3 {
 
     font-family: var(--serif);
 
-    font-size: 1.5rem;
+    font-size: 1.45rem;
 
     font-weight: 500;
+
 }
 
 
 /* =====================================================
-   FRASE DE PORTADA
+   FRASE
 ===================================================== */
 
 .hero-frase {
 
-    width: min(680px, 100%);
-
-    margin: 0 auto;
+    width: min(650px, 100%);
 
     color: var(--texto-suave);
 
-    font-size: 1.02rem;
+    font-size: .98rem;
 
-    line-height: 1.8;
+    line-height: 1.7;
+
+    text-shadow:
+        0 1px 10px rgba(255,255,255,.65);
+
 }
 
 
 .hero-versiculo {
 
-    margin-bottom: 25px;
+    margin-bottom: 18px;
+
 }
 
 
 .hero-versiculo p {
 
-    color: var(--texto);
+    color: #3e392e;
 
     font-family: var(--serif);
 
-    font-size: 1.35rem;
+    font-size: 1.45rem;
 
-    line-height: 1.4;
+    line-height: 1.35;
+
 }
 
 
 .hero-versiculo strong {
 
-    font-weight: 700;
+    font-weight: 600;
+
 }
 
 
@@ -433,31 +501,33 @@ h3 {
 
     display: block;
 
-    margin-top: 5px;
+    margin-top: 6px;
 
     color: var(--dorado-oscuro);
 
-    font-size: .78rem;
+    font-size: .75rem;
 
-    font-weight: 600;
+    font-weight: 700;
 
-    letter-spacing: .10em;
+    letter-spacing: .12em;
 
     text-transform: uppercase;
+
 }
 
 
 .hero-mensaje {
 
-    max-width: 620px;
+    max-width: 610px;
 
     margin: auto;
 
-    color: var(--texto-suave);
+    color: #5e594f;
 
-    font-size: 1rem;
+    font-size: .96rem;
 
-    line-height: 1.8;
+    line-height: 1.7;
+
 }
 
 
@@ -475,13 +545,14 @@ h3 {
 
     gap: 15px;
 
-    margin: 34px 0;
+    margin: 25px 0;
+
 }
 
 
 .hero-fecha > span {
 
-    color: var(--dorado);
+    color: #403a2b;
 
     font-family: var(--serif);
 
@@ -490,6 +561,7 @@ h3 {
     font-weight: 500;
 
     line-height: 1;
+
 }
 
 
@@ -503,7 +575,8 @@ h3 {
 
     text-align: left;
 
-    border-left: 1px solid var(--dorado-claro);
+    border-left: 1px solid var(--dorado);
+
 }
 
 
@@ -511,28 +584,30 @@ h3 {
 
     color: var(--texto-suave);
 
-    font-size: .72rem;
+    font-size: .70rem;
 
     font-weight: 700;
 
     letter-spacing: .18em;
 
     text-transform: uppercase;
+
 }
 
 
 .hero-fecha strong {
 
-    color: var(--texto);
+    color: #403a2b;
 
     font-size: 1.05rem;
 
     font-weight: 600;
+
 }
 
 
 /* =====================================================
-   BOTÓN PORTADA
+   BOTÓN
 ===================================================== */
 
 .hero-boton {
@@ -549,13 +624,13 @@ h3 {
 
     border: 1px solid var(--dorado);
 
-    border-radius: 2px;
+    border-radius: 30px;
 
-    background: var(--dorado);
+    background: rgba(63, 57, 43, .92);
 
-    color: #fff;
+    color: #fffdf9;
 
-    font-size: .78rem;
+    font-size: .76rem;
 
     font-weight: 700;
 
@@ -563,11 +638,16 @@ h3 {
 
     text-transform: uppercase;
 
+    box-shadow:
+        0 8px 25px rgba(50,40,25,.15);
+
+    backdrop-filter: blur(4px);
+
     transition:
-        background .3s ease,
-        color .3s ease,
         transform .3s ease,
+        background .3s ease,
         box-shadow .3s ease;
+
 }
 
 
@@ -575,11 +655,11 @@ h3 {
 
     background: var(--dorado-oscuro);
 
-    border-color: var(--dorado-oscuro);
-
     transform: translateY(-2px);
 
-    box-shadow: var(--sombra);
+    box-shadow:
+        0 12px 30px rgba(50,40,25,.20);
+
 }
 
 
@@ -591,7 +671,7 @@ h3 {
 
     position: absolute;
 
-    bottom: 22px;
+    bottom: 20px;
 
     left: 50%;
 
@@ -603,31 +683,34 @@ h3 {
 
     align-items: center;
 
-    gap: 5px;
+    gap: 4px;
 
     transform: translateX(-50%);
 
     color: var(--dorado-oscuro);
 
-    font-size: .68rem;
+    font-size: .66rem;
 
-    font-weight: 600;
+    font-weight: 700;
 
-    letter-spacing: .16em;
+    letter-spacing: .15em;
 
     text-transform: uppercase;
 
-    opacity: .85;
+    text-shadow:
+        0 1px 8px rgba(255,255,255,.7);
+
 }
 
 
 .hero-scroll b {
 
-    font-size: 1.2rem;
+    font-size: 1.25rem;
 
     font-weight: 400;
 
     animation: bajar 1.8s ease-in-out infinite;
+
 }
 
 
@@ -641,8 +724,8 @@ h3 {
     50% {
         transform: translateY(5px);
     }
-}
 
+}
 
 /* =====================================================
    CONTADOR
