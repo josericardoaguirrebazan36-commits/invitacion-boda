@@ -3257,15 +3257,116 @@ h3 {
     }
 
 
-    /* MÚSICA */
+    /* =====================================================
+   BOTÓN DE MÚSICA
+===================================================== */
+
+.boton-musica {
+
+    position: fixed;
+
+    right: 22px;
+    bottom: 22px;
+
+    z-index: 1000;
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--dorado);
+
+    border-radius: 50%;
+
+    background: rgba(255, 253, 249, .92);
+
+    color: var(--dorado-oscuro);
+
+    font-family: var(--serif);
+
+    font-size: 1.35rem;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 20px rgba(50, 40, 25, .18);
+
+    backdrop-filter: blur(8px);
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+
+/* =====================================================
+   HOVER
+===================================================== */
+
+.boton-musica:hover {
+
+    transform: scale(1.08);
+
+    background: var(--blanco);
+
+    box-shadow:
+        0 8px 25px rgba(50, 40, 25, .25);
+}
+
+
+/* =====================================================
+   MÚSICA REPRODUCIÉNDOSE
+===================================================== */
+
+.boton-musica.reproduciendo {
+
+    animation:
+        girarMusica 3s linear infinite;
+
+}
+
+
+/* =====================================================
+   ANIMACIÓN
+===================================================== */
+
+@keyframes girarMusica {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =====================================================
+   MÓVIL
+===================================================== */
+
+@media (max-width: 768px) {
 
     .boton-musica {
 
-        right: 14px;
+        right: 16px;
+        bottom: 16px;
 
-        bottom: 14px;
+        width: 48px;
+        height: 48px;
+
+        font-size: 1.2rem;
+
     }
+
 }
+
 
 
 /* =====================================================
