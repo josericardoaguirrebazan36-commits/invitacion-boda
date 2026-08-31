@@ -1885,15 +1885,17 @@ display: flex;
 
 justify-content: center;
 
-margin-bottom: 28px;
+margin-bottom: 20px;
 
 }
 
 .yape-icono img {
 
-width: 64px;
+display: block;
 
-height: 64px;
+width: 42px;
+
+height: 42px;
 
 object-fit: contain;
 
@@ -2144,13 +2146,7 @@ MÓVIL
 }
 
 
-.yape-icono img {
-
-    width: 58px;
-
-    height: 58px;
-
-}
+.yape-icono img { width: 40px; height: 40px; }
 
 
 .yape-numero > span {
