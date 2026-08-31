@@ -213,30 +213,26 @@ h3 {
 }
 
 
+
 /* =====================================================
    PORTADA
 ===================================================== */
 
 .hero {
-
     position: relative;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     width: 100%;
-
-    min-height: 100svh;
+    height: 85svh;
+    min-height: 650px;
 
     overflow: hidden;
 
     background: var(--crema);
-
     color: var(--texto);
-
 }
 
 
@@ -245,34 +241,34 @@ h3 {
 ===================================================== */
 
 .hero-fondo {
-
     position: absolute;
-
     inset: 0;
 
     z-index: 0;
 
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     width: 100%;
-
     height: 100%;
 
+    overflow: hidden;
 }
 
 
 .hero-fondo img {
-
     display: block;
 
     width: 100%;
-
     height: 100%;
 
+    /*
+       La imagen conserva su proporción.
+       No se deforma.
+    */
     object-fit: cover;
-
-    object-position: center;
-
+    object-position: center center;
 }
 
 
@@ -281,7 +277,6 @@ h3 {
 ===================================================== */
 
 .hero-overlay {
-
     position: absolute;
 
     inset: 0;
@@ -297,7 +292,6 @@ h3 {
             rgba(255, 253, 249, .02) 45%,
             rgba(255, 253, 249, .16) 100%
         );
-
 }
 
 
@@ -306,27 +300,24 @@ h3 {
 ===================================================== */
 
 .hero-content {
-
     position: relative;
 
     z-index: 2;
 
     display: flex;
-
     flex-direction: column;
 
     align-items: center;
-
     justify-content: center;
 
     width: min(900px, 90%);
 
-    min-height: 100svh;
+    height: 100%;
+    min-height: 0;
 
-    padding: 70px 20px 90px;
+    padding: 50px 20px 70px;
 
     text-align: center;
-
 }
 
 
@@ -335,7 +326,6 @@ h3 {
 ===================================================== */
 
 .hero-kicker {
-
     display: block;
 
     margin-bottom: 25px;
@@ -352,7 +342,6 @@ h3 {
 
     text-shadow:
         0 1px 12px rgba(255,255,255,.55);
-
 }
 
 
@@ -361,11 +350,9 @@ h3 {
 ===================================================== */
 
 .hero-nombres {
-
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     gap: clamp(14px, 3vw, 30px);
@@ -374,7 +361,11 @@ h3 {
 
     font-family: var(--serif);
 
-    font-size: clamp(4.8rem, 10vw, 8.5rem);
+    /*
+       Un poco más controlado para que
+       no ocupe demasiado espacio.
+    */
+    font-size: clamp(4rem, 8vw, 7rem);
 
     font-weight: 500;
 
@@ -384,12 +375,10 @@ h3 {
 
     text-shadow:
         0 2px 18px rgba(255,255,255,.65);
-
 }
 
 
 .hero-nombres i {
-
     color: var(--dorado);
 
     font-size: .40em;
@@ -399,7 +388,6 @@ h3 {
     font-weight: 400;
 
     letter-spacing: 0;
-
 }
 
 
@@ -408,24 +396,20 @@ h3 {
 ===================================================== */
 
 .hero-linea {
-
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     gap: 14px;
 
     width: min(360px, 75%);
 
-    margin: 32px auto 26px;
-
+    margin: 28px auto 22px;
 }
 
 
 .hero-linea span {
-
     flex: 1;
 
     height: 1px;
@@ -433,12 +417,10 @@ h3 {
     background: var(--dorado);
 
     opacity: .75;
-
 }
 
 
 .hero-linea b {
-
     color: var(--dorado);
 
     font-family: var(--serif);
@@ -446,7 +428,6 @@ h3 {
     font-size: 1.45rem;
 
     font-weight: 500;
-
 }
 
 
@@ -455,7 +436,6 @@ h3 {
 ===================================================== */
 
 .hero-frase {
-
     width: min(650px, 100%);
 
     color: var(--texto-suave);
@@ -466,19 +446,15 @@ h3 {
 
     text-shadow:
         0 1px 10px rgba(255,255,255,.65);
-
 }
 
 
 .hero-versiculo {
-
     margin-bottom: 18px;
-
 }
 
 
 .hero-versiculo p {
-
     color: #3e392e;
 
     font-family: var(--serif);
@@ -486,19 +462,15 @@ h3 {
     font-size: 1.45rem;
 
     line-height: 1.35;
-
 }
 
 
 .hero-versiculo strong {
-
     font-weight: 600;
-
 }
 
 
 .hero-versiculo small {
-
     display: block;
 
     margin-top: 6px;
@@ -512,12 +484,10 @@ h3 {
     letter-spacing: .12em;
 
     text-transform: uppercase;
-
 }
 
 
 .hero-mensaje {
-
     max-width: 610px;
 
     margin: auto;
@@ -527,7 +497,6 @@ h3 {
     font-size: .96rem;
 
     line-height: 1.7;
-
 }
 
 
@@ -536,22 +505,18 @@ h3 {
 ===================================================== */
 
 .hero-fecha {
-
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     gap: 15px;
 
-    margin: 25px 0;
-
+    margin: 22px 0;
 }
 
 
 .hero-fecha > span {
-
     color: #403a2b;
 
     font-family: var(--serif);
@@ -561,12 +526,10 @@ h3 {
     font-weight: 500;
 
     line-height: 1;
-
 }
 
 
 .hero-fecha > div {
-
     display: flex;
 
     flex-direction: column;
@@ -576,12 +539,10 @@ h3 {
     text-align: left;
 
     border-left: 1px solid var(--dorado);
-
 }
 
 
 .hero-fecha small {
-
     color: var(--texto-suave);
 
     font-size: .70rem;
@@ -591,18 +552,15 @@ h3 {
     letter-spacing: .18em;
 
     text-transform: uppercase;
-
 }
 
 
 .hero-fecha strong {
-
     color: #403a2b;
 
     font-size: 1.05rem;
 
     font-weight: 600;
-
 }
 
 
@@ -611,11 +569,9 @@ h3 {
 ===================================================== */
 
 .hero-boton {
-
     display: inline-flex;
 
     align-items: center;
-
     justify-content: center;
 
     min-height: 54px;
@@ -647,19 +603,16 @@ h3 {
         transform .3s ease,
         background .3s ease,
         box-shadow .3s ease;
-
 }
 
 
 .hero-boton:hover {
-
     background: var(--dorado-oscuro);
 
     transform: translateY(-2px);
 
     box-shadow:
         0 12px 30px rgba(50,40,25,.20);
-
 }
 
 
@@ -668,11 +621,9 @@ h3 {
 ===================================================== */
 
 .hero-scroll {
-
     position: absolute;
 
     bottom: 20px;
-
     left: 50%;
 
     z-index: 3;
@@ -699,20 +650,21 @@ h3 {
 
     text-shadow:
         0 1px 8px rgba(255,255,255,.7);
-
 }
 
 
 .hero-scroll b {
-
     font-size: 1.25rem;
 
     font-weight: 400;
 
     animation: bajar 1.8s ease-in-out infinite;
-
 }
 
+
+/* =====================================================
+   ANIMACIÓN SCROLL
+===================================================== */
 
 @keyframes bajar {
 
@@ -723,6 +675,167 @@ h3 {
 
     50% {
         transform: translateY(5px);
+    }
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .hero {
+        height: 85svh;
+        min-height: 620px;
+    }
+
+    .hero-nombres {
+        font-size: clamp(3.5rem, 10vw, 6rem);
+    }
+
+}
+
+
+/* =====================================================
+   MÓVIL
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .hero {
+        height: 100svh;
+        min-height: 680px;
+    }
+
+
+    /*
+       En móvil aprovechamos la orientación
+       vertical de la imagen 1550 × 2180.
+    */
+
+    .hero-fondo img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        object-position: center center;
+    }
+
+
+    .hero-content {
+        width: 94%;
+
+        padding:
+            45px 15px
+            75px;
+    }
+
+
+    .hero-kicker {
+        margin-bottom: 20px;
+
+        font-size: .72rem;
+
+        letter-spacing: .24em;
+    }
+
+
+    .hero-nombres {
+        flex-wrap: wrap;
+
+        gap: 10px;
+
+        font-size: clamp(3.4rem, 15vw, 5.5rem);
+
+        line-height: .82;
+    }
+
+
+    .hero-linea {
+        width: min(300px, 80%);
+
+        margin: 24px auto 20px;
+    }
+
+
+    .hero-versiculo p {
+        font-size: 1.25rem;
+    }
+
+
+    .hero-mensaje {
+        max-width: 90%;
+
+        font-size: .90rem;
+    }
+
+
+    .hero-fecha {
+        margin: 20px 0;
+    }
+
+
+    .hero-fecha > span {
+        font-size: 3.3rem;
+    }
+
+
+    .hero-fecha > div {
+        padding-left: 12px;
+    }
+
+
+    .hero-boton {
+        min-height: 50px;
+
+        padding: 0 26px;
+
+        font-size: .70rem;
+    }
+
+
+    .hero-scroll {
+        bottom: 12px;
+
+        font-size: .60rem;
+    }
+
+}
+
+
+/* =====================================================
+   MÓVILES PEQUEÑOS
+===================================================== */
+
+@media (max-width: 420px) {
+
+    .hero {
+        min-height: 640px;
+    }
+
+
+    .hero-content {
+        padding:
+            35px 12px
+            65px;
+    }
+
+
+    .hero-nombres {
+        font-size: clamp(3rem, 15vw, 4.5rem);
+    }
+
+
+    .hero-versiculo p {
+        font-size: 1.15rem;
+    }
+
+
+    .hero-fecha > span {
+        font-size: 3rem;
     }
 
 }
