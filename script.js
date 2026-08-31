@@ -1,1118 +1,1206 @@
-/* =====================================================
-   CONFIGURACIÓN
-===================================================== */
-
-const FECHA_BODA = new Date("2026-10-09T15:00:00-05:00");
-
-/*
- * Coloca aquí la URL de tu Google Apps Script
- * cuando quieras guardar las confirmaciones.
- */
-const GOOGLE_SCRIPT_URL = "";
-
+"use strict";
 
 /* =====================================================
-   CONTADOR
+INVITACIÓN DE BODA — OMAR & WENDY
+JavaScript principal
 ===================================================== */
+
+/* =====================================================
+CONFIGURACIÓN
+===================================================== */
+
+const CONFIG = {
+fechaBoda: new Date("2026-10-09T15:00:00-05:00"),
+googleScriptUrl: "",
+maxPersonas: 10,
+numeroYape: "+51 992 418 572"
+};
+
+/* =====================================================
+UTILIDADES
+===================================================== */
+
+const $ = id => document.getElementById(id);
+
+const $$ = selector =>
+Array.from(document.querySelectorAll(selector));
+
+function on(element, event, callback, options) {
+if (element) {
+element.addEventListener(
+event,
+callback,
+options
+);
+}
+}
+
+function setText(element, value) {
+if (element) {
+element.textContent = value;
+}
+}
+
+function toggleClass(element, className, force) {
+if (element) {
+element.classList.toggle(
+className,
+force
+);
+}
+}
+
+/* =====================================================
+CONTADOR
+===================================================== */
+
+const contador = {
+dias: $("dias"),
+horas: $("horas"),
+minutos: $("minutos"),
+segundos: $("segundos")
+};
 
 function actualizarContador() {
 
-    const ahora = new Date();
-    const diferencia = FECHA_BODA - ahora;
+const diferencia =
+    CONFIG.fechaBoda.getTime() -
+    Date.now();
 
-    const dias = document.getElementById("dias");
-    const horas = document.getElementById("horas");
-    const minutos = document.getElementById("minutos");
-    const segundos = document.getElementById("segundos");
 
-    if (!dias || !horas || !minutos || !segundos) {
-        return;
-    }
+if (diferencia <= 0) {
 
-    if (diferencia <= 0) {
+    setText(contador.dias, "00");
+    setText(contador.horas, "00");
+    setText(contador.minutos, "00");
+    setText(contador.segundos, "00");
 
-        dias.textContent = "00";
-        horas.textContent = "00";
-        minutos.textContent = "00";
-        segundos.textContent = "00";
+    return;
+}
 
-        return;
-    }
 
-    const totalSegundos = Math.floor(diferencia / 1000);
+const totalSegundos =
+    Math.floor(
+        diferencia / 1000
+    );
 
-    const d = Math.floor(totalSegundos / 86400);
 
-    const h = Math.floor(
+const dias =
+    Math.floor(
+        totalSegundos / 86400
+    );
+
+
+const horas =
+    Math.floor(
         (totalSegundos % 86400) / 3600
     );
 
-    const m = Math.floor(
+
+const minutos =
+    Math.floor(
         (totalSegundos % 3600) / 60
     );
 
-    const s = totalSegundos % 60;
 
-    dias.textContent =
-        String(d).padStart(2, "0");
+const segundos =
+    totalSegundos % 60;
 
-    horas.textContent =
-        String(h).padStart(2, "0");
 
-    minutos.textContent =
-        String(m).padStart(2, "0");
+setText(
+    contador.dias,
+    String(dias).padStart(2, "0")
+);
 
-    segundos.textContent =
-        String(s).padStart(2, "0");
+
+setText(
+    contador.horas,
+    String(horas).padStart(2, "0")
+);
+
+
+setText(
+    contador.minutos,
+    String(minutos).padStart(2, "0")
+);
+
+
+setText(
+    contador.segundos,
+    String(segundos).padStart(2, "0")
+);
+
 }
 
 actualizarContador();
 
 setInterval(
-    actualizarContador,
-    1000
+actualizarContador,
+1000
 );
-
 
 /* =====================================================
-   GALERÍA
+GALERÍA
 ===================================================== */
 
-const fotos = Array.from(
-    document.querySelectorAll(".galeria-fotos img")
-);
+const fotos =
+$$(".galeria-fotos img");
 
-const btnAnterior =
-    document.getElementById(
-        "galeriaAnterior"
-    );
+const galeriaAnterior =
+$("galeriaAnterior");
 
-const btnSiguiente =
-    document.getElementById(
-        "galeriaSiguiente"
-    );
+const galeriaSiguiente =
+$("galeriaSiguiente");
 
 let indiceGaleria = 0;
 
+function obtenerFotosVisibles() {
+
+return window.innerWidth > 900
+    ? fotos.length
+    : 2;
+
+}
 
 function actualizarGaleria() {
 
-    if (!fotos.length) {
-        return;
-    }
-
-    /*
-     * En escritorio se muestran todas las fotos.
-     * En móvil se muestran dos fotografías.
-     */
-
-    if (window.innerWidth > 900) {
-
-        fotos.forEach(foto => {
-            foto.style.display = "block";
-        });
-
-        return;
-    }
-
-    fotos.forEach(
-        (foto, indice) => {
-
-            const mostrar =
-                indice === indiceGaleria ||
-                indice ===
-                    (indiceGaleria + 1) %
-                    fotos.length;
-
-            foto.style.display =
-                mostrar
-                    ? "block"
-                    : "none";
-        }
-    );
+if (!fotos.length) {
+    return;
 }
 
+
+const visibles =
+    obtenerFotosVisibles();
+
+
+if (visibles === fotos.length) {
+
+    fotos.forEach(
+        foto => {
+            foto.style.display = "block";
+        }
+    );
+
+    return;
+}
+
+
+fotos.forEach(
+    (foto, indice) => {
+
+        const posicion =
+            (
+                indice -
+                indiceGaleria +
+                fotos.length
+            ) %
+            fotos.length;
+
+
+        foto.style.display =
+            posicion < visibles
+                ? "block"
+                : "none";
+    }
+);
+
+}
 
 function siguienteFoto() {
 
-    if (!fotos.length) {
-        return;
-    }
-
-    indiceGaleria =
-        (indiceGaleria + 1) %
-        fotos.length;
-
-    actualizarGaleria();
+if (!fotos.length) {
+    return;
 }
 
+
+indiceGaleria =
+    (indiceGaleria + 1) %
+    fotos.length;
+
+
+actualizarGaleria();
+
+}
 
 function anteriorFoto() {
 
-    if (!fotos.length) {
-        return;
-    }
-
-    indiceGaleria =
-        (indiceGaleria - 1 + fotos.length) %
-        fotos.length;
-
-    actualizarGaleria();
+if (!fotos.length) {
+    return;
 }
 
 
-if (btnSiguiente) {
+indiceGaleria =
+    (
+        indiceGaleria -
+        1 +
+        fotos.length
+    ) %
+    fotos.length;
 
-    btnSiguiente.addEventListener(
-        "click",
-        siguienteFoto
-    );
+
+actualizarGaleria();
+
 }
 
+on(
+galeriaSiguiente,
+"click",
+siguienteFoto
+);
 
-if (btnAnterior) {
+on(
+galeriaAnterior,
+"click",
+anteriorFoto
+);
 
-    btnAnterior.addEventListener(
-        "click",
-        anteriorFoto
-    );
-}
-
-
-window.addEventListener(
-    "resize",
-    actualizarGaleria
+on(
+window,
+"resize",
+actualizarGaleria
 );
 
 actualizarGaleria();
 
-
 /* =====================================================
-   LIGHTBOX
+LIGHTBOX
 ===================================================== */
 
 const lightbox =
-    document.getElementById(
-        "lightbox"
-    );
+$("lightbox");
 
 const imagenGrande =
-    document.getElementById(
-        "imagenGrande"
-    );
+$("imagenGrande");
 
 const cerrarLightbox =
-    document.getElementById(
-        "cerrarLightbox"
+$("cerrarLightbox");
+
+function abrirLightbox(foto) {
+
+if (
+    !lightbox ||
+    !imagenGrande ||
+    !foto
+) {
+    return;
+}
+
+
+imagenGrande.src =
+    foto.currentSrc ||
+    foto.src;
+
+
+imagenGrande.alt =
+    foto.alt ||
+    "Fotografía de Omar y Wendy";
+
+
+lightbox.classList.add(
+    "activo"
+);
+
+
+lightbox.setAttribute(
+    "aria-hidden",
+    "false"
+);
+
+
+document.body.classList.add(
+    "no-scroll"
+);
+
+}
+
+function cerrarGaleria() {
+
+if (!lightbox) {
+    return;
+}
+
+
+lightbox.classList.remove(
+    "activo"
+);
+
+
+lightbox.setAttribute(
+    "aria-hidden",
+    "true"
+);
+
+
+document.body.classList.remove(
+    "no-scroll"
+);
+
+
+if (imagenGrande) {
+    imagenGrande.removeAttribute("src");
+}
+
+}
+
+fotos.forEach(
+foto => {
+
+    on(
+        foto,
+        "click",
+        () => abrirLightbox(foto)
+    );
+}
+
+);
+
+on(
+cerrarLightbox,
+"click",
+cerrarGaleria
+);
+
+on(
+lightbox,
+"click",
+event => {
+
+    if (
+        event.target ===
+        lightbox
+    ) {
+        cerrarGaleria();
+    }
+}
+
+);
+
+/* =====================================================
+MODALES
+===================================================== */
+
+const modales = {
+asistencia: $("modalAsistencia"),
+zoom: $("modalZoom"),
+noAsistire: $("modalNoAsistire"),
+exito: $("mensajeExito")
+};
+
+function abrirModal(modal) {
+
+if (!modal) {
+    return;
+}
+
+
+modal.classList.add(
+    "activo"
+);
+
+
+modal.setAttribute(
+    "aria-hidden",
+    "false"
+);
+
+
+document.body.classList.add(
+    "no-scroll"
+);
+
+
+const primerElemento =
+    modal.querySelector(
+        "button, a, input, textarea, select"
     );
 
 
-fotos.forEach(
-    foto => {
+if (primerElemento) {
 
-        foto.addEventListener(
+    setTimeout(
+        () => primerElemento.focus(),
+        50
+    );
+}
+
+}
+
+function cerrarModal(modal) {
+
+if (!modal) {
+    return;
+}
+
+
+modal.classList.remove(
+    "activo"
+);
+
+
+modal.setAttribute(
+    "aria-hidden",
+    "true"
+);
+
+
+document.body.classList.remove(
+    "no-scroll"
+);
+
+}
+
+function cerrarTodosLosModales() {
+
+Object.values(modales)
+    .forEach(
+        modal => cerrarModal(modal)
+    );
+
+}
+
+Object.values(modales)
+.forEach(
+modal => {
+
+        on(
+            modal,
             "click",
-            () => {
+            event => {
 
                 if (
-                    !lightbox ||
-                    !imagenGrande
+                    event.target ===
+                    modal
                 ) {
-                    return;
+                    cerrarModal(modal);
                 }
-
-                imagenGrande.src =
-                    foto.src;
-
-                imagenGrande.alt =
-                    foto.alt;
-
-                lightbox.classList.add(
-                    "activo"
-                );
-
-                lightbox.setAttribute(
-                    "aria-hidden",
-                    "false"
-                );
-
-                document.body.classList.add(
-                    "no-scroll"
-                );
             }
         );
     }
 );
 
-
-function cerrarGaleria() {
-
-    if (!lightbox) {
-        return;
-    }
-
-    lightbox.classList.remove(
-        "activo"
-    );
-
-    lightbox.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    document.body.classList.remove(
-        "no-scroll"
-    );
-}
-
-
-if (cerrarLightbox) {
-
-    cerrarLightbox.addEventListener(
-        "click",
-        cerrarGaleria
-    );
-}
-
-
-if (lightbox) {
-
-    lightbox.addEventListener(
-        "click",
-        event => {
-
-            if (
-                event.target ===
-                lightbox
-            ) {
-                cerrarGaleria();
-            }
-
-        }
-    );
-}
-
-
 /* =====================================================
-   CONFIRMACIÓN
+CONFIRMACIÓN
 ===================================================== */
 
 const btnAsistire =
-    document.getElementById(
-        "btnAsistire"
-    );
+$("btnAsistire");
 
 const btnZoom =
-    document.getElementById(
-        "btnZoom"
-    );
+$("btnZoom");
 
 const btnNoAsistire =
-    document.getElementById(
-        "btnNoAsistire"
-    );
+$("btnNoAsistire");
 
+const cerrarModalAsistencia =
+$("cerrarModal");
+
+const cerrarModalZoom =
+$("cerrarZoom");
+
+const cancelarZoom =
+$("cancelarZoom");
+
+const cerrarModalNoAsistire =
+$("cerrarNoAsistire");
+
+const cancelarNoAsistire =
+$("cancelarNoAsistire");
+
+const volverConfirmacion =
+$("volverConfirmacion");
 
 /* =====================================================
-   MODAL PRESENCIAL
+CONTROL DE PERSONAS
 ===================================================== */
 
-const modalAsistencia =
-    document.getElementById(
-        "modalAsistencia"
-    );
-
-const cerrarModal =
-    document.getElementById(
-        "cerrarModal"
-    );
-
 const restarPersona =
-    document.getElementById(
-        "restarPersona"
-    );
+$("restarPersona");
 
 const sumarPersona =
-    document.getElementById(
-        "sumarPersona"
-    );
+$("sumarPersona");
 
 const cantidadPersonas =
-    document.getElementById(
-        "cantidadPersonas"
-    );
+$("cantidadPersonas");
 
 const textoPersonas =
-    document.getElementById(
-        "textoPersonas"
-    );
-
-const confirmarPresencial =
-    document.getElementById(
-        "confirmarPresencial"
-    );
+$("textoPersonas");
 
 let cantidad = 1;
 
-
 function actualizarCantidad() {
 
-    if (
-        !cantidadPersonas ||
-        !textoPersonas
-    ) {
-        return;
-    }
-
-    cantidadPersonas.textContent =
-        cantidad;
-
-    textoPersonas.textContent =
-        cantidad === 1
-            ? "persona"
-            : "personas";
-}
+setText(
+    cantidadPersonas,
+    cantidad
+);
 
 
-function abrirModal(modal) {
-
-    if (!modal) {
-        return;
-    }
-
-    modal.classList.add(
-        "activo"
-    );
-
-    modal.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-    document.body.classList.add(
-        "no-scroll"
-    );
-}
-
-
-function cerrarModalGenerico(modal) {
-
-    if (!modal) {
-        return;
-    }
-
-    modal.classList.remove(
-        "activo"
-    );
-
-    modal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    document.body.classList.remove(
-        "no-scroll"
-    );
-}
-
-
-if (btnAsistire) {
-
-    btnAsistire.addEventListener(
-        "click",
-        () => {
-
-            cantidad = 1;
-
-            actualizarCantidad();
-
-            abrirModal(
-                modalAsistencia
-            );
-        }
-    );
-}
+setText(
+    textoPersonas,
+    cantidad === 1
+        ? "persona"
+        : "personas"
+);
 
 
 if (restarPersona) {
-
-    restarPersona.addEventListener(
-        "click",
-        () => {
-
-            if (cantidad > 1) {
-
-                cantidad--;
-
-                actualizarCantidad();
-            }
-        }
-    );
+    restarPersona.disabled =
+        cantidad <= 1;
 }
 
 
 if (sumarPersona) {
+    sumarPersona.disabled =
+        cantidad >= CONFIG.maxPersonas;
+}
 
-    sumarPersona.addEventListener(
-        "click",
-        () => {
+}
 
-            /*
-             * Máximo de 10 personas por respuesta.
-             */
+function cambiarCantidad(valor) {
 
-            if (cantidad < 10) {
+cantidad =
+    Math.min(
+        CONFIG.maxPersonas,
+        Math.max(
+            1,
+            cantidad + valor
+        )
+    );
 
-                cantidad++;
 
-                actualizarCantidad();
-            }
-        }
+actualizarCantidad();
+
+}
+
+on(
+btnAsistire,
+"click",
+() => {
+
+    cantidad = 1;
+
+    actualizarCantidad();
+
+    abrirModal(
+        modales.asistencia
     );
 }
 
+);
 
-if (cerrarModal) {
+on(
+restarPersona,
+"click",
+() => cambiarCantidad(-1)
+);
 
-    cerrarModal.addEventListener(
-        "click",
-        () => {
+on(
+sumarPersona,
+"click",
+() => cambiarCantidad(1)
+);
 
-            cerrarModalGenerico(
-                modalAsistencia
-            );
-        }
-    );
-}
+on(
+cerrarModalAsistencia,
+"click",
+() =>
+cerrarModal(
+modales.asistencia
+)
+);
 
+actualizarCantidad();
 
 /* =====================================================
-   MODAL ZOOM
+MODAL ZOOM
 ===================================================== */
 
-const modalZoom =
-    document.getElementById(
-        "modalZoom"
-    );
+on(
+btnZoom,
+"click",
+() =>
+abrirModal(
+modales.zoom
+)
+);
 
-const cerrarZoom =
-    document.getElementById(
-        "cerrarZoom"
-    );
+on(
+cerrarModalZoom,
+"click",
+() =>
+cerrarModal(
+modales.zoom
+)
+);
 
-const cancelarZoom =
-    document.getElementById(
-        "cancelarZoom"
-    );
-
-const confirmarZoom =
-    document.getElementById(
-        "confirmarZoom"
-    );
-
-
-if (btnZoom) {
-
-    btnZoom.addEventListener(
-        "click",
-        () => {
-
-            abrirModal(
-                modalZoom
-            );
-        }
-    );
-}
-
-
-if (cerrarZoom) {
-
-    cerrarZoom.addEventListener(
-        "click",
-        () => {
-
-            cerrarModalGenerico(
-                modalZoom
-            );
-        }
-    );
-}
-
-
-if (cancelarZoom) {
-
-    cancelarZoom.addEventListener(
-        "click",
-        () => {
-
-            cerrarModalGenerico(
-                modalZoom
-            );
-        }
-    );
-}
-
+on(
+cancelarZoom,
+"click",
+() =>
+cerrarModal(
+modales.zoom
+)
+);
 
 /* =====================================================
-   MODAL NO ASISTIR
+MODAL NO ASISTIR
 ===================================================== */
 
-const modalNoAsistire =
-    document.getElementById(
-        "modalNoAsistire"
-    );
+on(
+btnNoAsistire,
+"click",
+() =>
+abrirModal(
+modales.noAsistire
+)
+);
 
-const cerrarNoAsistire =
-    document.getElementById(
-        "cerrarNoAsistire"
-    );
+on(
+cerrarModalNoAsistire,
+"click",
+() =>
+cerrarModal(
+modales.noAsistire
+)
+);
 
-const cancelarNoAsistire =
-    document.getElementById(
-        "cancelarNoAsistire"
-    );
-
-const confirmarNoAsistire =
-    document.getElementById(
-        "confirmarNoAsistire"
-    );
-
-
-if (btnNoAsistire) {
-
-    btnNoAsistire.addEventListener(
-        "click",
-        () => {
-
-            abrirModal(
-                modalNoAsistire
-            );
-        }
-    );
-}
-
-
-if (cerrarNoAsistire) {
-
-    cerrarNoAsistire.addEventListener(
-        "click",
-        () => {
-
-            cerrarModalGenerico(
-                modalNoAsistire
-            );
-        }
-    );
-}
-
-
-if (cancelarNoAsistire) {
-
-    cancelarNoAsistire.addEventListener(
-        "click",
-        () => {
-
-            cerrarModalGenerico(
-                modalNoAsistire
-            );
-        }
-    );
-}
-
+on(
+cancelarNoAsistire,
+"click",
+() =>
+cerrarModal(
+modales.noAsistire
+)
+);
 
 /* =====================================================
-   MODAL DE ÉXITO
+MENSAJE DE ÉXITO
 ===================================================== */
-
-const mensajeExito =
-    document.getElementById(
-        "mensajeExito"
-    );
 
 const textoExito =
-    document.getElementById(
-        "textoExito"
-    );
-
-const volverConfirmacion =
-    document.getElementById(
-        "volverConfirmacion"
-    );
-
+$("textoExito");
 
 function mostrarExito(mensaje) {
 
-    if (textoExito) {
+cerrarTodosLosModales();
 
-        textoExito.textContent =
-            mensaje;
-    }
 
-    cerrarModalGenerico(
-        modalAsistencia
-    );
+setText(
+    textoExito,
+    mensaje
+);
 
-    cerrarModalGenerico(
-        modalZoom
-    );
 
-    cerrarModalGenerico(
-        modalNoAsistire
-    );
+abrirModal(
+    modales.exito
+);
 
-    abrirModal(
-        mensajeExito
-    );
 }
 
-
-if (volverConfirmacion) {
-
-    volverConfirmacion.addEventListener(
-        "click",
-        () => {
-
-            cerrarModalGenerico(
-                mensajeExito
-            );
-        }
-    );
-}
-
+on(
+volverConfirmacion,
+"click",
+() =>
+cerrarModal(
+modales.exito
+)
+);
 
 /* =====================================================
-   ENVÍO DE CONFIRMACIÓN
+ENVÍO DE CONFIRMACIÓN
 ===================================================== */
 
-async function enviarConfirmacion(
-    tipo,
-    personas = 0
+function obtenerMensajeConfirmacion(
+tipo,
+personas
 ) {
 
-    /*
-     * Si todavía no se ha configurado
-     * Google Apps Script, la respuesta
-     * se muestra igualmente en pantalla.
-     */
+switch (tipo) {
 
-    if (!GOOGLE_SCRIPT_URL) {
+    case "presencial":
 
-        if (tipo === "presencial") {
+        return `Hemos registrado tu confirmación para asistir presencialmente con ${personas} ${
+            personas === 1
+                ? "persona"
+                : "personas"
+        }. ¡Nos alegra mucho contar contigo!`;
 
-            mostrarExito(
-                `Hemos registrado tu confirmación para asistir presencialmente con ${personas} ${
-                    personas === 1
-                        ? "persona"
-                        : "personas"
-                }. ¡Nos alegra mucho contar contigo!`
-            );
 
-        } else if (tipo === "zoom") {
+    case "zoom":
 
-            mostrarExito(
-                "Hemos registrado que nos acompañarás por Zoom. ¡Muchas gracias por estar con nosotros!"
-            );
+        return "Hemos registrado que nos acompañarás por Zoom. ¡Muchas gracias por estar con nosotros!";
 
-        } else {
 
-            mostrarExito(
-                "Hemos registrado tu respuesta. Muchas gracias por avisarnos y por ser parte de este momento."
-            );
+    default:
+
+        return "Hemos registrado tu respuesta. Muchas gracias por avisarnos y por ser parte de este momento.";
+}
+
+}
+
+async function enviarConfirmacion(
+tipo,
+personas = 0
+) {
+
+const datos = {
+    tipo,
+    personas,
+    fecha:
+        new Date().toISOString()
+};
+
+
+if (!CONFIG.googleScriptUrl) {
+
+    mostrarExito(
+        obtenerMensajeConfirmacion(
+            tipo,
+            personas
+        )
+    );
+
+    return;
+}
+
+
+try {
+
+    await fetch(
+        CONFIG.googleScriptUrl,
+        {
+            method: "POST",
+
+            mode: "no-cors",
+
+            headers: {
+                "Content-Type":
+                    "text/plain;charset=utf-8"
+            },
+
+            body:
+                JSON.stringify(datos)
         }
+    );
 
+
+    mostrarExito(
+        obtenerMensajeConfirmacion(
+            tipo,
+            personas
+        )
+    );
+
+
+} catch (error) {
+
+    console.error(
+        "Error al enviar la confirmación:",
+        error
+    );
+
+
+    mostrarExito(
+        "Tu respuesta ha sido recibida. Muchas gracias por avisarnos."
+    );
+}
+
+}
+
+/* =====================================================
+BOTONES DE CONFIRMACIÓN
+===================================================== */
+
+const confirmarPresencial =
+$("confirmarPresencial");
+
+const confirmarZoom =
+$("confirmarZoom");
+
+const confirmarNoAsistire =
+$("confirmarNoAsistire");
+
+on(
+confirmarPresencial,
+"click",
+() =>
+enviarConfirmacion(
+"presencial",
+cantidad
+)
+);
+
+on(
+confirmarZoom,
+"click",
+() =>
+enviarConfirmacion(
+"zoom"
+)
+);
+
+on(
+confirmarNoAsistire,
+"click",
+() =>
+enviarConfirmacion(
+"no_asistire"
+)
+);
+
+/* =====================================================
+CERRAR CON ESC
+===================================================== */
+
+on(
+document,
+"keydown",
+event => {
+
+    if (
+        event.key !== "Escape"
+    ) {
         return;
     }
 
 
-    const datos = {
-        tipo: tipo,
-        personas: personas,
-        fecha: new Date().toISOString()
-    };
+    cerrarGaleria();
+
+    cerrarTodosLosModales();
+}
+
+);
+
+/* =====================================================
+NAVEGACIÓN DE GALERÍA CON TECLADO
+===================================================== */
+
+on(
+document,
+"keydown",
+event => {
+
+    if (
+        !lightbox ||
+        !lightbox.classList.contains(
+            "activo"
+        )
+    ) {
+        return;
+    }
+
+
+    if (
+        event.key === "ArrowRight"
+    ) {
+
+        siguienteFoto();
+
+    } else if (
+        event.key === "ArrowLeft"
+    ) {
+
+        anteriorFoto();
+    }
+}
+
+);
+
+/* =====================================================
+GUARDAR LA FECHA
+===================================================== */
+
+const btnMostrarCalendario =
+$("btnMostrarCalendario");
+
+const opcionesCalendario =
+$("opcionesCalendario");
+
+on(
+btnMostrarCalendario,
+"click",
+() => {
+
+    if (!opcionesCalendario) {
+        return;
+    }
+
+
+    const visible =
+        opcionesCalendario.classList.toggle(
+            "visible"
+        );
+
+
+    btnMostrarCalendario.setAttribute(
+        "aria-expanded",
+        String(visible)
+    );
+}
+
+);
+
+/* =====================================================
+COPIAR YAPE
+===================================================== */
+
+const copiarYape =
+$("copiarYape");
+
+const numeroYape =
+$("numeroYape");
+
+const mensajeCopiado =
+$("mensajeCopiado");
+
+on(
+copiarYape,
+"click",
+async () => {
+
+    if (!numeroYape) {
+        return;
+    }
 
 
     try {
 
-        await fetch(
-            GOOGLE_SCRIPT_URL,
-            {
-                method: "POST",
-
-                mode: "no-cors",
-
-                headers: {
-                    "Content-Type":
-                        "text/plain;charset=utf-8"
-                },
-
-                body: JSON.stringify(
-                    datos
-                )
-            }
+        await navigator.clipboard.writeText(
+            CONFIG.numeroYape
         );
 
 
-        if (tipo === "presencial") {
+        toggleClass(
+            mensajeCopiado,
+            "visible",
+            true
+        );
 
-            mostrarExito(
-                `¡Gracias! Hemos registrado tu asistencia presencial con ${personas} ${
-                    personas === 1
-                        ? "persona"
-                        : "personas"
-                }.`
-            );
 
-        } else if (tipo === "zoom") {
+        setTimeout(
+            () => {
 
-            mostrarExito(
-                "¡Gracias! Hemos registrado tu asistencia por Zoom."
-            );
+                toggleClass(
+                    mensajeCopiado,
+                    "visible",
+                    false
+                );
+
+            },
+            2500
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "No se pudo copiar el número:",
+            error
+        );
+    }
+}
+
+);
+
+/* =====================================================
+MÚSICA
+===================================================== */
+
+const musica =
+$("musicaBoda");
+
+const botonMusica =
+$("botonMusica");
+
+let musicaReproduciendo =
+false;
+
+function actualizarEstadoMusica() {
+
+toggleClass(
+    botonMusica,
+    "reproduciendo",
+    musicaReproduciendo
+);
+
+
+if (botonMusica) {
+
+    botonMusica.setAttribute(
+        "aria-label",
+        musicaReproduciendo
+            ? "Pausar música"
+            : "Reproducir música"
+    );
+}
+
+}
+
+on(
+botonMusica,
+"click",
+async () => {
+
+    if (!musica) {
+        return;
+    }
+
+
+    try {
+
+        if (
+            musicaReproduciendo
+        ) {
+
+            musica.pause();
 
         } else {
 
-            mostrarExito(
-                "Hemos registrado tu respuesta. Muchas gracias por avisarnos."
-            );
+            await musica.play();
         }
 
     } catch (error) {
 
         console.error(
-            "Error al enviar confirmación:",
+            "No se pudo reproducir la música:",
             error
-        );
-
-        mostrarExito(
-            "Tu respuesta ha sido recibida. Muchas gracias por avisarnos."
         );
     }
 }
 
+);
+
+on(
+musica,
+"play",
+() => {
+
+    musicaReproduciendo =
+        true;
+
+    actualizarEstadoMusica();
+}
+
+);
+
+on(
+musica,
+"pause",
+() => {
+
+    musicaReproduciendo =
+        false;
+
+    actualizarEstadoMusica();
+}
+
+);
+
+on(
+musica,
+"ended",
+() => {
+
+    musicaReproduciendo =
+        false;
+
+    actualizarEstadoMusica();
+}
+
+);
+
+actualizarEstadoMusica();
 
 /* =====================================================
-   BOTONES DE CONFIRMACIÓN
+ANIMACIONES AL HACER SCROLL
 ===================================================== */
 
-if (confirmarPresencial) {
+const elementosAnimados =
+$$(".evento-card, .regalo, .rsvp-card");
 
-    confirmarPresencial.addEventListener(
-        "click",
-        () => {
+document.documentElement.classList.add(
+"js"
+);
 
-            enviarConfirmacion(
-                "presencial",
-                cantidad
+if (
+"IntersectionObserver" in window &&
+elementosAnimados.length
+) {
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(
+                entry => {
+
+                    if (
+                        !entry.isIntersecting
+                    ) {
+                        return;
+                    }
+
+
+                    entry.target.classList.add(
+                        "visible"
+                    );
+
+
+                    observer.unobserve(
+                        entry.target
+                    );
+                }
             );
+        },
+        {
+            threshold: 0.12,
+            rootMargin:
+                "0px 0px -40px 0px"
         }
     );
-}
 
 
-if (confirmarZoom) {
+elementosAnimados.forEach(
+    elemento => {
 
-    confirmarZoom.addEventListener(
-        "click",
-        () => {
-
-            enviarConfirmacion(
-                "zoom"
-            );
-        }
-    );
-}
-
-
-if (confirmarNoAsistire) {
-
-    confirmarNoAsistire.addEventListener(
-        "click",
-        () => {
-
-            enviarConfirmacion(
-                "no_asistire"
-            );
-        }
-    );
-}
-
-
-/* =====================================================
-   CERRAR MODALES CON ESC
-===================================================== */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (event.key !== "Escape") {
-            return;
-        }
-
-        cerrarGaleria();
-
-        cerrarModalGenerico(
-            modalAsistencia
+        elemento.classList.add(
+            "animar-entrada"
         );
 
-        cerrarModalGenerico(
-            modalZoom
-        );
 
-        cerrarModalGenerico(
-            modalNoAsistire
-        );
-
-        cerrarModalGenerico(
-            mensajeExito
+        observer.observe(
+            elemento
         );
     }
 );
 
-
-/* =====================================================
-   GUARDAR LA FECHA
-===================================================== */
-
-const btnMostrarCalendario =
-    document.getElementById(
-        "btnMostrarCalendario"
-    );
-
-const opcionesCalendario =
-    document.getElementById(
-        "opcionesCalendario"
-    );
-
-
-if (btnMostrarCalendario) {
-
-    btnMostrarCalendario.addEventListener(
-        "click",
-        () => {
-
-            if (!opcionesCalendario) {
-                return;
-            }
-
-            opcionesCalendario.classList.toggle(
-                "visible"
-            );
-        }
-    );
 }
 
-
 /* =====================================================
-   COPIAR YAPE
+PAUSAR MÚSICA AL SALIR DE LA PÁGINA
 ===================================================== */
 
-const copiarYape =
-    document.getElementById(
-        "copiarYape"
-    );
+on(
+document,
+"visibilitychange",
+() => {
 
-const numeroYape =
-    document.getElementById(
-        "numeroYape"
-    );
+    if (
+        document.hidden &&
+        musica &&
+        !musica.paused
+    ) {
 
-const mensajeCopiado =
-    document.getElementById(
-        "mensajeCopiado"
-    );
-
-
-if (copiarYape) {
-
-    copiarYape.addEventListener(
-        "click",
-        async () => {
-
-            if (!numeroYape) {
-                return;
-            }
-
-            /*
-             * Solo se copia el número.
-             */
-
-            const numero =
-                "+51 992 418 572";
-
-            try {
-
-                await navigator.clipboard.writeText(
-                    numero
-                );
-
-                if (mensajeCopiado) {
-
-                    mensajeCopiado.classList.add(
-                        "visible"
-                    );
-
-                    setTimeout(
-                        () => {
-
-                            mensajeCopiado.classList.remove(
-                                "visible"
-                            );
-
-                        },
-                        2500
-                    );
-                }
-
-            } catch (error) {
-
-                console.error(
-                    "No se pudo copiar:",
-                    error
-                );
-            }
-        }
-    );
+        musica.pause();
+    }
 }
 
+);
 
 /* =====================================================
-   MÚSICA
-===================================================== */
-
-const musica =
-    document.getElementById(
-        "musicaBoda"
-    );
-
-const botonMusica =
-    document.getElementById(
-        "botonMusica"
-    );
-
-let musicaReproduciendo = false;
-
-
-if (botonMusica && musica) {
-
-    botonMusica.addEventListener(
-        "click",
-        async () => {
-
-            try {
-
-                if (musicaReproduciendo) {
-
-                    musica.pause();
-
-                    musicaReproduciendo =
-                        false;
-
-                    botonMusica.classList.remove(
-                        "reproduciendo"
-                    );
-
-                    botonMusica.setAttribute(
-                        "aria-label",
-                        "Reproducir música"
-                    );
-
-                } else {
-
-                    await musica.play();
-
-                    musicaReproduciendo =
-                        true;
-
-                    botonMusica.classList.add(
-                        "reproduciendo"
-                    );
-
-                    botonMusica.setAttribute(
-                        "aria-label",
-                        "Pausar música"
-                    );
-                }
-
-            } catch (error) {
-
-                console.error(
-                    "No se pudo reproducir la música:",
-                    error
-                );
-            }
-        }
-    );
-}
-
-
-/* =====================================================
-   ANIMACIÓN SUAVE AL ENTRAR EN PANTALLA
-===================================================== */
-
-const elementosAnimados =
-    document.querySelectorAll(
-        ".evento-card, .regalo, .rsvp-card"
-    );
-
-
-if ("IntersectionObserver" in window) {
-
-    const observer =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(
-                    entry => {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target.style.opacity =
-                                "1";
-
-                            entry.target.style.transform =
-                                "translateY(0)";
-
-                            observer.unobserve(
-                                entry.target
-                            );
-                        }
-
-                    }
-                );
-
-            },
-            {
-                threshold: 0.12
-            }
-        );
-
-
-    elementosAnimados.forEach(
-        elemento => {
-
-            elemento.style.opacity =
-                "0";
-
-            elemento.style.transform =
-                "translateY(18px)";
-
-            elemento.style.transition =
-                "opacity .7s ease, transform .7s ease";
-
-            observer.observe(
-                elemento
-            );
-        }
-    );
-}
-
-
-/* =====================================================
-   FINAL
+FINAL
 ===================================================== */
 
 console.log(
-    "Invitación Omar & Wendy cargada correctamente."
+"✓ Invitación de boda de Omar & Wendy cargada correctamente."
 );
