@@ -1,1206 +1,1101 @@
 "use strict";
 
 /* =====================================================
-INVITACIÓN DE BODA — OMAR & WENDY
-JavaScript principal
+   INVITACIÓN DE BODA — OMAR & WENDY
+   JavaScript principal
 ===================================================== */
 
 /* =====================================================
-CONFIGURACIÓN
+   CONFIGURACIÓN
 ===================================================== */
 
 const CONFIG = {
-fechaBoda: new Date("2026-10-09T15:00:00-05:00"),
-googleScriptUrl: "",
-maxPersonas: 10,
-numeroYape: "+51 992 418 572"
+    fechaBoda: new Date("2026-10-09T15:00:00-05:00"),
+    googleScriptUrl: "",
+    maxPersonas: 10,
+    numeroYape: "+51 992 418 572"
 };
 
 /* =====================================================
-UTILIDADES
+   UTILIDADES
 ===================================================== */
 
 const $ = id => document.getElementById(id);
 
 const $$ = selector =>
-Array.from(document.querySelectorAll(selector));
+    Array.from(document.querySelectorAll(selector));
 
 function on(element, event, callback, options) {
-if (element) {
-element.addEventListener(
-event,
-callback,
-options
-);
-}
+    if (element) {
+        element.addEventListener(event, callback, options);
+    }
 }
 
 function setText(element, value) {
-if (element) {
-element.textContent = value;
-}
+    if (element) {
+        element.textContent = value;
+    }
 }
 
 function toggleClass(element, className, force) {
-if (element) {
-element.classList.toggle(
-className,
-force
-);
-}
+    if (element) {
+        element.classList.toggle(className, force);
+    }
 }
 
 /* =====================================================
-CONTADOR
+   CONTADOR
 ===================================================== */
 
 const contador = {
-dias: $("dias"),
-horas: $("horas"),
-minutos: $("minutos"),
-segundos: $("segundos")
+    dias: $("dias"),
+    horas: $("horas"),
+    minutos: $("minutos"),
+    segundos: $("segundos")
 };
 
 function actualizarContador() {
 
-const diferencia =
-    CONFIG.fechaBoda.getTime() -
-    Date.now();
+    const diferencia =
+        CONFIG.fechaBoda.getTime() -
+        Date.now();
 
+    if (diferencia <= 0) {
 
-if (diferencia <= 0) {
+        setText(contador.dias, "00");
+        setText(contador.horas, "00");
+        setText(contador.minutos, "00");
+        setText(contador.segundos, "00");
 
-    setText(contador.dias, "00");
-    setText(contador.horas, "00");
-    setText(contador.minutos, "00");
-    setText(contador.segundos, "00");
+        return;
+    }
 
-    return;
-}
+    const totalSegundos =
+        Math.floor(diferencia / 1000);
 
+    const dias =
+        Math.floor(totalSegundos / 86400);
 
-const totalSegundos =
-    Math.floor(
-        diferencia / 1000
+    const horas =
+        Math.floor(
+            (totalSegundos % 86400) / 3600
+        );
+
+    const minutos =
+        Math.floor(
+            (totalSegundos % 3600) / 60
+        );
+
+    const segundos =
+        totalSegundos % 60;
+
+    setText(
+        contador.dias,
+        String(dias).padStart(2, "0")
     );
 
-
-const dias =
-    Math.floor(
-        totalSegundos / 86400
+    setText(
+        contador.horas,
+        String(horas).padStart(2, "0")
     );
 
-
-const horas =
-    Math.floor(
-        (totalSegundos % 86400) / 3600
+    setText(
+        contador.minutos,
+        String(minutos).padStart(2, "0")
     );
 
-
-const minutos =
-    Math.floor(
-        (totalSegundos % 3600) / 60
+    setText(
+        contador.segundos,
+        String(segundos).padStart(2, "0")
     );
-
-
-const segundos =
-    totalSegundos % 60;
-
-
-setText(
-    contador.dias,
-    String(dias).padStart(2, "0")
-);
-
-
-setText(
-    contador.horas,
-    String(horas).padStart(2, "0")
-);
-
-
-setText(
-    contador.minutos,
-    String(minutos).padStart(2, "0")
-);
-
-
-setText(
-    contador.segundos,
-    String(segundos).padStart(2, "0")
-);
-
 }
 
 actualizarContador();
 
 setInterval(
-actualizarContador,
-1000
+    actualizarContador,
+    1000
 );
 
 /* =====================================================
-GALERÍA
+   GALERÍA
 ===================================================== */
 
 const fotos =
-$$(".galeria-fotos img");
+    $$(".galeria-fotos img");
 
 const galeriaAnterior =
-$("galeriaAnterior");
+    $("galeriaAnterior");
 
 const galeriaSiguiente =
-$("galeriaSiguiente");
+    $("galeriaSiguiente");
 
 let indiceGaleria = 0;
 
 function obtenerFotosVisibles() {
 
-return window.innerWidth > 900
-    ? fotos.length
-    : 2;
-
+    return window.innerWidth > 900
+        ? fotos.length
+        : 2;
 }
 
 function actualizarGaleria() {
 
-if (!fotos.length) {
-    return;
-}
+    if (!fotos.length) {
+        return;
+    }
 
+    const visibles =
+        obtenerFotosVisibles();
 
-const visibles =
-    obtenerFotosVisibles();
+    if (visibles === fotos.length) {
 
+        fotos.forEach(
+            foto => {
+                foto.style.display = "block";
+            }
+        );
 
-if (visibles === fotos.length) {
+        return;
+    }
 
     fotos.forEach(
-        foto => {
-            foto.style.display = "block";
+        (foto, indice) => {
+
+            const posicion =
+                (
+                    indice -
+                    indiceGaleria +
+                    fotos.length
+                ) %
+                fotos.length;
+
+            foto.style.display =
+                posicion < visibles
+                    ? "block"
+                    : "none";
         }
     );
-
-    return;
-}
-
-
-fotos.forEach(
-    (foto, indice) => {
-
-        const posicion =
-            (
-                indice -
-                indiceGaleria +
-                fotos.length
-            ) %
-            fotos.length;
-
-
-        foto.style.display =
-            posicion < visibles
-                ? "block"
-                : "none";
-    }
-);
-
 }
 
 function siguienteFoto() {
 
-if (!fotos.length) {
-    return;
-}
+    if (!fotos.length) {
+        return;
+    }
 
+    indiceGaleria =
+        (indiceGaleria + 1) %
+        fotos.length;
 
-indiceGaleria =
-    (indiceGaleria + 1) %
-    fotos.length;
-
-
-actualizarGaleria();
-
+    actualizarGaleria();
 }
 
 function anteriorFoto() {
 
-if (!fotos.length) {
-    return;
-}
+    if (!fotos.length) {
+        return;
+    }
 
+    indiceGaleria =
+        (
+            indiceGaleria -
+            1 +
+            fotos.length
+        ) %
+        fotos.length;
 
-indiceGaleria =
-    (
-        indiceGaleria -
-        1 +
-        fotos.length
-    ) %
-    fotos.length;
-
-
-actualizarGaleria();
-
+    actualizarGaleria();
 }
 
 on(
-galeriaSiguiente,
-"click",
-siguienteFoto
+    galeriaSiguiente,
+    "click",
+    siguienteFoto
 );
 
 on(
-galeriaAnterior,
-"click",
-anteriorFoto
+    galeriaAnterior,
+    "click",
+    anteriorFoto
 );
 
 on(
-window,
-"resize",
-actualizarGaleria
+    window,
+    "resize",
+    actualizarGaleria
 );
 
 actualizarGaleria();
 
 /* =====================================================
-LIGHTBOX
+   LIGHTBOX
 ===================================================== */
 
 const lightbox =
-$("lightbox");
+    $("lightbox");
 
 const imagenGrande =
-$("imagenGrande");
+    $("imagenGrande");
 
 const cerrarLightbox =
-$("cerrarLightbox");
+    $("cerrarLightbox");
 
 function abrirLightbox(foto) {
 
-if (
-    !lightbox ||
-    !imagenGrande ||
-    !foto
-) {
-    return;
-}
+    if (
+        !lightbox ||
+        !imagenGrande ||
+        !foto
+    ) {
+        return;
+    }
 
+    imagenGrande.src =
+        foto.currentSrc ||
+        foto.src;
 
-imagenGrande.src =
-    foto.currentSrc ||
-    foto.src;
+    imagenGrande.alt =
+        foto.alt ||
+        "Fotografía de Omar y Wendy";
 
+    lightbox.classList.add("activo");
 
-imagenGrande.alt =
-    foto.alt ||
-    "Fotografía de Omar y Wendy";
+    lightbox.setAttribute(
+        "aria-hidden",
+        "false"
+    );
 
-
-lightbox.classList.add(
-    "activo"
-);
-
-
-lightbox.setAttribute(
-    "aria-hidden",
-    "false"
-);
-
-
-document.body.classList.add(
-    "no-scroll"
-);
-
+    document.body.classList.add(
+        "no-scroll"
+    );
 }
 
 function cerrarGaleria() {
 
-if (!lightbox) {
-    return;
-}
+    if (!lightbox) {
+        return;
+    }
 
-
-lightbox.classList.remove(
-    "activo"
-);
-
-
-lightbox.setAttribute(
-    "aria-hidden",
-    "true"
-);
-
-
-document.body.classList.remove(
-    "no-scroll"
-);
-
-
-if (imagenGrande) {
-    imagenGrande.removeAttribute("src");
-}
-
-}
-
-fotos.forEach(
-foto => {
-
-    on(
-        foto,
-        "click",
-        () => abrirLightbox(foto)
+    lightbox.classList.remove(
+        "activo"
     );
-}
 
-);
+    lightbox.setAttribute(
+        "aria-hidden",
+        "true"
+    );
 
-on(
-cerrarLightbox,
-"click",
-cerrarGaleria
-);
+    document.body.classList.remove(
+        "no-scroll"
+    );
 
-on(
-lightbox,
-"click",
-event => {
-
-    if (
-        event.target ===
-        lightbox
-    ) {
-        cerrarGaleria();
+    if (imagenGrande) {
+        imagenGrande.removeAttribute("src");
     }
 }
 
-);
-
-/* =====================================================
-MODALES
-===================================================== */
-
-const modales = {
-asistencia: $("modalAsistencia"),
-zoom: $("modalZoom"),
-noAsistire: $("modalNoAsistire"),
-exito: $("mensajeExito")
-};
-
-function abrirModal(modal) {
-
-if (!modal) {
-    return;
-}
-
-
-modal.classList.add(
-    "activo"
-);
-
-
-modal.setAttribute(
-    "aria-hidden",
-    "false"
-);
-
-
-document.body.classList.add(
-    "no-scroll"
-);
-
-
-const primerElemento =
-    modal.querySelector(
-        "button, a, input, textarea, select"
-    );
-
-
-if (primerElemento) {
-
-    setTimeout(
-        () => primerElemento.focus(),
-        50
-    );
-}
-
-}
-
-function cerrarModal(modal) {
-
-if (!modal) {
-    return;
-}
-
-
-modal.classList.remove(
-    "activo"
-);
-
-
-modal.setAttribute(
-    "aria-hidden",
-    "true"
-);
-
-
-document.body.classList.remove(
-    "no-scroll"
-);
-
-}
-
-function cerrarTodosLosModales() {
-
-Object.values(modales)
-    .forEach(
-        modal => cerrarModal(modal)
-    );
-
-}
-
-Object.values(modales)
-.forEach(
-modal => {
+fotos.forEach(
+    foto => {
 
         on(
-            modal,
+            foto,
             "click",
-            event => {
-
-                if (
-                    event.target ===
-                    modal
-                ) {
-                    cerrarModal(modal);
-                }
-            }
+            () => abrirLightbox(foto)
         );
     }
 );
 
+on(
+    cerrarLightbox,
+    "click",
+    cerrarGaleria
+);
+
+on(
+    lightbox,
+    "click",
+    event => {
+
+        if (
+            event.target === lightbox
+        ) {
+            cerrarGaleria();
+        }
+    }
+);
+
 /* =====================================================
-CONFIRMACIÓN
+   MODALES
+===================================================== */
+
+const modales = {
+    asistencia: $("modalAsistencia"),
+    zoom: $("modalZoom"),
+    noAsistire: $("modalNoAsistire"),
+    exito: $("mensajeExito")
+};
+
+function abrirModal(modal) {
+
+    if (!modal) {
+        return;
+    }
+
+    modal.classList.add(
+        "activo"
+    );
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    document.body.classList.add(
+        "no-scroll"
+    );
+
+    const primerElemento =
+        modal.querySelector(
+            "button, a, input, textarea, select"
+        );
+
+    if (primerElemento) {
+
+        setTimeout(
+            () => primerElemento.focus(),
+            50
+        );
+    }
+}
+
+function cerrarModal(modal) {
+
+    if (!modal) {
+        return;
+    }
+
+    modal.classList.remove(
+        "activo"
+    );
+
+    modal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    document.body.classList.remove(
+        "no-scroll"
+    );
+}
+
+function cerrarTodosLosModales() {
+
+    Object.values(modales)
+        .forEach(
+            modal => cerrarModal(modal)
+        );
+}
+
+Object.values(modales)
+    .forEach(
+        modal => {
+
+            on(
+                modal,
+                "click",
+                event => {
+
+                    if (
+                        event.target === modal
+                    ) {
+                        cerrarModal(modal);
+                    }
+                }
+            );
+        }
+    );
+
+/* =====================================================
+   CONFIRMACIÓN
 ===================================================== */
 
 const btnAsistire =
-$("btnAsistire");
+    $("btnAsistire");
 
 const btnZoom =
-$("btnZoom");
+    $("btnZoom");
 
 const btnNoAsistire =
-$("btnNoAsistire");
+    $("btnNoAsistire");
 
 const cerrarModalAsistencia =
-$("cerrarModal");
+    $("cerrarModal");
 
 const cerrarModalZoom =
-$("cerrarZoom");
+    $("cerrarZoom");
 
 const cancelarZoom =
-$("cancelarZoom");
+    $("cancelarZoom");
 
 const cerrarModalNoAsistire =
-$("cerrarNoAsistire");
+    $("cerrarNoAsistire");
 
 const cancelarNoAsistire =
-$("cancelarNoAsistire");
+    $("cancelarNoAsistire");
 
 const volverConfirmacion =
-$("volverConfirmacion");
+    $("volverConfirmacion");
 
 /* =====================================================
-CONTROL DE PERSONAS
+   CONTROL DE PERSONAS
 ===================================================== */
 
 const restarPersona =
-$("restarPersona");
+    $("restarPersona");
 
 const sumarPersona =
-$("sumarPersona");
+    $("sumarPersona");
 
 const cantidadPersonas =
-$("cantidadPersonas");
+    $("cantidadPersonas");
 
 const textoPersonas =
-$("textoPersonas");
+    $("textoPersonas");
 
 let cantidad = 1;
 
 function actualizarCantidad() {
 
-setText(
-    cantidadPersonas,
-    cantidad
-);
+    setText(
+        cantidadPersonas,
+        cantidad
+    );
 
+    setText(
+        textoPersonas,
+        cantidad === 1
+            ? "persona"
+            : "personas"
+    );
 
-setText(
-    textoPersonas,
-    cantidad === 1
-        ? "persona"
-        : "personas"
-);
+    if (restarPersona) {
+        restarPersona.disabled =
+            cantidad <= 1;
+    }
 
-
-if (restarPersona) {
-    restarPersona.disabled =
-        cantidad <= 1;
-}
-
-
-if (sumarPersona) {
-    sumarPersona.disabled =
-        cantidad >= CONFIG.maxPersonas;
-}
-
+    if (sumarPersona) {
+        sumarPersona.disabled =
+            cantidad >= CONFIG.maxPersonas;
+    }
 }
 
 function cambiarCantidad(valor) {
 
-cantidad =
-    Math.min(
-        CONFIG.maxPersonas,
-        Math.max(
-            1,
-            cantidad + valor
-        )
-    );
-
-
-actualizarCantidad();
-
-}
-
-on(
-btnAsistire,
-"click",
-() => {
-
-    cantidad = 1;
+    cantidad =
+        Math.min(
+            CONFIG.maxPersonas,
+            Math.max(
+                1,
+                cantidad + valor
+            )
+        );
 
     actualizarCantidad();
-
-    abrirModal(
-        modales.asistencia
-    );
 }
 
+on(
+    btnAsistire,
+    "click",
+    () => {
+
+        cantidad = 1;
+
+        actualizarCantidad();
+
+        abrirModal(
+            modales.asistencia
+        );
+    }
 );
 
 on(
-restarPersona,
-"click",
-() => cambiarCantidad(-1)
+    restarPersona,
+    "click",
+    () => cambiarCantidad(-1)
 );
 
 on(
-sumarPersona,
-"click",
-() => cambiarCantidad(1)
+    sumarPersona,
+    "click",
+    () => cambiarCantidad(1)
 );
 
 on(
-cerrarModalAsistencia,
-"click",
-() =>
-cerrarModal(
-modales.asistencia
-)
+    cerrarModalAsistencia,
+    "click",
+    () =>
+        cerrarModal(
+            modales.asistencia
+        )
 );
 
 actualizarCantidad();
 
 /* =====================================================
-MODAL ZOOM
+   MODAL ZOOM
 ===================================================== */
 
 on(
-btnZoom,
-"click",
-() =>
-abrirModal(
-modales.zoom
-)
+    btnZoom,
+    "click",
+    () =>
+        abrirModal(
+            modales.zoom
+        )
 );
 
 on(
-cerrarModalZoom,
-"click",
-() =>
-cerrarModal(
-modales.zoom
-)
+    cerrarModalZoom,
+    "click",
+    () =>
+        cerrarModal(
+            modales.zoom
+        )
 );
 
 on(
-cancelarZoom,
-"click",
-() =>
-cerrarModal(
-modales.zoom
-)
+    cancelarZoom,
+    "click",
+    () =>
+        cerrarModal(
+            modales.zoom
+        )
 );
 
 /* =====================================================
-MODAL NO ASISTIR
+   MODAL NO ASISTIR
 ===================================================== */
 
 on(
-btnNoAsistire,
-"click",
-() =>
-abrirModal(
-modales.noAsistire
-)
+    btnNoAsistire,
+    "click",
+    () =>
+        abrirModal(
+            modales.noAsistire
+        )
 );
 
 on(
-cerrarModalNoAsistire,
-"click",
-() =>
-cerrarModal(
-modales.noAsistire
-)
+    cerrarModalNoAsistire,
+    "click",
+    () =>
+        cerrarModal(
+            modales.noAsistire
+        )
 );
 
 on(
-cancelarNoAsistire,
-"click",
-() =>
-cerrarModal(
-modales.noAsistire
-)
+    cancelarNoAsistire,
+    "click",
+    () =>
+        cerrarModal(
+            modales.noAsistire
+        )
 );
 
 /* =====================================================
-MENSAJE DE ÉXITO
+   MENSAJE DE ÉXITO
 ===================================================== */
 
 const textoExito =
-$("textoExito");
+    $("textoExito");
 
 function mostrarExito(mensaje) {
 
-cerrarTodosLosModales();
+    cerrarTodosLosModales();
 
+    setText(
+        textoExito,
+        mensaje
+    );
 
-setText(
-    textoExito,
-    mensaje
-);
-
-
-abrirModal(
-    modales.exito
-);
-
+    abrirModal(
+        modales.exito
+    );
 }
 
 on(
-volverConfirmacion,
-"click",
-() =>
-cerrarModal(
-modales.exito
-)
+    volverConfirmacion,
+    "click",
+    () =>
+        cerrarModal(
+            modales.exito
+        )
 );
 
 /* =====================================================
-ENVÍO DE CONFIRMACIÓN
+   ENVÍO DE CONFIRMACIÓN
 ===================================================== */
 
 function obtenerMensajeConfirmacion(
-tipo,
-personas
+    tipo,
+    personas
 ) {
 
-switch (tipo) {
+    switch (tipo) {
 
-    case "presencial":
+        case "presencial":
 
-        return `Hemos registrado tu confirmación para asistir presencialmente con ${personas} ${
-            personas === 1
-                ? "persona"
-                : "personas"
-        }. ¡Nos alegra mucho contar contigo!`;
+            return `Hemos registrado tu confirmación para asistir presencialmente con ${personas} ${
+                personas === 1
+                    ? "persona"
+                    : "personas"
+            }. ¡Nos alegra mucho contar contigo!`;
 
+        case "zoom":
 
-    case "zoom":
+            return "Hemos registrado que nos acompañarás por Zoom. ¡Muchas gracias por estar con nosotros!";
 
-        return "Hemos registrado que nos acompañarás por Zoom. ¡Muchas gracias por estar con nosotros!";
+        default:
 
-
-    default:
-
-        return "Hemos registrado tu respuesta. Muchas gracias por avisarnos y por ser parte de este momento.";
-}
-
+            return "Hemos registrado tu respuesta. Muchas gracias por avisarnos y por ser parte de este momento.";
+    }
 }
 
 async function enviarConfirmacion(
-tipo,
-personas = 0
+    tipo,
+    personas = 0
 ) {
 
-const datos = {
-    tipo,
-    personas,
-    fecha:
-        new Date().toISOString()
-};
+    const datos = {
+        tipo,
+        personas,
+        fecha:
+            new Date().toISOString()
+    };
 
+    if (!CONFIG.googleScriptUrl) {
 
-if (!CONFIG.googleScriptUrl) {
+        mostrarExito(
+            obtenerMensajeConfirmacion(
+                tipo,
+                personas
+            )
+        );
 
-    mostrarExito(
-        obtenerMensajeConfirmacion(
-            tipo,
-            personas
-        )
-    );
+        return;
+    }
 
-    return;
-}
+    try {
 
+        await fetch(
+            CONFIG.googleScriptUrl,
+            {
+                method: "POST",
 
-try {
+                mode: "no-cors",
 
-    await fetch(
-        CONFIG.googleScriptUrl,
-        {
-            method: "POST",
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
 
-            mode: "no-cors",
+                body:
+                    JSON.stringify(datos)
+            }
+        );
 
-            headers: {
-                "Content-Type":
-                    "text/plain;charset=utf-8"
-            },
+        mostrarExito(
+            obtenerMensajeConfirmacion(
+                tipo,
+                personas
+            )
+        );
 
-            body:
-                JSON.stringify(datos)
-        }
-    );
+    } catch (error) {
 
+        console.error(
+            "Error al enviar la confirmación:",
+            error
+        );
 
-    mostrarExito(
-        obtenerMensajeConfirmacion(
-            tipo,
-            personas
-        )
-    );
-
-
-} catch (error) {
-
-    console.error(
-        "Error al enviar la confirmación:",
-        error
-    );
-
-
-    mostrarExito(
-        "Tu respuesta ha sido recibida. Muchas gracias por avisarnos."
-    );
-}
-
+        mostrarExito(
+            "Tu respuesta ha sido recibida. Muchas gracias por avisarnos."
+        );
+    }
 }
 
 /* =====================================================
-BOTONES DE CONFIRMACIÓN
+   BOTONES DE CONFIRMACIÓN
 ===================================================== */
 
 const confirmarPresencial =
-$("confirmarPresencial");
+    $("confirmarPresencial");
 
 const confirmarZoom =
-$("confirmarZoom");
+    $("confirmarZoom");
 
 const confirmarNoAsistire =
-$("confirmarNoAsistire");
+    $("confirmarNoAsistire");
 
 on(
-confirmarPresencial,
-"click",
-() =>
-enviarConfirmacion(
-"presencial",
-cantidad
-)
-);
-
-on(
-confirmarZoom,
-"click",
-() =>
-enviarConfirmacion(
-"zoom"
-)
-);
-
-on(
-confirmarNoAsistire,
-"click",
-() =>
-enviarConfirmacion(
-"no_asistire"
-)
-);
-
-/* =====================================================
-CERRAR CON ESC
-===================================================== */
-
-on(
-document,
-"keydown",
-event => {
-
-    if (
-        event.key !== "Escape"
-    ) {
-        return;
-    }
-
-
-    cerrarGaleria();
-
-    cerrarTodosLosModales();
-}
-
-);
-
-/* =====================================================
-NAVEGACIÓN DE GALERÍA CON TECLADO
-===================================================== */
-
-on(
-document,
-"keydown",
-event => {
-
-    if (
-        !lightbox ||
-        !lightbox.classList.contains(
-            "activo"
+    confirmarPresencial,
+    "click",
+    () =>
+        enviarConfirmacion(
+            "presencial",
+            cantidad
         )
-    ) {
-        return;
-    }
+);
 
+on(
+    confirmarZoom,
+    "click",
+    () =>
+        enviarConfirmacion(
+            "zoom"
+        )
+);
 
-    if (
-        event.key === "ArrowRight"
-    ) {
-
-        siguienteFoto();
-
-    } else if (
-        event.key === "ArrowLeft"
-    ) {
-
-        anteriorFoto();
-    }
-}
-
+on(
+    confirmarNoAsistire,
+    "click",
+    () =>
+        enviarConfirmacion(
+            "no_asistire"
+        )
 );
 
 /* =====================================================
-GUARDAR LA FECHA
+   CERRAR CON ESC
+===================================================== */
+
+on(
+    document,
+    "keydown",
+    event => {
+
+        if (
+            event.key !== "Escape"
+        ) {
+            return;
+        }
+
+        cerrarGaleria();
+
+        cerrarTodosLosModales();
+    }
+);
+
+/* =====================================================
+   NAVEGACIÓN DE GALERÍA CON TECLADO
+===================================================== */
+
+on(
+    document,
+    "keydown",
+    event => {
+
+        if (
+            !lightbox ||
+            !lightbox.classList.contains(
+                "activo"
+            )
+        ) {
+            return;
+        }
+
+        if (
+            event.key === "ArrowRight"
+        ) {
+
+            siguienteFoto();
+
+        } else if (
+            event.key === "ArrowLeft"
+        ) {
+
+            anteriorFoto();
+        }
+    }
+);
+
+/* =====================================================
+   GUARDAR LA FECHA
 ===================================================== */
 
 const btnMostrarCalendario =
-$("btnMostrarCalendario");
+    $("btnMostrarCalendario");
 
 const opcionesCalendario =
-$("opcionesCalendario");
+    $("opcionesCalendario");
 
 on(
-btnMostrarCalendario,
-"click",
-() => {
+    btnMostrarCalendario,
+    "click",
+    () => {
 
-    if (!opcionesCalendario) {
-        return;
-    }
+        if (!opcionesCalendario) {
+            return;
+        }
 
+        const visible =
+            opcionesCalendario.classList.toggle(
+                "visible"
+            );
 
-    const visible =
-        opcionesCalendario.classList.toggle(
-            "visible"
+        btnMostrarCalendario.setAttribute(
+            "aria-expanded",
+            String(visible)
         );
-
-
-    btnMostrarCalendario.setAttribute(
-        "aria-expanded",
-        String(visible)
-    );
-}
-
+    }
 );
 
 /* =====================================================
-COPIAR YAPE
+   COPIAR YAPE
 ===================================================== */
 
 const copiarYape =
-$("copiarYape");
+    $("copiarYape");
 
 const numeroYape =
-$("numeroYape");
+    $("numeroYape");
 
 const mensajeCopiado =
-$("mensajeCopiado");
+    $("mensajeCopiado");
 
 on(
-copiarYape,
-"click",
-async () => {
+    copiarYape,
+    "click",
+    async () => {
 
-    if (!numeroYape) {
-        return;
+        if (!numeroYape) {
+            return;
+        }
+
+        try {
+
+            await navigator.clipboard.writeText(
+                CONFIG.numeroYape
+            );
+
+            toggleClass(
+                mensajeCopiado,
+                "visible",
+                true
+            );
+
+            setTimeout(
+                () => {
+
+                    toggleClass(
+                        mensajeCopiado,
+                        "visible",
+                        false
+                    );
+
+                },
+                2500
+            );
+
+        } catch (error) {
+
+            console.error(
+                "No se pudo copiar el número:",
+                error
+            );
+        }
     }
-
-
-    try {
-
-        await navigator.clipboard.writeText(
-            CONFIG.numeroYape
-        );
-
-
-        toggleClass(
-            mensajeCopiado,
-            "visible",
-            true
-        );
-
-
-        setTimeout(
-            () => {
-
-                toggleClass(
-                    mensajeCopiado,
-                    "visible",
-                    false
-                );
-
-            },
-            2500
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "No se pudo copiar el número:",
-            error
-        );
-    }
-}
-
 );
 
 /* =====================================================
-MÚSICA
+   MÚSICA
 ===================================================== */
 
 const musica =
-$("musicaBoda");
+    $("musicaBoda");
 
 const botonMusica =
-$("botonMusica");
+    $("botonMusica");
 
 let musicaReproduciendo =
-false;
+    false;
 
 function actualizarEstadoMusica() {
 
-toggleClass(
-    botonMusica,
-    "reproduciendo",
-    musicaReproduciendo
-);
-
-
-if (botonMusica) {
-
-    botonMusica.setAttribute(
-        "aria-label",
+    toggleClass(
+        botonMusica,
+        "reproduciendo",
         musicaReproduciendo
-            ? "Pausar música"
-            : "Reproducir música"
     );
-}
 
-}
+    if (botonMusica) {
 
-on(
-botonMusica,
-"click",
-async () => {
-
-    if (!musica) {
-        return;
-    }
-
-
-    try {
-
-        if (
+        botonMusica.setAttribute(
+            "aria-label",
             musicaReproduciendo
-        ) {
-
-            musica.pause();
-
-        } else {
-
-            await musica.play();
-        }
-
-    } catch (error) {
-
-        console.error(
-            "No se pudo reproducir la música:",
-            error
+                ? "Pausar música"
+                : "Reproducir música"
         );
     }
 }
 
+on(
+    botonMusica,
+    "click",
+    async () => {
+
+        if (!musica) {
+            return;
+        }
+
+        try {
+
+            if (
+                musicaReproduciendo
+            ) {
+
+                musica.pause();
+
+            } else {
+
+                await musica.play();
+            }
+
+        } catch (error) {
+
+            console.error(
+                "No se pudo reproducir la música:",
+                error
+            );
+        }
+    }
 );
 
 on(
-musica,
-"play",
-() => {
+    musica,
+    "play",
+    () => {
 
-    musicaReproduciendo =
-        true;
+        musicaReproduciendo =
+            true;
 
-    actualizarEstadoMusica();
-}
-
+        actualizarEstadoMusica();
+    }
 );
 
 on(
-musica,
-"pause",
-() => {
+    musica,
+    "pause",
+    () => {
 
-    musicaReproduciendo =
-        false;
+        musicaReproduciendo =
+            false;
 
-    actualizarEstadoMusica();
-}
-
+        actualizarEstadoMusica();
+    }
 );
 
 on(
-musica,
-"ended",
-() => {
+    musica,
+    "ended",
+    () => {
 
-    musicaReproduciendo =
-        false;
+        musicaReproduciendo =
+            false;
 
-    actualizarEstadoMusica();
-}
-
+        actualizarEstadoMusica();
+    }
 );
 
 actualizarEstadoMusica();
 
 /* =====================================================
-ANIMACIONES AL HACER SCROLL
+   ANIMACIONES AL HACER SCROLL
 ===================================================== */
 
 const elementosAnimados =
-$$(".evento-card, .regalo, .rsvp-card");
+    $$(".evento-card, .regalo, .rsvp-card");
 
 document.documentElement.classList.add(
-"js"
+    "js"
 );
 
 if (
-"IntersectionObserver" in window &&
-elementosAnimados.length
+    "IntersectionObserver" in window &&
+    elementosAnimados.length
 ) {
 
-const observer =
-    new IntersectionObserver(
-        entries => {
+    const observer =
+        new IntersectionObserver(
+            entries => {
 
-            entries.forEach(
-                entry => {
+                entries.forEach(
+                    entry => {
 
-                    if (
-                        !entry.isIntersecting
-                    ) {
-                        return;
+                        if (
+                            !entry.isIntersecting
+                        ) {
+                            return;
+                        }
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
                     }
+                );
+            },
+            {
+                threshold: 0.12,
 
+                rootMargin:
+                    "0px 0px -40px 0px"
+            }
+        );
 
-                    entry.target.classList.add(
-                        "visible"
-                    );
+    elementosAnimados.forEach(
+        elemento => {
 
-
-                    observer.unobserve(
-                        entry.target
-                    );
-                }
+            elemento.classList.add(
+                "animar-entrada"
             );
-        },
-        {
-            threshold: 0.12,
-            rootMargin:
-                "0px 0px -40px 0px"
+
+            observer.observe(
+                elemento
+            );
         }
     );
-
-
-elementosAnimados.forEach(
-    elemento => {
-
-        elemento.classList.add(
-            "animar-entrada"
-        );
-
-
-        observer.observe(
-            elemento
-        );
-    }
-);
-
 }
 
 /* =====================================================
-PAUSAR MÚSICA AL SALIR DE LA PÁGINA
+   PAUSAR MÚSICA AL SALIR DE LA PÁGINA
 ===================================================== */
 
 on(
-document,
-"visibilitychange",
-() => {
+    document,
+    "visibilitychange",
+    () => {
 
-    if (
-        document.hidden &&
-        musica &&
-        !musica.paused
-    ) {
+        if (
+            document.hidden &&
+            musica &&
+            !musica.paused
+        ) {
 
-        musica.pause();
+            musica.pause();
+        }
     }
-}
-
 );
 
 /* =====================================================
-FINAL
+   FINAL
 ===================================================== */
 
 console.log(
-"✓ Invitación de boda de Omar & Wendy cargada correctamente."
+    "✓ Invitación de boda de Omar & Wendy cargada correctamente."
 );
