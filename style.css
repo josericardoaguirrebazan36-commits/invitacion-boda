@@ -1761,171 +1761,292 @@ h3 {
 
 
 /* =====================================================
-   REGALOS
+REGALOS
 ===================================================== */
 
 .regalos {
 
-    padding: 100px 20px;
+padding: 100px 20px;
 
-    background: var(--crema-2);
+background: var(--crema-2);
 
-    text-align: center;
+text-align: center;
+
 }
-
 
 .regalos-contenido {
 
-    width: min(750px, 100%);
+```
+width: min(850px, 100%);
 
-    margin: auto;
+margin: auto;
+
 }
-
 
 .regalos h2 {
 
-    font-size: clamp(2.5rem, 5vw, 3.8rem);
 
-    font-weight: 500;
+font-size: clamp(2.5rem, 5vw, 3.8rem);
 
-    line-height: 1.05;
+font-weight: 500;
+
+line-height: 1.05;
+
+}
+
+/* =====================================================
+TARJETAS
+===================================================== */
+
+.regalos-grid {
+
+
+display: grid;
+
+grid-template-columns: repeat(2, 1fr);
+
+gap: 20px;
+
+margin-top: 35px;
+
+}
+
+.regalo {
+
+padding: 30px 25px;
+
+background: rgba(255, 253, 249, .90);
+
+border: 1px solid var(--linea);
+
+border-radius: 16px;
+
+box-shadow: var(--sombra-suave);
+
+
+}
+
+/* =====================================================
+ICONO YAPE
+===================================================== */
+
+.yape-encabezado {
+
+
+display: flex;
+
+justify-content: center;
+
+margin-bottom: 18px;
+
+
+}
+
+.yape-icono {
+
+width: 58px;
+
+height: 58px;
+
+object-fit: contain;
+
+
+}
+
+/* =====================================================
+NÚMERO
+===================================================== */
+
+.yape-numero {
+
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+gap: 12px;
+
+color: var(--texto);
+
+font-size: 1rem;
+
+line-height: 1.7;
+
+}
+
+.yape-numero span {
+
+
+font-weight: 500;
+
+
+}
+
+.yape-numero button {
+
+
+flex-shrink: 0;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+width: 42px;
+
+height: 42px;
+
+background: transparent;
+
+border: 1px solid var(--linea);
+
+border-radius: 50%;
+
+color: var(--dorado-oscuro);
+
+font-size: 1.1rem;
+
+cursor: pointer;
+
+transition:
+    background .25s ease,
+    border-color .25s ease,
+    transform .25s ease;
+
+
+}
+
+.yape-numero button:hover {
+
+
+background: var(--crema);
+
+border-color: var(--dorado-claro);
+
+transform: scale(1.05);
+
+
+}
+
+/* =====================================================
+DATOS
+===================================================== */
+
+.yape-datos {
+
+
+display: flex;
+
+flex-direction: column;
+
+gap: 3px;
+
+margin-top: 8px;
+
+color: var(--texto-suave);
+
+font-size: .85rem;
+
+line-height: 1.5;
+
+
+}
+
+/* =====================================================
+COPIADO
+===================================================== */
+
+.copiado {
+
+
+display: block;
+
+margin-top: 10px;
+
+color: var(--dorado-oscuro);
+
+font-size: .78rem;
+
+opacity: 0;
+
+transition: opacity .3s ease;
+
+
+}
+
+.copiado.visible {
+
+
+opacity: 1;
+
+
+}
+
+/* =====================================================
+FINAL
+===================================================== */
+
+.regalos-final {
+
+margin-top: 45px;
+
+}
+
+.regalos-final p {
+
+color: var(--texto-suave);
+
+font-size: .92rem;
+
+line-height: 1.7;
+
+}
+
+.regalos-final span {
+display: block;
+
+margin-top: 18px;
+
+color: var(--dorado);
+
+font-family: var(--serif);
+
+font-size: 1.4rem;
+
+
+}
+
+/* =====================================================
+MÓVIL
+===================================================== */
+
+@media (max-width: 650px) {
+
+.regalos {
+
+    padding: 80px 18px;
+
 }
 
 
 .regalos-grid {
 
-    display: grid;
-
     grid-template-columns: 1fr;
 
-    gap: 20px;
+    gap: 16px;
 
-    margin-top: 35px;
 }
 
 
 .regalo {
 
-    padding: 32px;
+    padding: 28px 20px;
 
-    background: rgba(255, 253, 249, .90);
-
-    border: 1px solid var(--linea);
-
-    border-radius: 16px;
-
-    box-shadow: var(--sombra-suave);
 }
 
-
-.yape-numero {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 15px;
-
-    color: var(--texto);
-
-    font-size: 1rem;
-
-    line-height: 1.7;
-}
-
-
-.yape-numero button {
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    width: 44px;
-
-    height: 44px;
-
-    background: transparent;
-
-    border: 1px solid var(--linea);
-
-    border-radius: 50%;
-
-    color: var(--dorado-oscuro);
-
-    font-size: 1.2rem;
-
-    transition:
-        background .25s ease,
-        border-color .25s ease,
-        transform .25s ease;
-}
-
-
-.yape-numero button:hover {
-
-    background: var(--crema);
-
-    border-color: var(--dorado-claro);
-
-    transform: scale(1.05);
-}
-
-
-.copiado {
-
-    display: block;
-
-    margin-top: 10px;
-
-    color: var(--dorado-oscuro);
-
-    font-size: .78rem;
-
-    opacity: 0;
-
-    transition: opacity .3s ease;
-}
-
-
-.copiado.visible {
-
-    opacity: 1;
-}
-
-
-.regalos-final {
-
-    margin-top: 45px;
-}
-
-
-.regalos-final p {
-
-    color: var(--texto-suave);
-
-    font-size: .92rem;
-
-    line-height: 1.7;
-}
-
-
-.regalos-final span {
-
-    display: block;
-
-    margin-top: 18px;
-
-    color: var(--dorado);
-
-    font-family: var(--serif);
-
-    font-size: 1.4rem;
 }
 
 
