@@ -1480,8 +1480,8 @@ Estos datos son reservados. Por favor, no los compartas con otras personas.`;
     );
 
 
-    /* =====================================================
-COPIAR YAPE
+/* =====================================================
+COPIAR NÚMEROS DE YAPE
 ===================================================== */
 
 function configurarCopiarYape(
@@ -1489,7 +1489,6 @@ botonId,
 numero,
 mensajeId
 ) {
-
 
 const boton =
     $(botonId);
@@ -1502,6 +1501,13 @@ on(
     boton,
     "click",
     async () => {
+
+        if (!boton || !mensaje) {
+
+            return;
+
+        }
+
 
         const copiado =
             await copiarTexto(numero);
@@ -1543,8 +1549,11 @@ on(
     }
 );
 
-
 }
+
+/* =====================================================
+NÚMEROS
+===================================================== */
 
 configurarCopiarYape(
 "copiarYape",
