@@ -1776,80 +1776,142 @@ text-align: center;
 
 .regalos-contenido {
 
-```
-width: min(850px, 100%);
+width: min(650px, 100%);
 
-margin: auto;
-
-}
-
-.regalos h2 {
-
-
-font-size: clamp(2.5rem, 5vw, 3.8rem);
-
-font-weight: 500;
-
-line-height: 1.05;
+margin: 0 auto;
 
 }
 
 /* =====================================================
-TARJETAS
+TÍTULO
+===================================================== */
+
+.regalos h2 {
+
+margin: 0 auto;
+
+font-size: clamp(
+    2.3rem,
+    5vw,
+    3.6rem
+);
+
+font-weight: 500;
+
+line-height: 1.08;
+
+}
+
+/* =====================================================
+ORNAMENTO
+===================================================== */
+
+.regalos .ornamento {
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+gap: 14px;
+
+width: min(260px, 70%);
+
+margin: 28px auto 38px;
+
+}
+
+.regalos .ornamento span {
+
+flex: 1;
+
+height: 1px;
+
+background: var(--dorado-claro);
+
+}
+
+.regalos .ornamento b {
+
+font-family: var(--serif);
+
+font-size: 1.3rem;
+
+font-weight: 400;
+
+color: var(--dorado);
+
+}
+
+/* =====================================================
+TARJETA
 ===================================================== */
 
 .regalos-grid {
 
-
-display: grid;
-
-grid-template-columns: repeat(2, 1fr);
-
-gap: 20px;
-
-margin-top: 35px;
+margin-top: 0;
 
 }
 
 .regalo {
 
-padding: 30px 25px;
+padding: 38px 30px;
 
-background: rgba(255, 253, 249, .90);
+background: rgba(
+    255,
+    253,
+    249,
+    .92
+);
 
 border: 1px solid var(--linea);
 
 border-radius: 16px;
 
-box-shadow: var(--sombra-suave);
-
+box-shadow:
+    0 14px 38px
+    rgba(80, 65, 45, .07);
 
 }
 
 /* =====================================================
-ICONO YAPE
+LOGO YAPE
 ===================================================== */
 
-.yape-encabezado {
-
+.yape-icono {
 
 display: flex;
 
 justify-content: center;
 
-margin-bottom: 18px;
-
+margin-bottom: 28px;
 
 }
 
-.yape-icono {
+.yape-icono img {
 
-width: 58px;
+width: 64px;
 
-height: 58px;
+height: 64px;
 
 object-fit: contain;
 
+}
+
+/* =====================================================
+CONTACTOS YAPE
+===================================================== */
+
+.yape-contacto {
+
+padding: 18px 0;
+
+}
+
+.yape-contacto + .yape-contacto {
+
+border-top: 1px solid var(--linea);
 
 }
 
@@ -1859,7 +1921,6 @@ NÚMERO
 
 .yape-numero {
 
-
 display: flex;
 
 align-items: center;
@@ -1868,26 +1929,21 @@ justify-content: center;
 
 gap: 12px;
 
-color: var(--texto);
-
-font-size: 1rem;
-
-line-height: 1.7;
-
 }
 
-.yape-numero span {
+.yape-numero > span {
 
+color: var(--texto);
 
-font-weight: 500;
+font-size: 1.08rem;
 
+font-weight: 600;
+
+letter-spacing: .025em;
 
 }
 
 .yape-numero button {
-
-
-flex-shrink: 0;
 
 display: flex;
 
@@ -1895,9 +1951,13 @@ align-items: center;
 
 justify-content: center;
 
-width: 42px;
+flex-shrink: 0;
 
-height: 42px;
+width: 40px;
+
+height: 40px;
+
+padding: 0;
 
 background: transparent;
 
@@ -1907,7 +1967,7 @@ border-radius: 50%;
 
 color: var(--dorado-oscuro);
 
-font-size: 1.1rem;
+font-size: 1.05rem;
 
 cursor: pointer;
 
@@ -1916,11 +1976,9 @@ transition:
     border-color .25s ease,
     transform .25s ease;
 
-
 }
 
-.yape-numero button:hover {
-
+.yape-numero button {
 
 background: var(--crema);
 
@@ -1928,30 +1986,69 @@ border-color: var(--dorado-claro);
 
 transform: scale(1.05);
 
+}
+
+/* =====================================================
+NOMBRE
+===================================================== */
+
+.yape-nombre {
+
+display: block;
+
+margin-top: 5px;
+
+color: var(--texto-suave);
+
+font-size: .84rem;
 
 }
 
 /* =====================================================
-DATOS
+DIRECCIÓN
 ===================================================== */
 
-.yape-datos {
-
+.yape-direccion {
 
 display: flex;
 
-flex-direction: column;
+align-items: center;
 
-gap: 3px;
+justify-content: center;
 
-margin-top: 8px;
+gap: 10px;
+
+margin-top: 15px;
+
+padding-top: 22px;
+
+border-top: 1px solid var(--linea);
 
 color: var(--texto-suave);
 
-font-size: .85rem;
+font-size: .84rem;
 
-line-height: 1.5;
+}
 
+.casa-icono {
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+width: 34px;
+
+height: 34px;
+
+border: 1px solid var(--dorado-claro);
+
+border-radius: 50%;
+
+color: var(--dorado);
+
+font-size: 1.2rem;
 
 }
 
@@ -1961,27 +2058,33 @@ COPIADO
 
 .copiado {
 
-
 display: block;
 
-margin-top: 10px;
+height: 0;
 
-color: var(--dorado-oscuro);
+margin-top: 0;
 
-font-size: .78rem;
+overflow: hidden;
 
 opacity: 0;
 
-transition: opacity .3s ease;
+color: var(--dorado-oscuro);
 
+font-size: .76rem;
+
+transition:
+    opacity .25s ease,
+    margin .25s ease;
 
 }
 
 .copiado.visible {
 
+height: auto;
+
+margin-top: 10px;
 
 opacity: 1;
-
 
 }
 
@@ -1997,6 +2100,8 @@ margin-top: 45px;
 
 .regalos-final p {
 
+margin: 0;
+
 color: var(--texto-suave);
 
 font-size: .92rem;
@@ -2006,6 +2111,7 @@ line-height: 1.7;
 }
 
 .regalos-final span {
+
 display: block;
 
 margin-top: 18px;
@@ -2016,14 +2122,13 @@ font-family: var(--serif);
 
 font-size: 1.4rem;
 
-
 }
 
 /* =====================================================
 MÓVIL
 ===================================================== */
 
-@media (max-width: 650px) {
+@media (max-width: 600px) {
 
 .regalos {
 
@@ -2032,18 +2137,25 @@ MÓVIL
 }
 
 
-.regalos-grid {
+.regalo {
 
-    grid-template-columns: 1fr;
-
-    gap: 16px;
+    padding: 32px 20px;
 
 }
 
 
-.regalo {
+.yape-icono img {
 
-    padding: 28px 20px;
+    width: 58px;
+
+    height: 58px;
+
+}
+
+
+.yape-numero > span {
+
+    font-size: 1rem;
 
 }
 
