@@ -1481,74 +1481,82 @@ Estos datos son reservados. Por favor, no los compartas con otras personas.`;
 
 
     /* =====================================================
-       COPIAR YAPE
-    ===================================================== */
+COPIAR YAPE
+===================================================== */
 
-    const copiarYape =
-        $("copiarYape");
-
-
-    const numeroYape =
-        $("numeroYape");
-
-
-    const mensajeCopiado =
-        $("mensajeCopiado");
+function configurarCopiarYape(
+botonId,
+numero,
+mensajeId
+) {
 
 
-    on(
-        copiarYape,
-        "click",
-        async () => {
+const boton =
+    $(botonId);
 
-            if (!numeroYape) {
-
-                return;
-
-            }
+const mensaje =
+    $(mensajeId);
 
 
-            const copiado =
-                await copiarTexto(
-                    CONFIG.numeroYape
-                );
+on(
+    boton,
+    "click",
+    async () => {
+
+        const copiado =
+            await copiarTexto(numero);
 
 
-            if (!copiado) {
+        if (!copiado) {
 
-                return;
-
-            }
-
-
-            toggleClass(
-                mensajeCopiado,
-                "visible",
-                true
-            );
-
-
-            setText(
-                mensajeCopiado,
-                "Número copiado ✓"
-            );
-
-
-            setTimeout(
-                () => {
-
-                    toggleClass(
-                        mensajeCopiado,
-                        "visible",
-                        false
-                    );
-
-                },
-                2500
-            );
+            return;
 
         }
-    );
+
+
+        toggleClass(
+            mensaje,
+            "visible",
+            true
+        );
+
+
+        setText(
+            mensaje,
+            "Número copiado ✓"
+        );
+
+
+        setTimeout(
+            () => {
+
+                toggleClass(
+                    mensaje,
+                    "visible",
+                    false
+                );
+
+            },
+            2500
+        );
+
+    }
+);
+
+
+}
+
+configurarCopiarYape(
+"copiarYape",
+CONFIG.numeroYape,
+"mensajeCopiado"
+);
+
+configurarCopiarYape(
+"copiarYape2",
+CONFIG.numeroYape2,
+"mensajeCopiado2"
+);
 
 
     /* =====================================================
