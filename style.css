@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
 
 /* =====================================================
-FUENTES Y VARIABLES
+VARIABLES
 ===================================================== */
 
 {
@@ -33,7 +33,9 @@ FUENTES Y VARIABLES
 RESET
 ===================================================== */
 
-{
+*,
+*::before,
+*::after {
 box-sizing: border-box;
 margin: 0;
 padding: 0;
@@ -46,13 +48,17 @@ scroll-padding-top: 20px;
 
 body {
 min-width: 320px;
-font-family: var(--sans);
+overflow-x: hidden;
+
 background: var(--crema);
 color: var(--texto);
+
+font-family: var(--sans);
 line-height: 1.6;
-overflow-x: hidden;
+
 -webkit-font-smoothing: antialiased;
 text-rendering: optimizeLegibility;
+
 }
 
 body.no-scroll {
@@ -71,12 +77,6 @@ button {
 cursor: pointer;
 }
 
-button,
-a {
-outline: 2px solid var(--dorado);
-outline-offset: 4px;
-}
-
 a {
 color: inherit;
 text-decoration: none;
@@ -85,6 +85,12 @@ text-decoration: none;
 img {
 display: block;
 max-width: 100%;
+}
+
+button,
+a {
+outline: 2px solid var(--dorado);
+outline-offset: 4px;
 }
 
 ::selection {
@@ -98,14 +104,20 @@ ELEMENTOS GENERALES
 
 .eyebrow {
 display: inline-block;
+
 margin-bottom: 14px;
+
 color: var(--dorado-oscuro);
+
 font-size: .8rem;
 font-weight: 700;
+
 letter-spacing: .18em;
 text-transform: uppercase;
+
 }
 
+h1,
 h2,
 h3 {
 font-family: var(--serif);
@@ -116,43 +128,50 @@ font-weight: 600;
 display: flex;
 align-items: center;
 justify-content: center;
+
 gap: 15px;
+
 width: 100%;
 margin: 22px auto;
+
 }
 
 .ornamento span {
 width: 70px;
 height: 1px;
+
 background: var(--dorado-claro);
+
 opacity: .85;
+
 }
 
 .ornamento b {
 color: var(--dorado);
+
 font-family: var(--serif);
 font-size: 1.25rem;
 font-weight: 500;
+
 }
 
 /* =====================================================
 PORTADA
-Fondo sólido elegante, sin fotografía ni degradado
 ===================================================== */
 
 .hero {
 position: relative;
-min-height: 100svh;
 
 display: flex;
 align-items: center;
 justify-content: center;
 
-background: var(--crema);
-
-color: var(--texto);
+min-height: 100svh;
 
 overflow: hidden;
+
+background: var(--crema);
+color: var(--texto);
 
 }
 
@@ -170,13 +189,12 @@ pointer-events: none;
 
 }
 
-/* Detalle decorativo de esquina */
+/* Detalle superior */
 
 .hero::after {
 content: "✦";
 
 position: absolute;
-
 top: 43px;
 left: 50%;
 
@@ -228,7 +246,6 @@ gap: clamp(14px, 3vw, 30px);
 color: var(--texto);
 
 font-family: var(--serif);
-
 font-size: clamp(4.2rem, 10vw, 7.8rem);
 font-weight: 500;
 
@@ -262,9 +279,9 @@ margin: 34px auto 28px;
 }
 
 .hero-linea span {
-height: 1px;
-
 flex: 1;
+
+height: 1px;
 
 background: var(--dorado-claro);
 
@@ -306,7 +323,6 @@ margin: 34px 0;
 color: var(--dorado);
 
 font-family: var(--serif);
-
 font-size: 4rem;
 font-weight: 500;
 
@@ -355,11 +371,9 @@ min-height: 54px;
 padding: 0 32px;
 
 border: 1px solid var(--dorado);
-
 border-radius: 2px;
 
 background: transparent;
-
 color: var(--dorado-oscuro);
 
 font-size: .78rem;
@@ -378,7 +392,6 @@ transition:
 
 .hero-boton {
 background: var(--dorado);
-
 color: #fff;
 
 transform: translateY(-2px);
@@ -389,19 +402,17 @@ box-shadow: var(--sombra);
 
 .hero-scroll {
 position: absolute;
-
-left: 50%;
 bottom: 22px;
-
+left: 50%;
 z-index: 3;
-
-transform: translateX(-50%);
 
 display: flex;
 flex-direction: column;
 align-items: center;
 
 gap: 5px;
+
+transform: translateX(-50%);
 
 color: var(--dorado-oscuro);
 
@@ -484,7 +495,6 @@ display: block;
 color: var(--dorado);
 
 font-family: var(--serif);
-
 font-size: clamp(3rem, 6vw, 4.7rem);
 font-weight: 500;
 
@@ -511,7 +521,6 @@ text-transform: uppercase;
 color: var(--dorado-claro);
 
 font-family: var(--serif);
-
 font-size: 2rem;
 font-weight: 400;
 
@@ -566,15 +575,15 @@ line-height: 1.75;
 }
 
 .evento-lista {
-width: min(1050px, 100%);
-
-margin: auto;
-
 display: grid;
 
 grid-template-columns: repeat(2, 1fr);
 
 gap: 25px;
+
+width: min(1050px, 100%);
+
+margin: auto;
 
 }
 
@@ -592,7 +601,6 @@ padding: 38px 30px;
 background: var(--blanco);
 
 border: 1px solid var(--linea);
-
 border-radius: var(--radio);
 
 box-shadow: var(--sombra-suave);
@@ -624,18 +632,17 @@ letter-spacing: .12em;
 }
 
 .evento-icono {
-width: 62px;
-height: 62px;
-
 display: flex;
 align-items: center;
 justify-content: center;
 
-border: 1px solid var(--dorado-claro);
-
-border-radius: 50%;
+width: 62px;
+height: 62px;
 
 background: #faf7f0;
+
+border: 1px solid var(--dorado-claro);
+border-radius: 50%;
 
 }
 
@@ -684,7 +691,6 @@ margin: 10px 0 18px;
 color: var(--dorado);
 
 font-family: var(--serif);
-
 font-size: 1.8rem;
 font-weight: 500;
 
@@ -792,6 +798,8 @@ cursor: pointer;
 
 filter: saturate(.92);
 
+opacity: .94;
+
 transition:
     transform .45s ease,
     filter .45s ease,
@@ -804,42 +812,38 @@ transform: scale(.985);
 
 filter: saturate(1);
 
-opacity: .94;
+opacity: 1;
 
 }
 
 .galeria-control {
 position: absolute;
-
 top: 50%;
-
 z-index: 5;
+
+display: flex;
+align-items: center;
+justify-content: center;
 
 width: 45px;
 height: 45px;
 
 transform: translateY(-50%);
 
-display: flex;
-align-items: center;
-justify-content: center;
+background: rgba(255, 253, 249, .96);
 
 border: 1px solid var(--linea);
-
 border-radius: 50%;
-
-background: rgba(255,253,249,.96);
 
 color: var(--texto);
 
 font-family: var(--serif);
-
 font-size: 2rem;
 font-weight: 400;
 
 line-height: 1;
 
-box-shadow: 0 8px 25px rgba(0,0,0,.10);
+box-shadow: 0 8px 25px rgba(0, 0, 0, .10);
 
 transition:
     background .25s ease,
@@ -872,7 +876,6 @@ LIGHTBOX
 .lightbox {
 position: fixed;
 inset: 0;
-
 z-index: 1000;
 
 display: none;
@@ -881,7 +884,7 @@ justify-content: center;
 
 padding: 30px;
 
-background: rgba(25,21,17,.95);
+background: rgba(25, 21, 17, .95);
 
 backdrop-filter: blur(4px);
 
@@ -893,22 +896,24 @@ display: flex;
 
 .lightbox img {
 max-width: min(1100px, 95vw);
-
 max-height: 90vh;
 
 object-fit: contain;
 
 border-radius: 4px;
 
-box-shadow: 0 30px 80px rgba(0,0,0,.35);
+box-shadow: 0 30px 80px rgba(0, 0, 0, .35);
 
 }
 
 .lightbox-cerrar {
 position: absolute;
-
 top: 20px;
 right: 25px;
+
+display: flex;
+align-items: center;
+justify-content: center;
 
 width: 50px;
 height: 50px;
@@ -956,7 +961,6 @@ padding: clamp(40px, 7vw, 72px);
 background: var(--blanco);
 
 border: 1px solid var(--linea);
-
 border-radius: 24px;
 
 text-align: center;
@@ -967,7 +971,6 @@ box-shadow: var(--sombra);
 
 .rsvp-card h2 {
 font-size: clamp(3rem, 7vw, 4.8rem);
-
 font-weight: 500;
 
 line-height: .95;
@@ -980,7 +983,6 @@ margin-top: 15px;
 color: var(--dorado-oscuro);
 
 font-family: var(--serif);
-
 font-size: 1.55rem;
 font-weight: 600;
 
@@ -1004,16 +1006,14 @@ grid-template-columns: 45px 1fr 30px;
 align-items: center;
 
 width: 100%;
-
 min-height: 78px;
 
 padding: 12px 18px;
 
+background: rgba(255, 255, 255, .65);
+
 border: 1px solid var(--linea);
-
 border-radius: 12px;
-
-background: rgba(255,255,255,.65);
 
 color: var(--texto);
 
@@ -1096,14 +1096,12 @@ line-height: 1.45;
 }
 
 .principal .btn-texto small {
-color: rgba(255,255,255,.84);
+color: rgba(255, 255, 255, .84);
 }
 
 .btn-flecha {
 font-size: 1.1rem;
-
 font-weight: 400;
-
 }
 
 .guardar-fecha {
@@ -1148,7 +1146,6 @@ font-size: 1.2rem;
 
 .opciones-calendario {
 display: none;
-
 flex-direction: column;
 
 gap: 10px;
@@ -1169,6 +1166,10 @@ font-size: .82rem;
 text-decoration: underline;
 text-underline-offset: 3px;
 
+}
+
+.opciones-calendario a {
+color: var(--dorado);
 }
 
 /* =====================================================
@@ -1193,7 +1194,6 @@ margin: auto;
 
 .regalos h2 {
 font-size: clamp(2.5rem, 5vw, 3.8rem);
-
 font-weight: 500;
 
 line-height: 1.05;
@@ -1214,10 +1214,9 @@ margin-top: 35px;
 .regalo {
 padding: 32px;
 
-background: rgba(255,253,249,.90);
+background: rgba(255, 253, 249, .90);
 
 border: 1px solid var(--linea);
-
 border-radius: 16px;
 
 box-shadow: var(--sombra-suave);
@@ -1242,18 +1241,17 @@ line-height: 1.7;
 .yape-numero button {
 flex-shrink: 0;
 
-width: 44px;
-height: 44px;
-
 display: flex;
 align-items: center;
 justify-content: center;
 
-border: 1px solid var(--linea);
-
-border-radius: 50%;
+width: 44px;
+height: 44px;
 
 background: transparent;
+
+border: 1px solid var(--linea);
+border-radius: 50%;
 
 color: var(--dorado-oscuro);
 
@@ -1302,6 +1300,7 @@ margin-top: 45px;
 color: var(--texto-suave);
 
 font-size: .92rem;
+
 line-height: 1.7;
 
 }
@@ -1314,7 +1313,6 @@ margin-top: 18px;
 color: var(--dorado);
 
 font-family: var(--serif);
-
 font-size: 1.4rem;
 
 }
@@ -1326,17 +1324,15 @@ MODALES
 .modal {
 position: fixed;
 inset: 0;
-
 z-index: 2000;
 
 display: none;
-
 align-items: center;
 justify-content: center;
 
 padding: 20px;
 
-background: rgba(25,21,17,.68);
+background: rgba(25, 21, 17, .68);
 
 backdrop-filter: blur(6px);
 
@@ -1350,7 +1346,6 @@ display: flex;
 position: relative;
 
 width: min(480px, 100%);
-
 max-height: calc(100svh - 40px);
 
 overflow-y: auto;
@@ -1360,7 +1355,6 @@ padding: 45px 35px;
 background: var(--blanco);
 
 border: 1px solid var(--linea);
-
 border-radius: 20px;
 
 box-shadow: var(--sombra-fuerte);
@@ -1374,28 +1368,33 @@ animation: aparecer .25s ease;
 @keyframes aparecer {
 from {
 opacity: 0;
-transform: translateY(15px) scale(.98);
+
+    transform:
+        translateY(15px)
+        scale(.98);
 }
 
 to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+
+    transform:
+        translateY(0)
+        scale(1);
 }
 
 }
 
 .modal-cerrar {
 position: absolute;
-
 top: 12px;
 right: 17px;
-
-width: 40px;
-height: 40px;
 
 display: flex;
 align-items: center;
 justify-content: center;
+
+width: 40px;
+height: 40px;
 
 border: 0;
 
@@ -1448,13 +1447,13 @@ margin-top: 15px;
 color: var(--texto-suave);
 
 font-size: .92rem;
+
 line-height: 1.7;
 
 }
 
 .selector-personas {
 display: flex;
-
 align-items: center;
 justify-content: center;
 
@@ -1465,18 +1464,17 @@ margin: 30px 0;
 }
 
 .selector-personas > button {
-width: 45px;
-height: 45px;
-
 display: flex;
 align-items: center;
 justify-content: center;
 
-border: 1px solid var(--linea);
-
-border-radius: 50%;
+width: 45px;
+height: 45px;
 
 background: transparent;
+
+border: 1px solid var(--linea);
+border-radius: 50%;
 
 color: var(--texto);
 
@@ -1484,7 +1482,8 @@ font-size: 1.5rem;
 
 transition:
     background .25s ease,
-    border-color .25s ease;
+    border-color .25s ease,
+    transform .25s ease;
 
 }
 
@@ -1492,6 +1491,8 @@ transition:
 background: var(--crema);
 
 border-color: var(--dorado-claro);
+
+transform: scale(1.05);
 
 }
 
@@ -1505,7 +1506,6 @@ display: block;
 color: var(--dorado);
 
 font-family: var(--serif);
-
 font-size: 3.2rem;
 font-weight: 500;
 
@@ -1522,7 +1522,6 @@ font-size: .78rem;
 
 .modal-icono {
 display: flex;
-
 align-items: center;
 justify-content: center;
 
@@ -1531,9 +1530,9 @@ height: 60px;
 
 margin: 0 auto 20px;
 
-border-radius: 50%;
-
 background: var(--crema-2);
+
+border-radius: 50%;
 
 color: var(--dorado);
 
@@ -1579,9 +1578,9 @@ transform: translateY(-1px);
 }
 
 .modal-confirmar {
-border: 1px solid var(--dorado);
-
 background: var(--dorado);
+
+border: 1px solid var(--dorado);
 
 color: #fff;
 
@@ -1595,9 +1594,9 @@ border-color: var(--dorado-oscuro);
 }
 
 .modal-cancelar {
-border: 1px solid var(--linea);
-
 background: transparent;
+
+border: 1px solid var(--linea);
 
 color: var(--texto-suave);
 
@@ -1614,9 +1613,15 @@ border-color: #8b625d;
 
 }
 
+.modal-confirmar.no {
+background: #76514d;
+
+border-color: #76514d;
+
+}
+
 .icono-exito {
 display: flex;
-
 align-items: center;
 justify-content: center;
 
@@ -1625,9 +1630,9 @@ height: 65px;
 
 margin: 0 auto 20px;
 
-border-radius: 50%;
-
 background: var(--crema-2);
+
+border-radius: 50%;
 
 color: var(--dorado);
 
@@ -1641,32 +1646,28 @@ MÚSICA
 
 .boton-musica {
 position: fixed;
-
 right: 22px;
 bottom: 22px;
-
 z-index: 500;
-
-width: 52px;
-height: 52px;
 
 display: flex;
 align-items: center;
 justify-content: center;
 
+width: 52px;
+height: 52px;
+
+background: rgba(255, 253, 249, .96);
+
 border: 1px solid var(--dorado);
-
 border-radius: 50%;
-
-background: rgba(255,253,249,.96);
 
 color: var(--dorado-oscuro);
 
 font-family: var(--serif);
-
 font-size: 1.4rem;
 
-box-shadow: 0 10px 30px rgba(0,0,0,.12);
+box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
 
 backdrop-filter: blur(5px);
 
@@ -2000,9 +2001,9 @@ MÓVILES PEQUEÑOS
 }
 
 .hero-nombres {
-    font-size: clamp(3.1rem, 17vw, 4.8rem);
-
     gap: 9px;
+
+    font-size: clamp(3.1rem, 17vw, 4.8rem);
 }
 
 .hero-frase {
