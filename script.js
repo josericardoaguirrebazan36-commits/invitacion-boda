@@ -103,59 +103,62 @@ function toggleClass(
 ===================================================== */
 
 const contador = {
-
-    dias:
-        $("dias"),
-
-    horas:
-        $("horas"),
-
-    minutos:
-        $("minutos"),
-
-    segundos:
-        $("segundos")
-
+    dias: $("dias"),
+    horas: $("horas"),
+    minutos: $("minutos"),
+    segundos: $("segundos")
 };
+
+
+/*
+   FECHA DE LA BODA
+
+   9 de octubre de 2026
+   3:00 p. m.
+   
+   Se crea con números para evitar problemas
+   de interpretación de fecha entre navegadores.
+*/
+const fechaBoda = new Date(
+    2026,
+    9,       // Octubre (0 = enero)
+    9,       // Día
+    15,      // 3:00 p. m.
+    0,
+    0
+);
 
 
 function actualizarContador() {
 
-    const diferencia =
-        CONFIG.fechaBoda.getTime() -
-        Date.now();
+    const ahora = new Date();
 
+    const diferencia =
+        fechaBoda.getTime() -
+        ahora.getTime();
+
+
+    /* ================================================
+       CUANDO LLEGUE EL DÍA DE LA BODA
+    ================================================ */
 
     if (diferencia <= 0) {
 
-        setText(
-            contador.dias,
-            "00"
-        );
-
-        setText(
-            contador.horas,
-            "00"
-        );
-
-        setText(
-            contador.minutos,
-            "00"
-        );
-
-        setText(
-            contador.segundos,
-            "00"
-        );
+        setText(contador.dias, "00");
+        setText(contador.horas, "00");
+        setText(contador.minutos, "00");
+        setText(contador.segundos, "00");
 
         return;
     }
 
 
+    /* ================================================
+       CÁLCULO DEL TIEMPO RESTANTE
+    ================================================ */
+
     const totalSegundos =
-        Math.floor(
-            diferencia / 1000
-        );
+        Math.floor(diferencia / 1000);
 
 
     const dias =
@@ -180,46 +183,40 @@ function actualizarContador() {
         totalSegundos % 60;
 
 
+    /* ================================================
+       MOSTRAR RESULTADOS
+    ================================================ */
+
     setText(
         contador.dias,
-        String(dias).padStart(
-            2,
-            "0"
-        )
+        String(dias).padStart(2, "0")
     );
 
 
     setText(
         contador.horas,
-        String(horas).padStart(
-            2,
-            "0"
-        )
+        String(horas).padStart(2, "0")
     );
 
 
     setText(
         contador.minutos,
-        String(minutos).padStart(
-            2,
-            "0"
-        )
+        String(minutos).padStart(2, "0")
     );
 
 
     setText(
         contador.segundos,
-        String(segundos).padStart(
-            2,
-            "0"
-        )
+        String(segundos).padStart(2, "0")
     );
-
 }
 
 
-actualizarContador();
+/* =====================================================
+   INICIAR CONTADOR
+===================================================== */
 
+actualizarContador();
 
 setInterval(
     actualizarContador,
