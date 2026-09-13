@@ -1203,6 +1203,118 @@ function obtenerMensajeConfirmacion(
 
 
 /* =====================================================
+   ESTADO DE CARGA DE LA CONFIRMACIÓN
+===================================================== */
+
+/*
+ * Muestra un indicador de carga mientras esperamos
+ * a que Google Apps Script procese la respuesta.
+ */
+function mostrarCargandoConfirmacion() {
+
+    const boton =
+        $("confirmarPresencial");
+
+    if (!boton) {
+        return;
+    }
+
+    boton.disabled = true;
+    boton.setAttribute(
+        "aria-busy",
+        "true"
+    );
+
+    /*
+     * Guardamos el texto original para restaurarlo
+     * si fuera necesario.
+     */
+    if (!boton.dataset.textoOriginal) {
+        boton.dataset.textoOriginal =
+            boton.textContent.trim();
+    }
+
+    boton.innerHTML = `
+        <span
+            class="indicador-cargando"
+            aria-hidden="true"
+        ></span>
+        <span>Confirmando...</span>
+    `;
+
+    /*
+     * El estilo se agrega aquí para que no dependa
+     * de cambios adicionales en tu archivo CSS.
+     */
+    const estilo =
+        document.createElement("style");
+
+    estilo.id =
+        "estilo-indicador-cargando";
+
+    estilo.textContent = `
+        .indicador-cargando {
+            display: inline-block;
+            width: 1.15em;
+            height: 1.15em;
+            margin-right: 0.55em;
+            border: 0.16em solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            vertical-align: -0.2em;
+            animation: girar-indicador 0.8s linear infinite;
+        }
+
+        @keyframes girar-indicador {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .indicador-cargando {
+                animation: none;
+                border-right-color: currentColor;
+                opacity: 0.65;
+            }
+        }
+    `;
+
+    if (!document.getElementById(
+        "estilo-indicador-cargando"
+    )) {
+        document.head.appendChild(estilo);
+    }
+
+}
+
+
+function restaurarBotonConfirmacion() {
+
+    const boton =
+        $("confirmarPresencial");
+
+    if (!boton) {
+        return;
+    }
+
+    boton.disabled = false;
+    boton.removeAttribute(
+        "aria-busy"
+    );
+
+    const textoOriginal =
+        boton.dataset.textoOriginal;
+
+    if (textoOriginal) {
+        boton.textContent =
+            textoOriginal;
+    }
+
+}
+
+
+/* =====================================================
    ENVÍO DE CONFIRMACIÓN
 ===================================================== */
 
@@ -1248,6 +1360,8 @@ async function enviarConfirmacion(
         CONFIG.googleScriptUrl &&
         !codigoInvitado
     ) {
+
+        restaurarBotonConfirmacion();
 
         mostrarExito(
             "No encontramos el código de tu invitación. Por favor, utiliza el enlace personalizado que recibiste."
@@ -1344,11 +1458,20 @@ const confirmarNoAsistire =
 on(
     confirmarPresencial,
     "click",
-    () =>
-        enviarConfirmacion(
+    async () => {
+
+        /*
+         * Evita dobles envíos y muestra el indicador
+         * inmediatamente después de confirmar.
+         */
+        mostrarCargandoConfirmacion();
+
+        await enviarConfirmacion(
             "presencial",
             cantidad
-        )
+        );
+
+    }
 );
 
 
