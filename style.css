@@ -2199,41 +2199,88 @@ textarea:focus-visible {
     }
 }
 #botonMusica {
-    position: relative;
+    position: fixed;
+    left: 18px;
+    bottom: 18px;
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    z-index: 9999;
+
+    box-sizing: border-box;
 }
+/* =====================================================
+   MENSAJE DEL BOTÓN DE MÚSICA
+===================================================== */
+
 #botonMusica::after {
     content: "🎵 Escucha la canción que alegra nuestro corazón";
-        position: absolute;
-        right: calc(100% + 14px);
-        top: 50%;
-        transform: translateY(-50%);
-        width: 230px;
-        padding: 11px 15px;
-        background: #fffdf8;
-        color: #3d342b;
-        border: 1px solid #d8bd82;
-        border-radius: 12px;
-        font-family: inherit;
-        font-size: 12px;
-        line-height: 1.45;
-        text-align: center;
-        box-shadow: 0 6px 20px rgba(50, 40, 25, 0.12);
-        pointer-events: none;
-        z-index: 1000;
-        animation: mensajeMusicaFlota 2.8s ease-in-out infinite;
+    position: absolute;
+
+    /* El mensaje aparece a la DERECHA del botón */
+    left: calc(100% + 14px);
+    top: 50%;
+
+    width: 230px;
+    padding: 11px 15px;
+
+    transform: translateY(-50%);
+
+    background: #fffdf8;
+    color: #3d342b;
+
+    border: 1px solid #d8bd82;
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 1.45;
+    text-align: center;
+
+    box-shadow: 0 6px 20px rgba(50, 40, 25, 0.12);
+
+    pointer-events: none;
+    z-index: 10000;
+
+    animation: mensajeMusicaFlota 2.8s ease-in-out infinite;
 }
+
+/* Flechita que apunta al botón */
 #botonMusica::before {
     content: "";
-        position: absolute;
-        right: calc(100% + 5px);
-        top: 50%;
-        width: 10px;
-        height: 10px;
-        background: #fffdf8;
-        border-top: 1px solid #d8bd82;
-        border-right: 1px solid #d8bd82;
-        transform: translateY(-50%) rotate(45deg);
-        z-index: 1001;
+
+    position: absolute;
+    left: calc(100% + 5px);
+    top: 50%;
+
+    width: 10px;
+    height: 10px;
+
+    background: #fffdf8;
+
+    border-left: 1px solid #d8bd82;
+    border-bottom: 1px solid #d8bd82;
+
+    transform: translateY(-50%) rotate(45deg);
+
+    z-index: 10001;
+}
+
+@keyframes mensajeMusicaFlota {
+    0%,
+    100% {
+        transform: translateY(-50%);
+    }
+
+    50% {
+        transform: translateY(calc(-50% - 5px));
+    }
 }
 @keyframes mensajeMusicaFlota {
     0%,
@@ -2247,12 +2294,15 @@ textarea:focus-visible {
 @media (max-width: 600px) {
     #botonMusica::after {
         width: 190px;
-                right: calc(100% + 10px);
-                font-size: 11px;
-                padding: 9px 12px;
+        left: calc(100% + 10px);
+        right: auto;
+        font-size: 11px;
+        padding: 9px 12px;
     }
+
     #botonMusica::before {
-        right: calc(100% + 1px);
+        left: calc(100% + 1px);
+        right: auto;
     }
 }
 
