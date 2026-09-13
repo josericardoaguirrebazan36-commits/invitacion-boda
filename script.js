@@ -1135,6 +1135,95 @@ const textoExito =
     $("textoExito");
 
 
+/* =====================================================
+   ESTADO DE CONFIRMACIÓN DEL INVITADO
+===================================================== */
+
+const estadoRsvp = $("estadoRsvp");
+const textoEstadoRsvp = $("textoEstadoRsvp");
+
+/* Guardamos la respuesta por código para mantenerla al recargar. */
+const claveRsvp =
+    `rsvpConfirmado_${codigoInvitado || window.location.pathname}`;
+
+function mostrarEstadoRsvp(tipo, personas = 0) {
+    const opciones = document.querySelector(".rsvp-opciones");
+    const titulo = document.querySelector("#confirmacion h2");
+
+    if (opciones) {
+        opciones.hidden = true;
+    }
+
+    if (titulo) {
+        titulo.textContent = "¡Gracias por confirmar!";
+    }
+
+    if (textoEstadoRsvp) {
+        let mensaje =
+            "Tu confirmación ya fue registrada. Muchas gracias por acompañarnos.";
+
+        if (tipo === "presencial") {
+            mensaje =
+                `Tu asistencia presencial para ${personas} ${
+                    personas === 1 ? "persona" : "personas"
+                } ya fue registrada. ¡Muchas gracias por acompañarnos!`;
+        } else if (tipo === "zoom") {
+            mensaje =
+                "Tu confirmación para acompañarnos por Zoom ya fue registrada. ¡Muchas gracias!";
+        } else if (tipo === "no_asistire") {
+            mensaje =
+                "Tu respuesta ya fue registrada. Muchas gracias por avisarnos.";
+        }
+
+        textoEstadoRsvp.textContent = mensaje;
+    }
+
+    if (estadoRsvp) {
+        estadoRsvp.hidden = false;
+        estadoRsvp.classList.add("visible");
+    }
+}
+
+function guardarEstadoRsvp(tipo, personas = 0) {
+    try {
+        localStorage.setItem(
+            claveRsvp,
+            JSON.stringify({
+                confirmado: true,
+                tipo,
+                personas,
+                fecha: new Date().toISOString()
+            })
+        );
+    } catch (error) {
+        console.warn("No se pudo guardar el estado de confirmación.", error);
+    }
+
+    mostrarEstadoRsvp(tipo, personas);
+}
+
+function cargarEstadoRsvp() {
+    try {
+        const guardado = localStorage.getItem(claveRsvp);
+
+        if (!guardado) {
+            return;
+        }
+
+        const respuesta = JSON.parse(guardado);
+
+        if (respuesta && respuesta.confirmado) {
+            mostrarEstadoRsvp(
+                respuesta.tipo || "presencial",
+                Number(respuesta.personas) || 1
+            );
+        }
+    } catch (error) {
+        console.warn("No se pudo recuperar la confirmación.", error);
+    }
+}
+
+
 function mostrarExito(mensaje) {
 
     cerrarTodosLosModales();
@@ -1380,6 +1469,16 @@ async function enviarConfirmacion(
 
     if (!CONFIG.googleScriptUrl) {
 
+        guardarEstadoRsvp(
+            tipo,
+            personas
+        );
+
+        guardarEstadoRsvp(
+            tipo,
+            personas
+        );
+
         mostrarExito(
             obtenerMensajeConfirmacion(
                 tipo,
@@ -1434,8 +1533,10 @@ async function enviarConfirmacion(
         );
 
 
+        restaurarBotonConfirmacion();
+
         mostrarExito(
-            "Tu respuesta ha sido recibida. Muchas gracias por avisarnos."
+            "No pudimos confirmar el envío en este momento. Por favor, revisa tu conexión e inténtalo nuevamente. Si el problema continúa, comunícate con Omar Ulloa al +51 992 418 572."
         );
 
     }
@@ -1986,6 +2087,10 @@ on(
 
 
 actualizarEstadoMusica();
+
+
+/* Recuperar la confirmación al volver a abrir o recargar la invitación */
+cargarEstadoRsvp();
 
 
 /* =====================================================
