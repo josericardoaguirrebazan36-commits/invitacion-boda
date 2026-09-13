@@ -7929,3 +7929,84 @@ body.alto-contraste .modal-confirmar {
         padding: 7px 10px;
     }
 }
+
+
+/* =====================================================
+   ESTADO DE CONFIRMACIÓN RSVP
+===================================================== */
+
+.rsvp-estado {
+    margin: 28px auto 10px;
+    padding: 28px 24px;
+    max-width: 620px;
+    text-align: center;
+    background: var(--blanco, #fffdf9);
+    border: 1px solid var(--linea-accesible, #c9c0b2);
+    border-radius: 18px;
+    box-shadow: 0 8px 28px rgba(50, 40, 25, .08);
+}
+
+.rsvp-estado[hidden] {
+    display: none;
+}
+
+.rsvp-estado.visible {
+    display: block;
+}
+
+.rsvp-estado-icono {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--crema-2, #eee7da);
+    color: var(--dorado-oscuro, #8f713d);
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.rsvp-estado h3 {
+    margin: 0 0 10px;
+    font-size: 1.45rem;
+}
+
+.rsvp-estado p {
+    margin: 8px 0;
+    line-height: 1.65;
+}
+
+.rsvp-cambio {
+    margin-top: 18px !important;
+    font-size: .98rem;
+}
+
+.rsvp-cambio a {
+    font-weight: 800;
+    color: var(--dorado-oscuro, #8f713d);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}
+
+body.alto-contraste .rsvp-estado {
+    background: #fff;
+    color: #000;
+    border-color: #000;
+}
+
+body.alto-contraste .rsvp-cambio a {
+    color: #000;
+}
+
+@media (max-width: 600px) {
+    .rsvp-estado {
+        padding: 24px 18px;
+        margin-top: 22px;
+    }
+
+    .rsvp-estado h3 {
+        font-size: 1.3rem;
+    }
+}
