@@ -63,39 +63,25 @@
     <!-- CONTENIDO -->
 
     <div class="hero-content">
-
         <span class="hero-kicker">
             NUESTRA HISTORIA CONTINÚA
         </span>
 
-
-        <div class="hero-nombres">
-
+        <h1 class="hero-nombres">
             <span>Omar</span>
-
             <i>&amp;</i>
-
             <span>Wendy</span>
-
-        </div>
-
-
+        </h1>
         <div
             class="hero-linea"
             aria-hidden="true"
         >
-
             <span></span>
-
             <b>♡</b>
-
             <span></span>
-
         </div>
 
-
         <div class="hero-frase">
-
             <div class="hero-versiculo">
                 <p>
                     <strong>
@@ -114,25 +100,18 @@
 
         </div>
 
-
         <div class="hero-fecha">
 
             <span>09</span>
-
             <div>
-
                 <small>
                     OCTUBRE
                 </small>
-
                 <strong>
                     2026
                 </strong>
-
             </div>
-
         </div>
-
 
         <a
             href="#confirmacion"
@@ -141,47 +120,35 @@
             ♥ &nbsp; CONFIRMAR ASISTENCIA
         </a>
 
-
         <a
             href="#contador"
             class="hero-scroll"
         >
-
             <span>
                 DESCUBRE NUESTRA HISTORIA
             </span>
-
             <b aria-hidden="true">
                 ↓
             </b>
-
         </a>
-
     </div>
-
 </header>
 <!-- =====================================================
      CONTADOR
 ===================================================== -->
-
 <main id="contenido-principal">
-
 <section
     class="contador"
     id="contador"
     aria-label="Cuenta regresiva para la boda"
 >
-
     <div class="contador-contenido">
-
         <span class="eyebrow">
             LA CUENTA REGRESIVA
         </span>
-
         <h2>
             Cada vez falta menos
         </h2>
-
         <div class="contador-grid">
 
             <div class="contador-item">
@@ -590,25 +557,35 @@
         </div>
 
 
-        <!-- Estado mostrado después de registrar la respuesta -->
-        <div
-            class="rsvp-estado"
-            id="estadoRsvp"
-            aria-live="polite"
-            hidden
-        >
-            <div class="rsvp-estado-icono" aria-hidden="true">✓</div>
-
-            <h3>¡Respuesta registrada!</h3>
-
-            <p id="textoEstadoRsvp">
-                Tu confirmación ya fue registrada. Muchas gracias por acompañarnos. Si hubo algún error en tu respuesta o deseas cambiarla,
-                comunícate con <strong>Omar Ulloa</strong> al
-                <a href="tel:+51992418572">+51 992 418 572</a>.
-            </p>
-        </div>
-
+       <div
+    class="rsvp-estado"
+    id="estadoRsvp"
+    aria-live="polite"
+    hidden
+>
+    <div
+        class="rsvp-estado-icono"
+        aria-hidden="true"
+    >
+        ✓
     </div>
+
+    <h3>
+        ¡Respuesta registrada!
+    </h3>
+
+    <p id="textoEstadoRsvp">
+        Tu confirmación ya fue registrada.
+    </p>
+
+    <p class="rsvp-cambio">
+        Si hubo algún error en tu respuesta o deseas cambiarla,
+        comunícate con <strong>Omar Ulloa</strong> al
+        <a href="tel:+51992418572">
+            +51 992 418 572
+        </a>.
+    </p>
+</div>
 
 </section>
 
@@ -1129,32 +1106,5 @@
 
     <script src="script.js"></script>
 
-<script>
-(function () {
-    const cuerpo = document.body;
-    const aumentar = document.getElementById("aumentarTexto");
-    const contraste = document.getElementById("contrasteTexto");
-
-    if (aumentar) {
-        aumentar.addEventListener("click", function () {
-            cuerpo.classList.toggle("texto-grande");
-            aumentar.setAttribute(
-                "aria-pressed",
-                cuerpo.classList.contains("texto-grande") ? "true" : "false"
-            );
-        });
-    }
-
-    if (contraste) {
-        contraste.addEventListener("click", function () {
-            cuerpo.classList.toggle("alto-contraste");
-            contraste.setAttribute(
-                "aria-pressed",
-                cuerpo.classList.contains("alto-contraste") ? "true" : "false"
-            );
-        });
-    }
-})();
-</script>
 </body>
 </html>
