@@ -1162,6 +1162,58 @@ on(
         )
 );
 
+   /* =====================================================
+   CONFIRMACIÓN FINAL DE ASISTENCIA
+===================================================== */
+
+function mostrarConfirmacionFinal(personas) {
+
+    const rsvpCard =
+        document.querySelector(".rsvp-card");
+
+    if (!rsvpCard) {
+        return;
+    }
+
+    rsvpCard.innerHTML = `
+        <div
+            class="confirmacion-final"
+            role="status"
+            aria-live="polite"
+        >
+
+            <div
+                class="confirmacion-icono"
+                aria-hidden="true"
+            >
+                ✓
+            </div>
+
+            <h3>
+                ¡Confirmación realizada!
+            </h3>
+
+            <p>
+                Hemos registrado tu asistencia para
+                <strong>
+                    ${personas}
+                    ${personas === 1 ? "persona" : "personas"}
+                </strong>.
+            </p>
+
+            <p class="mensaje-cambio">
+                Si hubo algún error o deseas cambiar
+                tu respuesta, comunícate con
+                <strong>Omar Ulloa</strong> al
+                <a href="tel:+51992418572">
+                    <strong>+51 992 418 572</strong>
+                </a>.
+            </p>
+
+        </div>
+    `;
+}
+
 
 /* =====================================================
    CONFIRMACIONES
