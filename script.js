@@ -6,6 +6,7 @@ JavaScript principal
 ===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
+   document.documentElement.classList.add("texto-grande");
 
 /* =====================================================
    CONFIGURACIÓN
