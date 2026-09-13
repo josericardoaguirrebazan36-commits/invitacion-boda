@@ -6,7 +6,6 @@ JavaScript principal
 ===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-   document.documentElement.classList.add("texto-grande");
 
 /* =====================================================
    CONFIGURACIÓN
@@ -73,6 +72,24 @@ const $$ = selector =>
     Array.from(
         document.querySelectorAll(selector)
     );
+
+
+/* =====================================================
+   CÓDIGO PERSONALIZADO DE LA INVITACIÓN
+===================================================== */
+
+/*
+ * El enlace puede tener esta forma:
+ * https://tusitio.com/?codigo=001
+ *
+ * El código se envía a Google Apps Script
+ * para localizar al invitado en la hoja de cálculo.
+ */
+const parametrosURL =
+    new URLSearchParams(window.location.search);
+
+const codigoInvitado =
+    (parametrosURL.get("codigo") || "").trim();
 
 
 /* =====================================================
@@ -1196,6 +1213,22 @@ async function enviarConfirmacion(
 
     const datos = {
 
+        /*
+         * Código personalizado de la invitación.
+         * Ejemplo: 001, 002, 003...
+         */
+        codigo: codigoInvitado,
+
+        /*
+         * "respuesta" coincide con lo que espera
+         * Google Apps Script.
+         */
+        respuesta: tipo,
+
+        /*
+         * Conservamos "tipo" por compatibilidad
+         * con versiones anteriores del sistema.
+         */
         tipo,
 
         personas,
@@ -1204,6 +1237,25 @@ async function enviarConfirmacion(
             new Date().toISOString()
 
     };
+
+
+    /*
+     * Si Google Apps Script está activo, necesitamos
+     * el código personalizado para saber qué fila
+     * debe actualizarse.
+     */
+    if (
+        CONFIG.googleScriptUrl &&
+        !codigoInvitado
+    ) {
+
+        mostrarExito(
+            "No encontramos el código de tu invitación. Por favor, utiliza el enlace personalizado que recibiste."
+        );
+
+        return;
+
+    }
 
 
     /*
@@ -1672,6 +1724,16 @@ async function reproducirMusica() {
    AUTOPLAY
 ===================================================== */
 
+window.addEventListener(
+    "load",
+    () => {
+
+        if (!prefiereMenosMovimiento) {
+            reproducirMusica();
+        }
+
+    }
+);
 
 
 /* =====================================================
@@ -2045,6 +2107,11 @@ console.log(
                 "America/Lima"
         }
     )
+);
+
+console.log(
+    "✓ Código de invitación:",
+    codigoInvitado || "(no proporcionado)"
 );
 
 
