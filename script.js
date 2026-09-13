@@ -89,62 +89,122 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       ACCESIBILIDAD
-    ===================================================== */
+   ACCESIBILIDAD
+===================================================== */
 
-    if (aumentarTexto) {
+if (aumentarTexto) {
 
-        on(
-            aumentarTexto,
-            "click",
-            function (event) {
+    on(
+        aumentarTexto,
+        "click",
+        function (event) {
 
-                event.preventDefault();
-                event.stopPropagation();
+            event.preventDefault();
+            event.stopImmediatePropagation();
 
-                const activo =
-                    body.classList.toggle("texto-grande");
+            const html = document.documentElement;
 
-                aumentarTexto.setAttribute(
-                    "aria-pressed",
-                    activo ? "true" : "false"
+            const activo =
+                !body.classList.contains("texto-grande");
+
+            /* Aplicar en BODY */
+            body.classList.toggle(
+                "texto-grande",
+                activo
+            );
+
+            /* Aplicar también en HTML */
+            html.classList.toggle(
+                "texto-grande",
+                activo
+            );
+
+            /* Atributos de accesibilidad */
+            aumentarTexto.setAttribute(
+                "aria-pressed",
+                activo ? "true" : "false"
+            );
+
+            aumentarTexto.classList.toggle(
+                "activo",
+                activo
+            );
+
+            /*
+             * Refuerzo visual.
+             * No depende únicamente del CSS.
+             */
+            if (activo) {
+
+                html.style.setProperty(
+                    "--factor-texto",
+                    "1.15"
                 );
 
-                aumentarTexto.classList.toggle(
-                    "activo",
-                    activo
+            } else {
+
+                html.style.removeProperty(
+                    "--factor-texto"
                 );
             }
-        );
-    }
+        }
+    );
+}
 
 
-    if (contrasteTexto) {
+if (contrasteTexto) {
 
-        on(
-            contrasteTexto,
-            "click",
-            function (event) {
+    on(
+        contrasteTexto,
+        "click",
+        function (event) {
 
-                event.preventDefault();
-                event.stopPropagation();
+            event.preventDefault();
+            event.stopImmediatePropagation();
 
-                const activo =
-                    body.classList.toggle("alto-contraste");
+            const html = document.documentElement;
 
-                contrasteTexto.setAttribute(
-                    "aria-pressed",
-                    activo ? "true" : "false"
-                );
+            const activo =
+                !body.classList.contains("alto-contraste");
 
-                contrasteTexto.classList.toggle(
-                    "activo",
-                    activo
-                );
-            }
-        );
-    }
+            /* Aplicar alto contraste */
+            body.classList.toggle(
+                "alto-contraste",
+                activo
+            );
 
+            html.classList.toggle(
+                "alto-contraste",
+                activo
+            );
+
+            /*
+             * También agregamos "modo-oscuro"
+             * por compatibilidad con CSS que utilice
+             * ese nombre.
+             */
+            body.classList.toggle(
+                "modo-oscuro",
+                activo
+            );
+
+            html.classList.toggle(
+                "modo-oscuro",
+                activo
+            );
+
+            contrasteTexto.setAttribute(
+                "aria-pressed",
+                activo ? "true" : "false"
+            );
+
+            contrasteTexto.classList.toggle(
+                "activo",
+                activo
+            );
+        }
+    );
+}
 
     /* =====================================================
        NOMBRE DEL INVITADO
