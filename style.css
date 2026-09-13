@@ -8010,3 +8010,96 @@ body.alto-contraste .rsvp-cambio a {
         font-size: 1.3rem;
     }
 }
+
+ /* =====================================================
+   MENSAJE JUNTO AL BOTÓN DE MÚSICA
+===================================================== */
+
+#botonMusica {
+    position: relative;
+}
+
+/* Burbuja de invitación a escuchar la música */
+#botonMusica::after {
+    content: "🎵 Escucha la canción que alegra nuestro corazón";
+
+    position: absolute;
+    right: calc(100% + 14px);
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 230px;
+    padding: 11px 15px;
+
+    background: #fffdf8;
+    color: #3d342b;
+
+    border: 1px solid #d8bd82;
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 1.45;
+    text-align: center;
+
+    box-shadow: 0 6px 20px rgba(50, 40, 25, 0.12);
+
+    pointer-events: none;
+    z-index: 1000;
+
+    animation: mensajeMusicaFlota 2.8s ease-in-out infinite;
+}
+
+/* Pequeño pico de la burbuja */
+#botonMusica::before {
+    content: "";
+
+    position: absolute;
+    right: calc(100% + 5px);
+    top: 50%;
+
+    width: 10px;
+    height: 10px;
+
+    background: #fffdf8;
+    border-top: 1px solid #d8bd82;
+    border-right: 1px solid #d8bd82;
+
+    transform: translateY(-50%) rotate(45deg);
+
+    z-index: 1001;
+}
+
+/* Movimiento suave */
+@keyframes mensajeMusicaFlota {
+
+    0%,
+    100% {
+        transform: translateY(-50%);
+    }
+
+    50% {
+        transform: translateY(calc(-50% - 5px));
+    }
+
+}
+
+/* =====================================================
+   MÓVIL
+===================================================== */
+
+@media (max-width: 600px) {
+
+    #botonMusica::after {
+        width: 190px;
+        right: calc(100% + 10px);
+
+        font-size: 11px;
+        padding: 9px 12px;
+    }
+
+    #botonMusica::before {
+        right: calc(100% + 1px);
+    }
+
+}
