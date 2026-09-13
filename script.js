@@ -1269,9 +1269,8 @@ function obtenerMensajeConfirmacion(
                 personas === 1
                     ? "persona"
                     : "personas"
-            }. ¡Nos alegra mucho contar contigo! Si hubo algún error en tu respuesta o deseas cambiarla,
-                comunícate con Omar Ulloa al
-                +51 992 418 572.`;
+            }. ¡Nos alegra mucho contar contigo!
+            `;
 
 
         case "zoom":
