@@ -7850,3 +7850,82 @@ body.alto-contraste .modal-confirmar {
         margin-bottom: 2px;
     }
 }
+
+ /* =========================================================
+   ACCESIBILIDAD
+   ========================================================= */
+
+/* Enlace "Saltar al contenido": oculto normalmente */
+.skip-link {
+    position: fixed;
+    top: -100px;
+    left: 20px;
+    z-index: 99999;
+    padding: 12px 18px;
+    background: #4f493d;
+    color: #fff;
+    border-radius: 0 0 8px 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+/* Solo aparece cuando recibe foco */
+.skip-link:focus,
+.skip-link:focus-visible {
+    top: 0;
+    outline: 3px solid #b28b4b;
+    outline-offset: 3px;
+}
+
+/* Contenedor de controles de accesibilidad */
+.controles-accesibilidad {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9998;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Botones de accesibilidad */
+.controles-accesibilidad button {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 1px solid #b28b4b;
+    border-radius: 8px;
+    background: #fffdf8;
+    color: #4f493d;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Al pasar el mouse */
+.controles-accesibilidad button:hover {
+    background: #f5efe4;
+}
+
+/* Al usar teclado */
+.controles-accesibilidad button:focus-visible {
+    outline: 3px solid #b28b4b;
+    outline-offset: 3px;
+}
+
+/* En celular */
+@media (max-width: 600px) {
+    .controles-accesibilidad {
+        top: 12px;
+        left: 12px;
+    }
+
+    .controles-accesibilidad button {
+        min-width: 42px;
+        min-height: 42px;
+        padding: 7px 10px;
+    }
+}
