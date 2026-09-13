@@ -16,11 +16,15 @@ const CONFIG = {
     /*
      * Fecha de la boda:
      * 9 de octubre de 2026
-     * 3:00 p. m.
+     * 4:00 p. m.
      * Hora de Lima, Perú: UTC-5
+     *
+     * IMPORTANTE:
+     * Mantén esta hora sincronizada con la hora
+     * mostrada en el HTML.
      */
     fechaBoda: new Date(
-        "2026-10-09T15:00:00-05:00"
+        "2026-10-09T16:00:00-05:00"
     ),
 
     /*
@@ -68,6 +72,84 @@ const $$ = selector =>
     Array.from(
         document.querySelectorAll(selector)
     );
+
+
+/* =====================================================
+   ACCESIBILIDAD
+===================================================== */
+
+const prefiereMenosMovimiento =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+let ultimoElementoEnfocado = null;
+
+function guardarFoco() {
+    const activo = document.activeElement;
+
+    if (activo && activo !== document.body) {
+        ultimoElementoEnfocado = activo;
+    }
+}
+
+function restaurarFoco() {
+    if (
+        ultimoElementoEnfocado &&
+        typeof ultimoElementoEnfocado.focus === "function"
+    ) {
+        setTimeout(() => {
+            ultimoElementoEnfocado.focus();
+        }, 0);
+    }
+
+    ultimoElementoEnfocado = null;
+}
+
+function elementosEnfocables(contenedor) {
+    if (!contenedor) {
+        return [];
+    }
+
+    return Array.from(
+        contenedor.querySelectorAll(
+            "a[href], button:not([disabled]), input:not([disabled]), " +
+            "textarea:not([disabled]), select:not([disabled]), " +
+            "[tabindex]:not([tabindex='-1'])"
+        )
+    ).filter(
+        elemento =>
+            !elemento.hasAttribute("hidden") &&
+            elemento.getAttribute("aria-hidden") !== "true"
+    );
+}
+
+function mantenerFocoEnModal(event, modal) {
+    if (
+        !modal ||
+        !modal.classList.contains("activo") ||
+        event.key !== "Tab"
+    ) {
+        return;
+    }
+
+    const enfocable = elementosEnfocables(modal);
+
+    if (!enfocable.length) {
+        event.preventDefault();
+        return;
+    }
+
+    const primero = enfocable[0];
+    const ultimo = enfocable[enfocable.length - 1];
+
+    if (event.shiftKey && document.activeElement === primero) {
+        event.preventDefault();
+        ultimo.focus();
+    } else if (!event.shiftKey && document.activeElement === ultimo) {
+        event.preventDefault();
+        primero.focus();
+    }
+}
 
 
 function on(
@@ -464,6 +546,8 @@ function abrirLightbox(foto) {
     }
 
 
+    guardarFoco();
+
     imagenGrande.src =
         foto.currentSrc ||
         foto.src;
@@ -523,17 +607,50 @@ function cerrarGaleria() {
 
     }
 
+    restaurarFoco();
+
 }
 
 
 fotos.forEach(
     foto => {
 
+        if (!foto.hasAttribute("tabindex")) {
+            foto.setAttribute("tabindex", "0");
+        }
+
+        if (!foto.hasAttribute("role")) {
+            foto.setAttribute("role", "button");
+        }
+
+        if (!foto.hasAttribute("aria-label")) {
+            foto.setAttribute(
+                "aria-label",
+                "Abrir fotografía en tamaño grande"
+            );
+        }
+
         on(
             foto,
             "click",
             () =>
                 abrirLightbox(foto)
+        );
+
+        on(
+            foto,
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
+                    event.preventDefault();
+                    abrirLightbox(foto);
+                }
+
+            }
         );
 
     }
@@ -598,6 +715,8 @@ function abrirModal(modal) {
 
     }
 
+
+    guardarFoco();
 
     Object.values(modales)
         .forEach(
@@ -692,6 +811,8 @@ function cerrarModal(modal) {
         document.body.classList.remove(
             "no-scroll"
         );
+
+        restaurarFoco();
 
     }
 
@@ -1554,7 +1675,9 @@ window.addEventListener(
     "load",
     () => {
 
-        reproducirMusica();
+        if (!prefiereMenosMovimiento) {
+            reproducirMusica();
+        }
 
     }
 );
@@ -1566,7 +1689,10 @@ window.addEventListener(
 
 function iniciarMusicaConInteraccion() {
 
-    if (!musica) {
+    if (
+        prefiereMenosMovimiento ||
+        !musica
+    ) {
         return;
     }
 
@@ -1815,19 +1941,29 @@ on(
     "keydown",
     event => {
 
-        if (
-            event.key !==
-            "Escape"
-        ) {
-
+        if (event.key === "Escape") {
+            cerrarGaleria();
+            cerrarTodosLosModales();
             return;
-
         }
 
+        if (event.key !== "Tab") {
+            return;
+        }
 
-        cerrarGaleria();
+        const modalActivo =
+            Object.values(modales).find(
+                modal =>
+                    modal &&
+                    modal.classList.contains("activo")
+            );
 
-        cerrarTodosLosModales();
+        if (modalActivo) {
+            mantenerFocoEnModal(
+                event,
+                modalActivo
+            );
+        }
 
     }
 );
