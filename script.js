@@ -5,34 +5,25 @@
    JavaScript principal
 ===================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
        CONFIGURACIÓN
     ===================================================== */
 
     const CONFIG = {
-
-        fechaBoda: new Date(
-            "2026-10-09T16:00:00-05:00"
-        ),
+        fechaBoda: new Date("2026-10-09T16:00:00-05:00"),
 
         googleScriptUrl:
             "https://script.google.com/macros/s/AKfycbwDqd04rZS957Zi6sMJTnmDQSCzyHuX5JTDYUZjajNCekJogwuHQHUacK0znV9Br9FX/exec",
 
         maxPersonas: 10,
 
-        yapeNumero:
-            "+51 992 418 572",
+        yapeNumero: "+51 992 418 572",
+        yapeNumero2: "+51 942 530 706",
 
-        yapeNumero2:
-            "+51 942 530 706",
-
-        zoomId:
-            "740 351 363",
-
-        zoomClave:
-            "323256"
+        zoomId: "740 351 363",
+        zoomClave: "323256"
     };
 
 
@@ -40,123 +31,131 @@ document.addEventListener("DOMContentLoaded", () => {
        UTILIDADES
     ===================================================== */
 
-    const $ = (selector) => {
-        return document.getElementById(selector);
-    };
+    function $(id) {
+        return document.getElementById(id);
+    }
 
-    const $$ = (selector) => {
+    function $$(selector) {
         return document.querySelectorAll(selector);
-    };
+    }
 
-    const on = (element, event, callback, options) => {
-
+    function on(element, event, callback, options) {
         if (!element) return;
 
         element.addEventListener(
             event,
             callback,
-            options
+            options || false
         );
-    };
+    }
 
-    const setText = (element, text) => {
-
+    function setText(element, text) {
         if (!element) return;
-
         element.textContent = text;
-    };
-
-    const toggleClass = (
-        element,
-        className,
-        force
-    ) => {
-
-        if (!element) return;
-
-        element.classList.toggle(
-            className,
-            force
-        );
-    };
+    }
 
 
     /* =====================================================
-       ELEMENTOS
+       ELEMENTOS PRINCIPALES
     ===================================================== */
 
     const body = document.body;
 
-    const aumentarTexto =
-        $("aumentarTexto");
-
-    const contrasteTexto =
-        $("contrasteTexto");
+    const aumentarTexto = $("aumentarTexto");
+    const contrasteTexto = $("contrasteTexto");
 
 
     /* =====================================================
        CÓDIGO DE INVITACIÓN
     ===================================================== */
 
-    const parametros =
-        new URLSearchParams(
+    let codigoInvitado = "";
+
+    try {
+        const parametros = new URLSearchParams(
             window.location.search
         );
 
-    const codigoInvitado =
-        parametros.get("codigo") ||
-        parametros.get("invitado") ||
-        "";
+        codigoInvitado =
+            parametros.get("codigo") ||
+            parametros.get("invitado") ||
+            "";
+    } catch (error) {
+        console.warn(
+            "No se pudo leer el código de invitación.",
+            error
+        );
+    }
 
 
     /* =====================================================
        ACCESIBILIDAD
     ===================================================== */
 
-    on(
-        aumentarTexto,
-        "click",
-        () => {
+    if (aumentarTexto) {
 
-            const activo =
-                body.classList.toggle(
-                    "texto-grande"
+        on(
+            aumentarTexto,
+            "click",
+            function (event) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                const activo =
+                    body.classList.toggle("texto-grande");
+
+                aumentarTexto.setAttribute(
+                    "aria-pressed",
+                    activo ? "true" : "false"
                 );
 
-            aumentarTexto.setAttribute(
-                "aria-pressed",
-                String(activo)
-            );
-        }
-    );
+                aumentarTexto.classList.toggle(
+                    "activo",
+                    activo
+                );
+            }
+        );
+    }
 
 
-    on(
-        contrasteTexto,
-        "click",
-        () => {
+    if (contrasteTexto) {
 
-            const activo =
-                body.classList.toggle(
-                    "alto-contraste"
+        on(
+            contrasteTexto,
+            "click",
+            function (event) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                const activo =
+                    body.classList.toggle("alto-contraste");
+
+                contrasteTexto.setAttribute(
+                    "aria-pressed",
+                    activo ? "true" : "false"
                 );
 
-            contrasteTexto.setAttribute(
-                "aria-pressed",
-                String(activo)
-            );
-        }
-    );
+                contrasteTexto.classList.toggle(
+                    "activo",
+                    activo
+                );
+            }
+        );
+    }
 
 
     /* =====================================================
        NOMBRE DEL INVITADO
     ===================================================== */
 
-    const nombreInvitado =
-        $("nombreInvitado");
+    const nombreInvitado = $("nombreInvitado");
 
-    if (codigoInvitado) {
+    if (
+        nombreInvitado &&
+        codigoInvitado
+    ) {
 
         const nombre =
             codigoInvitado
@@ -164,11 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 .trim();
 
         if (nombre) {
-
-            setText(
-                nombreInvitado,
-                `Invitación para ${nombre}`
-            );
+            nombreInvitado.textContent =
+                "Invitación para " + nombre;
         }
     }
 
@@ -177,28 +173,18 @@ document.addEventListener("DOMContentLoaded", () => {
        CUENTA REGRESIVA
     ===================================================== */
 
-    const dias =
-        $("dias");
+    const dias = $("dias");
+    const horas = $("horas");
+    const minutos = $("minutos");
+    const segundos = $("segundos");
 
-    const horas =
-        $("horas");
+    function actualizarContador() {
 
-    const minutos =
-        $("minutos");
-
-    const segundos =
-        $("segundos");
-
-
-    const actualizarContador = () => {
-
-        const ahora =
-            new Date();
+        const ahora = new Date();
 
         const diferencia =
             CONFIG.fechaBoda.getTime() -
             ahora.getTime();
-
 
         if (diferencia <= 0) {
 
@@ -210,11 +196,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
         const totalSegundos =
-            Math.floor(
-                diferencia / 1000
-            );
+            Math.floor(diferencia / 1000);
 
         const cantidadDias =
             Math.floor(
@@ -233,7 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const cantidadSegundos =
             totalSegundos % 60;
-
 
         setText(
             dias,
@@ -254,11 +236,9 @@ document.addEventListener("DOMContentLoaded", () => {
             segundos,
             String(cantidadSegundos).padStart(2, "0")
         );
-    };
-
+    }
 
     actualizarContador();
-
 
     const intervaloContador =
         setInterval(
@@ -287,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let fotoActual = 0;
 
 
-    const mostrarFoto = (indice) => {
+    function mostrarFoto(indice) {
 
         if (!fotos.length) return;
 
@@ -295,9 +275,8 @@ document.addEventListener("DOMContentLoaded", () => {
             (indice + fotos.length) %
             fotos.length;
 
-
         fotos.forEach(
-            (foto, index) => {
+            function (foto, index) {
 
                 foto.classList.toggle(
                     "activa",
@@ -305,13 +284,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
             }
         );
-    };
+    }
 
 
     on(
         galeriaAnterior,
         "click",
-        () => {
+        function () {
             mostrarFoto(
                 fotoActual - 1
             );
@@ -322,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         galeriaSiguiente,
         "click",
-        () => {
+        function () {
             mostrarFoto(
                 fotoActual + 1
             );
@@ -337,26 +316,28 @@ document.addEventListener("DOMContentLoaded", () => {
        LIGHTBOX
     ===================================================== */
 
-    const lightbox =
-        $("lightbox");
-
-    const imagenGrande =
-        $("imagenGrande");
-
-    const cerrarLightbox =
-        $("cerrarLightbox");
+    const lightbox = $("lightbox");
+    const imagenGrande = $("imagenGrande");
+    const cerrarLightbox = $("cerrarLightbox");
 
 
-    const abrirLightbox = (foto) => {
+    function abrirLightbox(foto) {
 
-        if (!foto || !lightbox) return;
+        if (
+            !foto ||
+            !lightbox ||
+            !imagenGrande
+        ) {
+            return;
+        }
 
         imagenGrande.src =
             foto.currentSrc ||
             foto.src;
 
         imagenGrande.alt =
-            foto.alt || "Fotografía";
+            foto.alt ||
+            "Fotografía de la boda";
 
         lightbox.classList.add(
             "activo"
@@ -371,11 +352,13 @@ document.addEventListener("DOMContentLoaded", () => {
             "sin-scroll"
         );
 
-        cerrarLightbox?.focus();
-    };
+        if (cerrarLightbox) {
+            cerrarLightbox.focus();
+        }
+    }
 
 
-    const cerrarLightboxFuncion = () => {
+    function cerrarLightboxFuncion() {
 
         if (!lightbox) return;
 
@@ -393,20 +376,29 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         if (imagenGrande) {
-
             imagenGrande.src = "";
             imagenGrande.alt = "";
         }
-    };
+    }
 
 
     fotos.forEach(
-        (foto) => {
+        function (foto) {
+
+            foto.setAttribute(
+                "tabindex",
+                "0"
+            );
+
+            foto.setAttribute(
+                "role",
+                "button"
+            );
 
             on(
                 foto,
                 "click",
-                () => {
+                function () {
                     abrirLightbox(foto);
                 }
             );
@@ -414,7 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
             on(
                 foto,
                 "keydown",
-                (event) => {
+                function (event) {
 
                     if (
                         event.key === "Enter" ||
@@ -426,11 +418,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         abrirLightbox(foto);
                     }
                 }
-            );
-
-            foto.setAttribute(
-                "tabindex",
-                "0"
             );
         }
     );
@@ -446,12 +433,11 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         lightbox,
         "click",
-        (event) => {
+        function (event) {
 
             if (
                 event.target === lightbox
             ) {
-
                 cerrarLightboxFuncion();
             }
         }
@@ -474,7 +460,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const mensajeExito =
         $("mensajeExito");
 
-
     const btnAsistire =
         $("btnAsistire");
 
@@ -483,7 +468,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const btnNoAsistire =
         $("btnNoAsistire");
-
 
     const cerrarModal =
         $("cerrarModal");
@@ -494,27 +478,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const cerrarNoAsistire =
         $("cerrarNoAsistire");
 
-
     const cancelarZoom =
         $("cancelarZoom");
 
     const cancelarNoAsistire =
         $("cancelarNoAsistire");
 
-
     const volverConfirmacion =
         $("volverConfirmacion");
 
-
-    let modalAnterior =
-        null;
+    let elementoAnterior = null;
 
 
-    const abrirModal = (modal) => {
+    function abrirModal(modal) {
 
         if (!modal) return;
 
-        modalAnterior =
+        elementoAnterior =
             document.activeElement;
 
         modal.classList.add(
@@ -530,17 +510,23 @@ document.addEventListener("DOMContentLoaded", () => {
             "sin-scroll"
         );
 
-
         const primerElemento =
             modal.querySelector(
                 "button, input, select, textarea, a"
             );
 
-        primerElemento?.focus();
-    };
+        if (primerElemento) {
+            setTimeout(
+                function () {
+                    primerElemento.focus();
+                },
+                50
+            );
+        }
+    }
 
 
-    const cerrarModalFuncion = (modal) => {
+    function cerrarModalFuncion(modal) {
 
         if (!modal) return;
 
@@ -557,23 +543,31 @@ document.addEventListener("DOMContentLoaded", () => {
             "sin-scroll"
         );
 
-
         if (
-            modalAnterior &&
-            typeof modalAnterior.focus === "function"
+            elementoAnterior &&
+            typeof elementoAnterior.focus === "function"
         ) {
 
-            modalAnterior.focus();
+            setTimeout(
+                function () {
+                    elementoAnterior.focus();
+                },
+                50
+            );
         }
 
-        modalAnterior = null;
-    };
+        elementoAnterior = null;
+    }
 
+
+    /* =====================================================
+       BOTÓN ASISTIR
+    ===================================================== */
 
     on(
         btnAsistire,
         "click",
-        () => {
+        function () {
             abrirModal(
                 modalAsistencia
             );
@@ -581,10 +575,14 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
+    /* =====================================================
+       BOTÓN ZOOM
+    ===================================================== */
+
     on(
         btnZoom,
         "click",
-        () => {
+        function () {
             abrirModal(
                 modalZoom
             );
@@ -592,10 +590,14 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
+    /* =====================================================
+       BOTÓN NO ASISTIR
+    ===================================================== */
+
     on(
         btnNoAsistire,
         "click",
-        () => {
+        function () {
             abrirModal(
                 modalNoAsistire
             );
@@ -603,10 +605,14 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
+    /* =====================================================
+       CERRAR MODALES
+    ===================================================== */
+
     on(
         cerrarModal,
         "click",
-        () => {
+        function () {
             cerrarModalFuncion(
                 modalAsistencia
             );
@@ -617,7 +623,7 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         cerrarZoom,
         "click",
-        () => {
+        function () {
             cerrarModalFuncion(
                 modalZoom
             );
@@ -628,7 +634,7 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         cancelarZoom,
         "click",
-        () => {
+        function () {
             cerrarModalFuncion(
                 modalZoom
             );
@@ -639,7 +645,7 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         cerrarNoAsistire,
         "click",
-        () => {
+        function () {
             cerrarModalFuncion(
                 modalNoAsistire
             );
@@ -650,7 +656,7 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         cancelarNoAsistire,
         "click",
-        () => {
+        function () {
             cerrarModalFuncion(
                 modalNoAsistire
             );
@@ -661,7 +667,7 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         volverConfirmacion,
         "click",
-        () => {
+        function () {
             cerrarModalFuncion(
                 mensajeExito
             );
@@ -670,7 +676,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       CERRAR MODALES HACIENDO CLICK FUERA
+       CERRAR AL HACER CLICK FUERA
     ===================================================== */
 
     [
@@ -679,17 +685,16 @@ document.addEventListener("DOMContentLoaded", () => {
         modalNoAsistire,
         mensajeExito
     ].forEach(
-        (modal) => {
+        function (modal) {
 
             on(
                 modal,
                 "click",
-                (event) => {
+                function (event) {
 
                     if (
                         event.target === modal
                     ) {
-
                         cerrarModalFuncion(
                             modal
                         );
@@ -716,11 +721,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const textoPersonas =
         $("textoPersonas");
 
-    let personas =
-        1;
+    let personas = 1;
 
 
-    const actualizarPersonas = () => {
+    function actualizarPersonas() {
 
         personas =
             Math.max(
@@ -731,12 +735,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 )
             );
 
-
         setText(
             cantidadPersonas,
             String(personas)
         );
-
 
         setText(
             textoPersonas,
@@ -745,26 +747,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 : "personas"
         );
 
-
         if (restarPersona) {
-
             restarPersona.disabled =
                 personas <= 1;
         }
 
-
         if (sumarPersona) {
-
             sumarPersona.disabled =
                 personas >= CONFIG.maxPersonas;
         }
-    };
+    }
 
 
     on(
         restarPersona,
         "click",
-        () => {
+        function () {
 
             personas--;
 
@@ -776,7 +774,7 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         sumarPersona,
         "click",
-        () => {
+        function () {
 
             personas++;
 
@@ -800,23 +798,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     const claveRsvp =
-        `rsvp_omar_wendy_${
+        "rsvp_omar_wendy_" +
+        (
             codigoInvitado ||
             window.location.pathname
-        }`;
+        );
 
 
-    const guardarEstadoRsvp = (
+    function guardarEstadoRsvp(
         tipo,
         cantidad
-    ) => {
+    ) {
 
         try {
 
             localStorage.setItem(
                 claveRsvp,
                 JSON.stringify({
-                    tipo,
+                    tipo: tipo,
                     personas: cantidad,
                     fecha: new Date().toISOString()
                 })
@@ -825,14 +824,14 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
 
             console.warn(
-                "No se pudo guardar el estado RSVP.",
+                "No se pudo guardar el RSVP.",
                 error
             );
         }
-    };
+    }
 
 
-    const obtenerEstadoRsvp = () => {
+    function obtenerEstadoRsvp() {
 
         try {
 
@@ -841,7 +840,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     claveRsvp
                 );
 
-            if (!guardado) return null;
+            if (!guardado) {
+                return null;
+            }
 
             return JSON.parse(
                 guardado
@@ -850,44 +851,51 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
 
             console.warn(
-                "No se pudo leer el estado RSVP.",
+                "No se pudo leer el RSVP.",
                 error
             );
 
             return null;
         }
-    };
+    }
 
 
-    const mostrarEstadoRsvp = (
+    function mostrarEstadoRsvp(
         tipo,
         cantidad
-    ) => {
+    ) {
 
         if (!estadoRsvp) return;
-
 
         let mensaje =
             "Tu confirmación ya fue registrada.";
 
 
-        if (tipo === "presencial") {
+        if (
+            tipo === "presencial"
+        ) {
 
             mensaje =
                 cantidad === 1
                     ? "Has confirmado tu asistencia presencial."
-                    : `Has confirmado tu asistencia presencial para ${cantidad} personas.`;
+                    : "Has confirmado tu asistencia presencial para " +
+                      cantidad +
+                      " personas.";
         }
 
 
-        if (tipo === "zoom") {
+        if (
+            tipo === "zoom"
+        ) {
 
             mensaje =
                 "Has confirmado que te conectarás por Zoom.";
         }
 
 
-        if (tipo === "no_asistire") {
+        if (
+            tipo === "no_asistire"
+        ) {
 
             mensaje =
                 "Has indicado que no podrás asistir.";
@@ -899,7 +907,6 @@ document.addEventListener("DOMContentLoaded", () => {
             mensaje
         );
 
-
         estadoRsvp.hidden = false;
 
 
@@ -908,18 +915,17 @@ document.addEventListener("DOMContentLoaded", () => {
             btnZoom,
             btnNoAsistire
         ].forEach(
-            (boton) => {
+            function (boton) {
 
                 if (boton) {
-
                     boton.hidden = true;
                 }
             }
         );
-    };
+    }
 
 
-    const cargarEstadoRsvp = () => {
+    function cargarEstadoRsvp() {
 
         const estado =
             obtenerEstadoRsvp();
@@ -930,7 +936,7 @@ document.addEventListener("DOMContentLoaded", () => {
             estado.tipo,
             estado.personas || 1
         );
-    };
+    }
 
 
     cargarEstadoRsvp();
@@ -940,7 +946,7 @@ document.addEventListener("DOMContentLoaded", () => {
        INDICADOR DE CARGA
     ===================================================== */
 
-    const mostrarCargandoConfirmacion = () => {
+    function prepararIndicadorCarga() {
 
         if (
             document.getElementById(
@@ -949,7 +955,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
             return;
         }
-
 
         const estilo =
             document.createElement(
@@ -961,7 +966,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         estilo.textContent = `
             .indicador-cargando {
-                display: inline-flex;
+                display: inline-flex !important;
                 align-items: center;
                 justify-content: center;
                 gap: 10px;
@@ -987,47 +992,103 @@ document.addEventListener("DOMContentLoaded", () => {
         document.head.appendChild(
             estilo
         );
-    };
+    }
 
 
-    mostrarCargandoConfirmacion();
+    prepararIndicadorCarga();
+
+
+    /* =====================================================
+       MODAL DE ÉXITO
+    ===================================================== */
+
+    const textoExito =
+        $("textoExito");
+
+
+    function mostrarExito(
+        tipo,
+        cantidad
+    ) {
+
+        if (!textoExito) return;
+
+        let mensaje =
+            "Tu respuesta fue registrada correctamente.";
+
+
+        if (
+            tipo === "presencial"
+        ) {
+
+            mensaje =
+                cantidad === 1
+                    ? "Hemos registrado tu asistencia presencial. ¡Nos alegra muchísimo poder compartir este día contigo!"
+                    : "Hemos registrado tu asistencia presencial para " +
+                      cantidad +
+                      " personas. ¡Nos alegra muchísimo poder compartir este día con ustedes!";
+        }
+
+
+        if (
+            tipo === "zoom"
+        ) {
+
+            mensaje =
+                "Hemos registrado que nos acompañarás por Zoom. ¡Nos encantará tenerte con nosotros a distancia!";
+        }
+
+
+        if (
+            tipo === "no_asistire"
+        ) {
+
+            mensaje =
+                "Hemos registrado tu respuesta. Muchas gracias por avisarnos y por ser parte de este momento tan especial.";
+        }
+
+
+        if (
+            tipo === "error"
+        ) {
+
+            mensaje =
+                "No pudimos confirmar la conexión con el servidor. Por favor, comunícate con Omar Ulloa al +51 992 418 572 para confirmar tu respuesta.";
+        }
+
+
+        textoExito.textContent =
+            mensaje;
+
+        abrirModal(
+            mensajeExito
+        );
+    }
 
 
     /* =====================================================
        ENVIAR RSVP
     ===================================================== */
 
-    const enviarRsvp = async (
+    async function enviarRsvp(
         tipo,
-        cantidad = 1
-    ) => {
+        cantidad
+    ) {
 
         const datos = {
-
-            codigo:
-                codigoInvitado,
-
-            tipo:
-                tipo,
-
-            personas:
-                cantidad,
-
-            nombre:
-                codigoInvitado,
-
-            fecha:
-                new Date().toISOString()
+            codigo: codigoInvitado,
+            tipo: tipo,
+            personas: cantidad,
+            nombre: codigoInvitado,
+            fecha: new Date().toISOString()
         };
 
 
         /* ---------------------------------------------
-           SI NO HAY GOOGLE SCRIPT
+           SIN GOOGLE SCRIPT
         --------------------------------------------- */
 
-        if (
-            !CONFIG.googleScriptUrl
-        ) {
+        if (!CONFIG.googleScriptUrl) {
 
             guardarEstadoRsvp(
                 tipo,
@@ -1045,53 +1106,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
 
-            const respuesta =
-                await fetch(
-                    CONFIG.googleScriptUrl,
-                    {
-                        method: "POST",
+            await fetch(
+                CONFIG.googleScriptUrl,
+                {
+                    method: "POST",
+                    mode: "no-cors",
 
-                        mode: "no-cors",
+                    headers: {
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+                    },
 
-                        headers: {
-                            "Content-Type":
-                                "text/plain;charset=utf-8"
-                        },
-
-                        body:
-                            JSON.stringify(datos)
-                    }
-                );
+                    body:
+                        JSON.stringify(datos)
+                }
+            );
 
 
             /*
-             * Con no-cors el navegador no permite
-             * leer el contenido de la respuesta.
-             *
-             * Si fetch termina sin error,
-             * consideramos enviado el registro.
+             * no-cors no permite leer la respuesta.
+             * Si fetch no lanza error, consideramos
+             * enviado el registro.
              */
-
-            void respuesta;
-
-
-            /* -----------------------------------------
-               CORRECCIÓN:
-               GUARDAR EL RSVP TAMBIÉN DESPUÉS
-               DEL ENVÍO EXITOSO
-            ----------------------------------------- */
 
             guardarEstadoRsvp(
                 tipo,
                 cantidad
             );
 
-
             mostrarExito(
                 tipo,
                 cantidad
             );
-
 
             return true;
 
@@ -1102,82 +1148,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 error
             );
 
-
             mostrarExito(
                 "error",
                 cantidad
             );
 
-
             return false;
         }
-    };
+    }
 
 
     /* =====================================================
-       MODAL DE ÉXITO
-    ===================================================== */
-
-    const textoExito =
-        $("textoExito");
-
-
-    const mostrarExito = (
-        tipo,
-        cantidad
-    ) => {
-
-        if (!textoExito) return;
-
-
-        let mensaje =
-            "Tu respuesta fue registrada correctamente.";
-
-
-        if (tipo === "presencial") {
-
-            mensaje =
-                cantidad === 1
-                    ? "Hemos registrado tu asistencia presencial. ¡Nos alegra muchísimo poder compartir este día contigo!"
-                    : `Hemos registrado tu asistencia presencial para ${cantidad} personas. ¡Nos alegra muchísimo poder compartir este día con ustedes!`;
-        }
-
-
-        if (tipo === "zoom") {
-
-            mensaje =
-                "Hemos registrado que nos acompañarás por Zoom. ¡Nos encantará tenerte con nosotros a distancia!";
-        }
-
-
-        if (tipo === "no_asistire") {
-
-            mensaje =
-                "Hemos registrado tu respuesta. Muchas gracias por avisarnos y por ser parte de este momento tan especial.";
-        }
-
-
-        if (tipo === "error") {
-
-            mensaje =
-                "No pudimos confirmar la conexión con el servidor. Por favor, comunícate con Omar Ulloa al +51 992 418 572 para confirmar tu respuesta.";
-        }
-
-
-        setText(
-            textoExito,
-            mensaje
-        );
-
-
-        abrirModal(
-            mensajeExito
-        );
-    };
-
-
-    /* =====================================================
-       CONFIRMACIÓN PRESENCIAL
+       CONFIRMAR ASISTENCIA PRESENCIAL
     ===================================================== */
 
     const confirmarPresencial =
@@ -1187,7 +1169,13 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         confirmarPresencial,
         "click",
-        async () => {
+        async function () {
+
+            if (
+                confirmarPresencial.disabled
+            ) {
+                return;
+            }
 
             confirmarPresencial.disabled =
                 true;
@@ -1196,71 +1184,88 @@ document.addEventListener("DOMContentLoaded", () => {
                 "indicador-cargando"
             );
 
+            try {
 
-            await enviarRsvp(
-                "presencial",
-                personas
-            );
+                await enviarRsvp(
+                    "presencial",
+                    personas
+                );
 
+                cerrarModalFuncion(
+                    modalAsistencia
+                );
 
-            cerrarModalFuncion(
-                modalAsistencia
-            );
+            } finally {
 
+                confirmarPresencial.disabled =
+                    false;
 
-            confirmarPresencial.disabled =
-                false;
-
-            confirmarPresencial.classList.remove(
-                "indicador-cargando"
-            );
+                confirmarPresencial.classList.remove(
+                    "indicador-cargando"
+                );
+            }
         }
     );
 
 
     /* =====================================================
-       CONFIRMACIÓN ZOOM
+       CONFIRMAR ZOOM
     ===================================================== */
 
-    const confirmarZoomInterno =
-        async () => {
-
-            await enviarRsvp(
-                "zoom",
-                1
-            );
-
-            cerrarModalFuncion(
-                modalZoom
-            );
-        };
-
-
     /*
-     * En el modal Zoom actualmente el HTML
-     * no tiene botón "confirmar Zoom".
+     * IMPORTANTE:
      *
-     * Por eso se mantiene la confirmación
-     * al seleccionar "Me conectaré por Zoom".
+     * Al hacer clic en "Zoom" solamente
+     * se abre el modal.
+     *
+     * NO se registra automáticamente.
+     *
+     * Si tu HTML tiene un botón con id
+     * "confirmarZoom", se utilizará.
      */
+
+    const confirmarZoom =
+        $("confirmarZoom");
 
 
     on(
-        btnZoom,
+        confirmarZoom,
         "click",
-        async () => {
+        async function () {
 
-            abrirModal(
-                modalZoom
+            if (
+                confirmarZoom.disabled
+            ) {
+                return;
+            }
+
+            confirmarZoom.disabled =
+                true;
+
+            confirmarZoom.classList.add(
+                "indicador-cargando"
             );
 
+            try {
 
-            /*
-             * El registro se realiza al abrir
-             * el modal, tal como estaba planteado.
-             */
+                await enviarRsvp(
+                    "zoom",
+                    1
+                );
 
-            await confirmarZoomInterno();
+                cerrarModalFuncion(
+                    modalZoom
+                );
+
+            } finally {
+
+                confirmarZoom.disabled =
+                    false;
+
+                confirmarZoom.classList.remove(
+                    "indicador-cargando"
+                );
+            }
         }
     );
 
@@ -1276,7 +1281,13 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         confirmarNoAsistire,
         "click",
-        async () => {
+        async function () {
+
+            if (
+                confirmarNoAsistire.disabled
+            ) {
+                return;
+            }
 
             confirmarNoAsistire.disabled =
                 true;
@@ -1285,30 +1296,32 @@ document.addEventListener("DOMContentLoaded", () => {
                 "indicador-cargando"
             );
 
+            try {
 
-            await enviarRsvp(
-                "no_asistire",
-                0
-            );
+                await enviarRsvp(
+                    "no_asistire",
+                    0
+                );
 
+                cerrarModalFuncion(
+                    modalNoAsistire
+                );
 
-            cerrarModalFuncion(
-                modalNoAsistire
-            );
+            } finally {
 
+                confirmarNoAsistire.disabled =
+                    false;
 
-            confirmarNoAsistire.disabled =
-                false;
-
-            confirmarNoAsistire.classList.remove(
-                "indicador-cargando"
-            );
+                confirmarNoAsistire.classList.remove(
+                    "indicador-cargando"
+                );
+            }
         }
     );
 
 
     /* =====================================================
-       COPIAR YAPE
+       COPIAR TEXTO
     ===================================================== */
 
     const copiarYape =
@@ -1323,11 +1336,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const mensajeCopiado2 =
         $("mensajeCopiado2");
 
+    const copiarZoom =
+        $("copiarZoom");
 
-    const copiarTexto = async (
+    const zoomCopiado =
+        $("zoomCopiado");
+
+
+    async function copiarTexto(
         texto,
         mensaje
-    ) => {
+    ) {
 
         try {
 
@@ -1353,7 +1372,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 textarea.style.position =
                     "fixed";
 
-                textarea.style.opacity =
+                textarea.style.left =
+                    "-9999px";
+
+                textarea.style.top =
                     "0";
 
                 document.body.appendChild(
@@ -1378,7 +1400,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 setTimeout(
-                    () => {
+                    function () {
 
                         mensaje.classList.remove(
                             "visible"
@@ -1388,7 +1410,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     2200
                 );
             }
-
 
             return true;
 
@@ -1401,13 +1422,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             return false;
         }
-    };
+    }
 
 
     on(
         copiarYape,
         "click",
-        () => {
+        function () {
 
             copiarTexto(
                 CONFIG.yapeNumero,
@@ -1420,7 +1441,7 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         copiarYape2,
         "click",
-        () => {
+        function () {
 
             copiarTexto(
                 CONFIG.yapeNumero2,
@@ -1430,25 +1451,16 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =====================================================
-       COPIAR ZOOM
-    ===================================================== */
-
-    const copiarZoom =
-        $("copiarZoom");
-
-    const zoomCopiado =
-        $("zoomCopiado");
-
-
     on(
         copiarZoom,
         "click",
-        () => {
+        function () {
 
             const datosZoom =
-                `ID de reunión: ${CONFIG.zoomId}\nClave: ${CONFIG.zoomClave}`;
-
+                "ID de reunión: " +
+                CONFIG.zoomId +
+                "\nClave: " +
+                CONFIG.zoomClave;
 
             copiarTexto(
                 datosZoom,
@@ -1472,10 +1484,9 @@ document.addEventListener("DOMContentLoaded", () => {
         false;
 
 
-    const actualizarBotonMusica = () => {
+    function actualizarBotonMusica() {
 
         if (!botonMusica) return;
-
 
         botonMusica.setAttribute(
             "aria-label",
@@ -1484,59 +1495,57 @@ document.addEventListener("DOMContentLoaded", () => {
                 : "Reproducir música"
         );
 
-
         botonMusica.setAttribute(
             "aria-pressed",
-            String(musicaReproduciendo)
+            musicaReproduciendo
+                ? "true"
+                : "false"
         );
 
-
-        toggleClass(
-            botonMusica,
+        botonMusica.classList.toggle(
             "reproduciendo",
             musicaReproduciendo
         );
-    };
+    }
 
 
-    const reproducirMusica =
-        async () => {
+    async function reproducirMusica() {
 
-            if (!musica) return false;
+        if (!musica) {
+            return false;
+        }
+
+        try {
+
+            await musica.play();
+
+            musicaReproduciendo =
+                true;
+
+            actualizarBotonMusica();
+
+            return true;
+
+        } catch (error) {
+
+            console.warn(
+                "El navegador no permitió reproducir la música.",
+                error
+            );
+
+            musicaReproduciendo =
+                false;
+
+            actualizarBotonMusica();
+
+            return false;
+        }
+    }
 
 
-            try {
-
-                await musica.play();
-
-                musicaReproduciendo =
-                    true;
-
-                actualizarBotonMusica();
-
-                return true;
-
-            } catch (error) {
-
-                console.warn(
-                    "La reproducción de música fue bloqueada.",
-                    error
-                );
-
-                musicaReproduciendo =
-                    false;
-
-                actualizarBotonMusica();
-
-                return false;
-            }
-        };
-
-
-    const pausarMusica = () => {
+    function pausarMusica() {
 
         if (!musica) return;
-
 
         musica.pause();
 
@@ -1544,13 +1553,21 @@ document.addEventListener("DOMContentLoaded", () => {
             false;
 
         actualizarBotonMusica();
-    };
+    }
 
+
+    /*
+     * SOLO EL BOTÓN PUEDE INICIAR LA MÚSICA.
+     *
+     * No hay autoplay.
+     * No hay window.load.
+     * No hay pointerdown global.
+     */
 
     on(
         botonMusica,
         "click",
-        () => {
+        function () {
 
             if (
                 musicaReproduciendo
@@ -1566,20 +1583,10 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /*
-     * IMPORTANTE:
-     *
-     * NO usamos autoplay.
-     * NO agregamos pointerdown global.
-     * La música solamente comienza cuando
-     * el visitante pulsa el botón.
-     */
-
-
     on(
         musica,
         "play",
-        () => {
+        function () {
 
             musicaReproduciendo =
                 true;
@@ -1592,7 +1599,7 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         musica,
         "pause",
-        () => {
+        function () {
 
             musicaReproduciendo =
                 false;
@@ -1609,14 +1616,13 @@ document.addEventListener("DOMContentLoaded", () => {
        CALENDARIO
     ===================================================== */
 
-    const crearEventoCalendario = () => {
+    function crearEventoCalendario() {
 
         const inicio =
             "20261009T160000";
 
         const fin =
             "20261009T230000";
-
 
         const titulo =
             encodeURIComponent(
@@ -1628,17 +1634,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Discurso de boda a las 4:00 p. m. y recepción a las 7:00 p. m."
             );
 
-
         const url =
-            `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${titulo}&dates=${inicio}/${fin}&details=${detalles}`;
-
+            "https://calendar.google.com/calendar/render" +
+            "?action=TEMPLATE" +
+            "&text=" +
+            titulo +
+            "&dates=" +
+            inicio +
+            "/" +
+            fin +
+            "&details=" +
+            detalles;
 
         window.open(
             url,
             "_blank",
             "noopener,noreferrer"
         );
-    };
+    }
 
 
     const botonesCalendario =
@@ -1646,7 +1659,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     botonesCalendario.forEach(
-        (boton) => {
+        function (boton) {
 
             on(
                 boton,
@@ -1663,7 +1676,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const elementosAnimados =
         $$(
-            ".evento-card, .historia-header, .galeria-wrapper, .rsvp-card, .regalo, .regalos-final"
+            ".evento-card, " +
+            ".historia-header, " +
+            ".galeria-wrapper, " +
+            ".rsvp-card, " +
+            ".regalo, " +
+            ".regalos-final"
         );
 
 
@@ -1673,10 +1691,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const observer =
             new IntersectionObserver(
-                (entradas, observador) => {
+                function (
+                    entradas,
+                    observador
+                ) {
 
                     entradas.forEach(
-                        (entrada) => {
+                        function (entrada) {
 
                             if (
                                 entrada.isIntersecting
@@ -1700,7 +1721,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         elementosAnimados.forEach(
-            (elemento) => {
+            function (elemento) {
 
                 observer.observe(
                     elemento
@@ -1711,7 +1732,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
 
         elementosAnimados.forEach(
-            (elemento) => {
+            function (elemento) {
 
                 elemento.classList.add(
                     "visible"
@@ -1728,7 +1749,7 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         document,
         "keydown",
-        (event) => {
+        function (event) {
 
             if (
                 event.key !== "Escape"
@@ -1738,7 +1759,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             if (
-                lightbox?.classList.contains(
+                lightbox &&
+                lightbox.classList.contains(
                     "activo"
                 )
             ) {
@@ -1757,128 +1779,139 @@ document.addEventListener("DOMContentLoaded", () => {
             ];
 
 
-            const modalAbierto =
-                modales.find(
-                    (modal) =>
-                        modal?.classList.contains(
-                            "activo"
-                        )
-                );
+            for (
+                let i = 0;
+                i < modales.length;
+                i++
+            ) {
 
+                const modal =
+                    modales[i];
 
-            if (modalAbierto) {
+                if (
+                    modal &&
+                    modal.classList.contains(
+                        "activo"
+                    )
+                ) {
 
-                cerrarModalFuncion(
-                    modalAbierto
-                );
+                    cerrarModalFuncion(
+                        modal
+                    );
+
+                    return;
+                }
             }
         }
     );
 
 
     /* =====================================================
-       TRAMPA DE FOCO BÁSICA PARA MODALES
+       TRAMPA DE FOCO PARA MODALES
     ===================================================== */
-
-    const mantenerFocoModal = (
-        modal,
-        event
-    ) => {
-
-        if (
-            !modal ||
-            !modal.classList.contains(
-                "activo"
-            )
-        ) {
-            return;
-        }
-
-
-        if (
-            event.key !== "Tab"
-        ) {
-            return;
-        }
-
-
-        const elementos =
-            Array.from(
-                modal.querySelectorAll(
-                    "button, a, input, select, textarea, [tabindex]:not([tabindex='-1'])"
-                )
-            ).filter(
-                (elemento) =>
-                    !elemento.disabled &&
-                    elemento.offsetParent !== null
-            );
-
-
-        if (!elementos.length) {
-            return;
-        }
-
-
-        const primero =
-            elementos[0];
-
-        const ultimo =
-            elementos[elementos.length - 1];
-
-
-        if (
-            event.shiftKey &&
-            document.activeElement === primero
-        ) {
-
-            event.preventDefault();
-
-            ultimo.focus();
-
-        } else if (
-            !event.shiftKey &&
-            document.activeElement === ultimo
-        ) {
-
-            event.preventDefault();
-
-            primero.focus();
-        }
-    };
-
 
     on(
         document,
         "keydown",
-        (event) => {
+        function (event) {
 
-            [
+            if (
+                event.key !== "Tab"
+            ) {
+                return;
+            }
+
+
+            const modales = [
                 modalAsistencia,
                 modalZoom,
                 modalNoAsistire,
                 mensajeExito
-            ].forEach(
-                (modal) => {
+            ];
 
-                    mantenerFocoModal(
-                        modal,
-                        event
-                    );
+
+            for (
+                let i = 0;
+                i < modales.length;
+                i++
+            ) {
+
+                const modal =
+                    modales[i];
+
+                if (
+                    !modal ||
+                    !modal.classList.contains(
+                        "activo"
+                    )
+                ) {
+                    continue;
                 }
-            );
+
+
+                const elementos =
+                    Array.from(
+                        modal.querySelectorAll(
+                            "button, a, input, select, textarea, [tabindex]:not([tabindex='-1'])"
+                        )
+                    ).filter(
+                        function (elemento) {
+
+                            return (
+                                !elemento.disabled &&
+                                elemento.offsetParent !== null
+                            );
+                        }
+                    );
+
+
+                if (!elementos.length) {
+                    continue;
+                }
+
+
+                const primero =
+                    elementos[0];
+
+                const ultimo =
+                    elementos[
+                        elementos.length - 1
+                    ];
+
+
+                if (
+                    event.shiftKey &&
+                    document.activeElement === primero
+                ) {
+
+                    event.preventDefault();
+
+                    ultimo.focus();
+
+                } else if (
+                    !event.shiftKey &&
+                    document.activeElement === ultimo
+                ) {
+
+                    event.preventDefault();
+
+                    primero.focus();
+                }
+
+                break;
+            }
         }
     );
 
 
     /* =====================================================
        VISIBILITYCHANGE
-       PAUSAR MÚSICA SI SE ABANDONA LA PÁGINA
     ===================================================== */
 
     on(
         document,
         "visibilitychange",
-        () => {
+        function () {
 
             if (
                 document.hidden &&
@@ -1898,17 +1931,43 @@ document.addEventListener("DOMContentLoaded", () => {
     on(
         window,
         "beforeunload",
-        () => {
+        function () {
 
             clearInterval(
                 intervaloContador
             );
 
             if (musica) {
-
                 musica.pause();
             }
         }
     );
+
+
+    /* =====================================================
+       INICIALIZACIÓN FINAL
+    ===================================================== */
+
+    if (aumentarTexto) {
+        aumentarTexto.setAttribute(
+            "aria-pressed",
+            body.classList.contains(
+                "texto-grande"
+            )
+                ? "true"
+                : "false"
+        );
+    }
+
+    if (contrasteTexto) {
+        contrasteTexto.setAttribute(
+            "aria-pressed",
+            body.classList.contains(
+                "alto-contraste"
+            )
+                ? "true"
+                : "false"
+        );
+    }
 
 });
