@@ -13,16 +13,36 @@
     >
 
     <title>Omar & Wendy | Nuestra boda</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<a class="salto-contenido" href="#contenido-principal">Saltar al contenido principal</a>
+
+<a class="salto-contenido" href="#contenido-principal">
+    Saltar al contenido principal
+</a>
 
 <div class="accesibilidad" aria-label="Opciones de lectura">
-    <button type="button" id="aumentarTexto" aria-label="Aumentar tamaño del texto" title="Aumentar texto">A+</button>
-    <button type="button" id="contrasteTexto" aria-label="Activar o desactivar alto contraste" title="Alto contraste">◐</button>
+    <button
+        type="button"
+        id="aumentarTexto"
+        aria-label="Aumentar tamaño del texto"
+        title="Aumentar texto"
+    >
+        A+
+    </button>
+
+    <button
+        type="button"
+        id="contrasteTexto"
+        aria-label="Activar o desactivar alto contraste"
+        title="Alto contraste"
+    >
+        ◐
+    </button>
 </div>
+
 
 <!-- =====================================================
      PORTADA
@@ -30,18 +50,12 @@
 
 <header class="hero" id="inicio">
 
-    <!-- IMAGEN DE PORTADA -->
-
     <picture class="hero-fondo">
-
-        <!-- Versión vertical para celulares -->
 
         <source
             media="(max-width: 650px)"
             srcset="img/portada-vertical.png"
         >
-
-        <!-- Versión horizontal para escritorio -->
 
         <img
             src="img/portada-horizontal.png"
@@ -51,18 +65,13 @@
 
     </picture>
 
-
-    <!-- Capa muy ligera para mejorar la lectura -->
-
     <div
         class="hero-overlay"
         aria-hidden="true"
     ></div>
 
-
-    <!-- CONTENIDO -->
-
     <div class="hero-content">
+
         <span class="hero-kicker">
             NUESTRA HISTORIA CONTINÚA
         </span>
@@ -72,6 +81,7 @@
             <i>&amp;</i>
             <span>Wendy</span>
         </h1>
+
         <div
             class="hero-linea"
             aria-hidden="true"
@@ -82,20 +92,25 @@
         </div>
 
         <div class="hero-frase">
+
             <div class="hero-versiculo">
+
                 <p>
                     <strong>
                         “Una cuerda triple no se rompe fácilmente”
                     </strong>
                 </p>
+
                 <small>
                     Eclesiastés 4:12
                 </small>
+
             </div>
 
             <p class="hero-mensaje">
                 Seguimos aprendiendo, creciendo y construyendo
-                juntos con Jehová. Hoy deseamos compartir este momento único en nuestras vidas junto a ustedes.
+                juntos con Jehová. Hoy deseamos compartir este
+                momento único en nuestras vidas junto a ustedes.
             </p>
 
         </div>
@@ -103,14 +118,17 @@
         <div class="hero-fecha">
 
             <span>09</span>
+
             <div>
                 <small>
                     OCTUBRE
                 </small>
+
                 <strong>
                     2026
                 </strong>
             </div>
+
         </div>
 
         <a
@@ -127,28 +145,40 @@
             <span>
                 DESCUBRE NUESTRA HISTORIA
             </span>
+
             <b aria-hidden="true">
                 ↓
             </b>
         </a>
+
     </div>
+
 </header>
+
+
+<main id="contenido-principal">
+
+
 <!-- =====================================================
      CONTADOR
 ===================================================== -->
-<main id="contenido-principal">
+
 <section
     class="contador"
     id="contador"
     aria-label="Cuenta regresiva para la boda"
 >
+
     <div class="contador-contenido">
+
         <span class="eyebrow">
             LA CUENTA REGRESIVA
         </span>
+
         <h2>
             Cada vez falta menos
         </h2>
+
         <div class="contador-grid">
 
             <div class="contador-item">
@@ -210,8 +240,8 @@
 
     </div>
 
-
     <div class="evento-lista">
+
 
         <!-- CEREMONIA -->
 
@@ -293,8 +323,10 @@
                 <p class="evento-direccion">
                     Floresta Salon & Eventos
                     <br>
-                    Av Cordialidad Mz ZZ2, Los Olivos 15307<br>
-                    Referencia: A dos cuadras del Salón del Reino donde se celebrará el discurso de boda.
+                    Av Cordialidad Mz ZZ2, Los Olivos 15307
+                    <br>
+                    Referencia: A dos cuadras del Salón del Reino
+                    donde se celebrará el discurso de boda.
                 </p>
 
                 <div class="evento-privacidad">
@@ -304,9 +336,11 @@
                     </span>
 
                     <p>
-                        <strong>Pedimos por favor discreción
-                        ya que la recepción es de
-                        carácter reservado.</strong>
+                        <strong>
+                            Pedimos por favor discreción
+                            ya que la recepción es de
+                            carácter reservado.
+                        </strong>
                     </p>
 
                 </div>
@@ -349,7 +383,6 @@
 
     </div>
 
-
     <div class="galeria-wrapper">
 
         <button
@@ -360,7 +393,6 @@
         >
             ‹
         </button>
-
 
         <div
             class="galeria-fotos"
@@ -388,7 +420,6 @@
             >
 
         </div>
-
 
         <button
             type="button"
@@ -464,7 +495,6 @@
             <b>♡</b>
             <span></span>
         </div>
-
 
         <div class="rsvp-opciones">
 
@@ -557,35 +587,40 @@
         </div>
 
 
-       <div
-    class="rsvp-estado"
-    id="estadoRsvp"
-    aria-live="polite"
-    hidden
->
-    <div
-        class="rsvp-estado-icono"
-        aria-hidden="true"
-    >
-        ✓
+        <div
+            class="rsvp-estado"
+            id="estadoRsvp"
+            aria-live="polite"
+            hidden
+        >
+
+            <div
+                class="rsvp-estado-icono"
+                aria-hidden="true"
+            >
+                ✓
+            </div>
+
+            <h3>
+                ¡Respuesta registrada!
+            </h3>
+
+            <p id="textoEstadoRsvp">
+                Tu confirmación ya fue registrada.
+            </p>
+
+            <p class="rsvp-cambio">
+                Si hubo algún error en tu respuesta o deseas
+                cambiarla, comunícate con
+                <strong>Omar Ulloa</strong> al
+                <a href="tel:+51992418572">
+                    +51 992 418 572
+                </a>.
+            </p>
+
+        </div>
+
     </div>
-
-    <h3>
-        ¡Respuesta registrada!
-    </h3>
-
-    <p id="textoEstadoRsvp">
-        Tu confirmación ya fue registrada.
-    </p>
-
-    <p class="rsvp-cambio">
-        Si hubo algún error en tu respuesta o deseas cambiarla,
-        comunícate con <strong>Omar Ulloa</strong> al
-        <a href="tel:+51992418572">
-            +51 992 418 572
-        </a>.
-    </p>
-</div>
 
 </section>
 
@@ -599,143 +634,132 @@
     id="regalos"
 >
 
-<div class="regalos-contenido">
+    <div class="regalos-contenido">
 
-    <h2>
-        Si desean tener un detalle con nosotros,
-        será recibido con mucho cariño
-    </h2>
+        <h2>
+            Si desean tener un detalle con nosotros,
+            será recibido con mucho cariño
+        </h2>
 
-    <div
-        class="ornamento"
-        aria-hidden="true"
-    >
-        <span></span>
-        <b>♡</b>
-        <span></span>
-    </div>
+        <div
+            class="ornamento"
+            aria-hidden="true"
+        >
+            <span></span>
+            <b>♡</b>
+            <span></span>
+        </div>
 
+        <div class="regalos-grid">
 
-    <div class="regalos-grid">
+            <article class="regalo">
 
-        <article class="regalo">
+                <div class="yape-contacto">
 
-            <!-- PRIMER NÚMERO -->
+                    <div class="yape-numero">
 
-            <div class="yape-contacto">
+                        <span>
+                            +51 992 418 572
+                        </span>
 
-                <div class="yape-numero">
+                        <button
+                            type="button"
+                            id="copiarYape"
+                            aria-label="Copiar número de Yape"
+                            title="Copiar número"
+                        >
+                            ⧉
+                        </button>
 
-                    <span>
-                        +51 992 418 572
+                    </div>
+
+                    <span class="yape-nombre">
+                        Omar Ulloa
                     </span>
-
-                    <button
-                        type="button"
-                        id="copiarYape"
-                        aria-label="Copiar número de Yape"
-                        title="Copiar número"
-                    >
-                        ⧉
-                    </button>
 
                 </div>
 
-                <span class="yape-nombre">
-                    Omar Ulloa
-                </span>
 
-            </div>
+                <div class="yape-contacto">
 
+                    <div class="yape-numero">
 
-            <!-- SEGUNDO NÚMERO -->
+                        <span>
+                            +51 942 530 706
+                        </span>
 
-            <div class="yape-contacto">
+                        <button
+                            type="button"
+                            id="copiarYape2"
+                            aria-label="Copiar segundo número de Yape"
+                            title="Copiar número"
+                        >
+                            ⧉
+                        </button>
 
-                <div class="yape-numero">
+                    </div>
 
-                    <span>
-                        +51 942 530 706
+                    <span class="yape-nombre">
+                        Wendy Vega
                     </span>
-
-                    <button
-                        type="button"
-                        id="copiarYape2"
-                        aria-label="Copiar segundo número de Yape"
-                        title="Copiar número"
-                    >
-                        ⧉
-                    </button>
 
                 </div>
 
-                <span class="yape-nombre">
-                    Wendy Vega
-                </span>
 
-            </div>
+                <div class="yape-direccion">
 
+                    <span
+                        class="casa-icono"
+                        aria-hidden="true"
+                    >
+                        ⌂
+                    </span>
 
-            <!-- DIRECCIÓN -->
+                    <span>
+                        Dirección: <br>
+                        Casa familia Vega
+                    </span>
 
-            <div class="yape-direccion">
+                </div>
+
 
                 <span
-                    class="casa-icono"
-                    aria-hidden="true"
+                    class="copiado"
+                    id="mensajeCopiado"
+                    aria-live="polite"
                 >
-                    ⌂
+                    Número copiado ✓
                 </span>
 
-                <span>
-                    Dirección: <br>
-                    Casa familia Vega
+                <span
+                    class="copiado"
+                    id="mensajeCopiado2"
+                    aria-live="polite"
+                >
+                    Número copiado ✓
                 </span>
 
-            </div>
+            </article>
+
+        </div>
 
 
-            <!-- MENSAJES DE COPIADO -->
+        <div class="regalos-final">
 
-            <span
-                class="copiado"
-                id="mensajeCopiado"
-                aria-live="polite"
-            >
-                Número copiado ✓
+            <p>
+                Gracias por acompañarnos en este día tan especial
+                y por ser parte de nuestro nuevo capítulo.
+            </p>
+
+            <span aria-hidden="true">
+                ♥
             </span>
 
-            <span
-                class="copiado"
-                id="mensajeCopiado2"
-                aria-live="polite"
-            >
-                Número copiado ✓
-            </span>
-
-        </article>
+        </div>
 
     </div>
-
-
-    <div class="regalos-final">
-
-        <p>
-            Gracias por acompañarnos en este día tan especial
-            y por ser parte de nuestro nuevo capítulo.
-        </p>
-
-        <span aria-hidden="true">
-            ♥
-        </span>
-
-    </div>
-
-</div>
-
 
 </section>
-
 
 
 <!-- =====================================================
@@ -860,7 +884,6 @@
             por videoconferencia.
         </p>
 
-
         <div class="zoom-datos">
 
             <div class="zoom-dato">
@@ -875,7 +898,6 @@
 
             </div>
 
-
             <div class="zoom-dato">
 
                 <span>
@@ -889,7 +911,6 @@
             </div>
 
         </div>
-
 
         <div class="zoom-aviso">
 
@@ -911,7 +932,6 @@
 
         </div>
 
-
         <div class="zoom-recordatorio">
 
             <span>
@@ -925,7 +945,6 @@
             </p>
 
         </div>
-
 
         <button
             type="button"
@@ -943,7 +962,6 @@
 
         </button>
 
-
         <span
             class="zoom-copiado"
             id="zoomCopiado"
@@ -951,7 +969,6 @@
         >
             Datos copiados ✓
         </span>
-
 
         <div class="modal-acciones">
 
@@ -1078,6 +1095,7 @@
 
 </main>
 
+
 <!-- =====================================================
      MÚSICA
 ===================================================== -->
@@ -1086,12 +1104,10 @@
     id="musicaBoda"
     loop
 >
-
     <source
         src="audio/que suerte tenerte.mp3"
         type="audio/mpeg"
     >
-
 </audio>
 
 
@@ -1104,7 +1120,8 @@
     ♪
 </button>
 
-    <script src="script.js"></script>
+
+<script src="script.js"></script>
 
 </body>
 </html>
