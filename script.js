@@ -1945,46 +1945,6 @@ async function reproducirMusica() {
 }
 
 
-/* =====================================================
-   AUTOPLAY
-===================================================== */
-
-window.addEventListener(
-    "load",
-    () => {
-
-        if (!prefiereMenosMovimiento) {
-            reproducirMusica();
-        }
-
-    }
-);
-
-
-/* =====================================================
-   PRIMERA INTERACCIÓN
-===================================================== */
-
-function iniciarMusicaConInteraccion() {
-
-    if (
-        prefiereMenosMovimiento ||
-        !musica
-    ) {
-        return;
-    }
-
-
-    if (musica.paused) {
-
-        musica.play()
-            .catch(() => {});
-
-    }
-
-}
-
-
 document.addEventListener(
     "pointerdown",
     iniciarMusicaConInteraccion,
