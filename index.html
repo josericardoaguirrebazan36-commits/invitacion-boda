@@ -17,6 +17,12 @@
 </head>
 
 <body>
+<a class="salto-contenido" href="#contenido-principal">Saltar al contenido principal</a>
+
+<div class="accesibilidad" aria-label="Opciones de lectura">
+    <button type="button" id="aumentarTexto" aria-label="Aumentar tamaño del texto" title="Aumentar texto">A+</button>
+    <button type="button" id="contrasteTexto" aria-label="Activar o desactivar alto contraste" title="Alto contraste">◐</button>
+</div>
 
 <!-- =====================================================
      PORTADA
@@ -165,6 +171,8 @@
 <!-- =====================================================
      CONTADOR
 ===================================================== -->
+
+<main id="contenido-principal">
 
 <section
     class="contador"
@@ -1132,6 +1140,8 @@
 </div>
 
 
+</main>
+
 <!-- =====================================================
      MÚSICA
 ===================================================== -->
@@ -1159,5 +1169,33 @@
 </button>
 
     <script src="script.js"></script>
+
+<script>
+(function () {
+    const cuerpo = document.body;
+    const aumentar = document.getElementById("aumentarTexto");
+    const contraste = document.getElementById("contrasteTexto");
+
+    if (aumentar) {
+        aumentar.addEventListener("click", function () {
+            cuerpo.classList.toggle("texto-grande");
+            aumentar.setAttribute(
+                "aria-pressed",
+                cuerpo.classList.contains("texto-grande") ? "true" : "false"
+            );
+        });
+    }
+
+    if (contraste) {
+        contraste.addEventListener("click", function () {
+            cuerpo.classList.toggle("alto-contraste");
+            contraste.setAttribute(
+                "aria-pressed",
+                cuerpo.classList.contains("alto-contraste") ? "true" : "false"
+            );
+        });
+    }
+})();
+</script>
 </body>
 </html>
