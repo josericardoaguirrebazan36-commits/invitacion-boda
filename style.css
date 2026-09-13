@@ -1,4 +1,3640 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap'); 
+ 
+ 
+/* ===================================================== 
+   VARIABLES 
+===================================================== */ 
+ 
+:root { 
+ 
+    --crema: #f7f3eb; 
+    --crema-2: #eee7da; 
+    --blanco: #fffdf9; 
+ 
+    --dorado: #b89558; 
+    --dorado-claro: #d7bd8b; 
+    --dorado-oscuro: #8f713d; 
+ 
+    --texto: #292621; 
+    --texto-suave: #716b61; 
+ 
+    --linea: #ded5c6; 
+ 
+    --sombra-suave: 
+        0 12px 35px rgba(65, 52, 35, .07); 
+ 
+    --sombra: 
+        0 20px 60px rgba(65, 52, 35, .10); 
+ 
+    --sombra-fuerte: 
+        0 30px 80px rgba(45, 35, 24, .16); 
+ 
+    --serif: 
+        "Cormorant Garamond", 
+        Georgia, 
+        serif; 
+ 
+    --sans: 
+        "DM Sans", 
+        Arial, 
+        sans-serif; 
+ 
+    --radio: 18px; 
+} 
+ 
+ 
+/* ===================================================== 
+   RESET 
+===================================================== */ 
+ 
+*, 
+*::before, 
+*::after { 
+ 
+    box-sizing: border-box; 
+ 
+    margin: 0; 
+    padding: 0; 
+} 
+ 
+ 
+html { 
+ 
+    scroll-behavior: smooth; 
+ 
+    scroll-padding-top: 20px; 
+} 
+ 
+ 
+body { 
+ 
+    min-width: 320px; 
+ 
+    overflow-x: hidden; 
+ 
+    background: var(--crema); 
+ 
+    color: var(--texto); 
+ 
+    font-family: var(--sans); 
+ 
+    line-height: 1.6; 
+ 
+    -webkit-font-smoothing: antialiased; 
+ 
+    text-rendering: optimizeLegibility; 
+} 
+ 
+ 
+body.no-scroll { 
+ 
+    overflow: hidden; 
+} 
+ 
+ 
+button, 
+a, 
+input, 
+textarea, 
+select { 
+ 
+    font-family: inherit; 
+} 
+ 
+ 
+button { 
+ 
+    cursor: pointer; 
+} 
+ 
+ 
+a { 
+ 
+    color: inherit; 
+ 
+    text-decoration: none; 
+} 
+ 
+ 
+img { 
+ 
+    display: block; 
+ 
+    max-width: 100%; 
+} 
+ 
+ 
+button:focus-visible, 
+a:focus-visible { 
+ 
+    outline: 2px solid var(--dorado); 
+ 
+    outline-offset: 4px; 
+} 
+ 
+ 
+::selection { 
+ 
+    background: var(--dorado-claro); 
+ 
+    color: var(--texto); 
+} 
+ 
+ 
+/* ===================================================== 
+   ELEMENTOS GENERALES 
+===================================================== */ 
+ 
+.eyebrow { 
+ 
+    display: inline-block; 
+ 
+    margin-bottom: 14px; 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-size: .8rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .18em; 
+ 
+    text-transform: uppercase; 
+} 
+ 
+ 
+h1, 
+h2, 
+h3 { 
+ 
+    font-family: var(--serif); 
+ 
+    font-weight: 600; 
+} 
+ 
+ 
+.ornamento { 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    gap: 15px; 
+ 
+    width: 100%; 
+ 
+    margin: 22px auto; 
+} 
+ 
+ 
+.ornamento span { 
+ 
+    width: 70px; 
+ 
+    height: 1px; 
+ 
+    background: var(--dorado-claro); 
+ 
+    opacity: .85; 
+} 
+ 
+ 
+.ornamento b { 
+ 
+    color: var(--dorado); 
+ 
+    font-family: var(--serif); 
+ 
+    font-size: 1.25rem; 
+ 
+    font-weight: 500; 
+} 
+ 
+ 
+ 
+/* ===================================================== 
+   PORTADA 
+===================================================== */ 
+ 
+.hero { 
+    position: relative; 
+ 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+ 
+    width: 100%; 
+    height: 85svh; 
+    min-height: 650px; 
+ 
+    overflow: hidden; 
+ 
+    background: var(--crema); 
+    color: var(--texto); 
+} 
+ 
+ 
+/* ===================================================== 
+   IMAGEN DE FONDO 
+===================================================== */ 
+ 
+.hero-fondo { 
+    position: absolute; 
+    inset: 0; 
+ 
+    z-index: 0; 
+ 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+ 
+    width: 100%; 
+    height: 100%; 
+ 
+    overflow: hidden; 
+} 
+ 
+ 
+.hero-fondo img { 
+    display: block; 
+ 
+    width: 100%; 
+    height: 100%; 
+ 
+    /* 
+       La imagen conserva su proporción. 
+       No se deforma. 
+    */ 
+    object-fit: cover; 
+    object-position: center center; 
+} 
+ 
+ 
+/* ===================================================== 
+   CAPA DE LECTURA 
+===================================================== */ 
+ 
+.hero-overlay { 
+    position: absolute; 
+ 
+    inset: 0; 
+ 
+    z-index: 1; 
+ 
+    pointer-events: none; 
+ 
+    background: 
+        linear-gradient( 
+            to bottom, 
+            rgba(255, 253, 249, .08) 0%, 
+            rgba(255, 253, 249, .02) 45%, 
+            rgba(255, 253, 249, .16) 100% 
+        ); 
+} 
+ 
+ 
+/* ===================================================== 
+   CONTENIDO 
+===================================================== */ 
+ 
+.hero-content { 
+    position: relative; 
+ 
+    z-index: 2; 
+ 
+    display: flex; 
+    flex-direction: column; 
+ 
+    align-items: center; 
+    justify-content: center; 
+ 
+    width: min(900px, 90%); 
+ 
+    height: 100%; 
+    min-height: 0; 
+ 
+    padding: 50px 20px 70px; 
+ 
+    text-align: center; 
+} 
+ 
+ 
+/* ===================================================== 
+   TEXTO SUPERIOR 
+===================================================== */ 
+ 
+.hero-kicker { 
+    display: block; 
+ 
+    margin-bottom: 25px; 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-size: .82rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .30em; 
+ 
+    text-transform: uppercase; 
+ 
+    text-shadow: 
+        0 1px 12px rgba(255,255,255,.55); 
+} 
+ 
+ 
+/* ===================================================== 
+   NOMBRES 
+===================================================== */ 
+ 
+.hero-nombres { 
+    display: flex; 
+ 
+    align-items: center; 
+    justify-content: center; 
+ 
+    gap: clamp(14px, 3vw, 30px); 
+ 
+    color: #403a2b; 
+ 
+    font-family: var(--serif); 
+ 
+    /* 
+       Un poco más controlado para que 
+       no ocupe demasiado espacio. 
+    */ 
+    font-size: clamp(4rem, 8vw, 7rem); 
+ 
+    font-weight: 500; 
+ 
+    line-height: .78; 
+ 
+    letter-spacing: -.045em; 
+ 
+    text-shadow: 
+        0 2px 18px rgba(255,255,255,.65); 
+} 
+ 
+ 
+.hero-nombres i { 
+    color: var(--dorado); 
+ 
+    font-size: .40em; 
+ 
+    font-style: normal; 
+ 
+    font-weight: 400; 
+ 
+    letter-spacing: 0; 
+} 
+ 
+ 
+/* ===================================================== 
+   ORNAMENTO 
+===================================================== */ 
+ 
+.hero-linea { 
+    display: flex; 
+ 
+    align-items: center; 
+    justify-content: center; 
+ 
+    gap: 14px; 
+ 
+    width: min(360px, 75%); 
+ 
+    margin: 28px auto 22px; 
+} 
+ 
+ 
+.hero-linea span { 
+    flex: 1; 
+ 
+    height: 1px; 
+ 
+    background: var(--dorado); 
+ 
+    opacity: .75; 
+} 
+ 
+ 
+.hero-linea b { 
+    color: var(--dorado); 
+ 
+    font-family: var(--serif); 
+ 
+    font-size: 1.45rem; 
+ 
+    font-weight: 500; 
+} 
+ 
+ 
+/* ===================================================== 
+   FRASE 
+===================================================== */ 
+ 
+.hero-frase { 
+    width: min(650px, 100%); 
+ 
+    color: var(--texto-suave); 
+ 
+    font-size: .98rem; 
+ 
+    line-height: 1.7; 
+ 
+    text-shadow: 
+        0 1px 10px rgba(255,255,255,.65); 
+} 
+ 
+ 
+.hero-versiculo { 
+    margin-bottom: 18px; 
+} 
+ 
+ 
+.hero-versiculo p { 
+    color: #3e392e; 
+ 
+    font-family: var(--serif); 
+ 
+    font-size: 1.45rem; 
+ 
+    line-height: 1.35; 
+} 
+ 
+ 
+.hero-versiculo strong { 
+    font-weight: 600; 
+} 
+ 
+ 
+.hero-versiculo small { 
+    display: block; 
+ 
+    margin-top: 6px; 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-size: .75rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .12em; 
+ 
+    text-transform: uppercase; 
+} 
+ 
+ 
+.hero-mensaje { 
+    max-width: 610px; 
+ 
+    margin: auto; 
+ 
+    color: #5e594f; 
+ 
+    font-size: .96rem; 
+ 
+    line-height: 1.7; 
+} 
+ 
+ 
+/* ===================================================== 
+   FECHA 
+===================================================== */ 
+ 
+.hero-fecha { 
+    display: flex; 
+ 
+    align-items: center; 
+    justify-content: center; 
+ 
+    gap: 15px; 
+ 
+    margin: 22px 0; 
+} 
+ 
+ 
+.hero-fecha > span { 
+    color: #403a2b; 
+ 
+    font-family: var(--serif); 
+ 
+    font-size: 4rem; 
+ 
+    font-weight: 500; 
+ 
+    line-height: 1; 
+} 
+ 
+ 
+.hero-fecha > div { 
+    display: flex; 
+ 
+    flex-direction: column; 
+ 
+    padding-left: 16px; 
+ 
+    text-align: left; 
+ 
+    border-left: 1px solid var(--dorado); 
+} 
+ 
+ 
+.hero-fecha small { 
+    color: var(--texto-suave); 
+ 
+    font-size: .70rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .18em; 
+ 
+    text-transform: uppercase; 
+} 
+ 
+ 
+.hero-fecha strong { 
+    color: #403a2b; 
+ 
+    font-size: 1.05rem; 
+ 
+    font-weight: 600; 
+} 
+ 
+ 
+/* ===================================================== 
+   BOTÓN 
+===================================================== */ 
+ 
+.hero-boton { 
+    display: inline-flex; 
+ 
+    align-items: center; 
+    justify-content: center; 
+ 
+    min-height: 54px; 
+ 
+    padding: 0 32px; 
+ 
+    border: 1px solid var(--dorado); 
+ 
+    border-radius: 30px; 
+ 
+    background: rgba(63, 57, 43, .92); 
+ 
+    color: #fffdf9; 
+ 
+    font-size: .76rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .14em; 
+ 
+    text-transform: uppercase; 
+ 
+    box-shadow: 
+        0 8px 25px rgba(50,40,25,.15); 
+ 
+    backdrop-filter: blur(4px); 
+ 
+    transition: 
+        transform .3s ease, 
+        background .3s ease, 
+        box-shadow .3s ease; 
+} 
+ 
+ 
+.hero-boton:hover { 
+    background: var(--dorado-oscuro); 
+ 
+    transform: translateY(-2px); 
+ 
+    box-shadow: 
+        0 12px 30px rgba(50,40,25,.20); 
+} 
+ 
+ 
+/* ===================================================== 
+   SCROLL 
+===================================================== */ 
+ 
+.hero-scroll { 
+    position: absolute; 
+ 
+    bottom: 20px; 
+    left: 50%; 
+ 
+    z-index: 3; 
+ 
+    display: flex; 
+ 
+    flex-direction: column; 
+ 
+    align-items: center; 
+ 
+    gap: 4px; 
+ 
+    transform: translateX(-50%); 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-size: .66rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .15em; 
+ 
+    text-transform: uppercase; 
+ 
+    text-shadow: 
+        0 1px 8px rgba(255,255,255,.7); 
+} 
+ 
+ 
+.hero-scroll b { 
+    font-size: 1.25rem; 
+ 
+    font-weight: 400; 
+ 
+    animation: bajar 1.8s ease-in-out infinite; 
+} 
+ 
+ 
+/* ===================================================== 
+   ANIMACIÓN SCROLL 
+===================================================== */ 
+ 
+@keyframes bajar { 
+ 
+    0%, 
+    100% { 
+        transform: translateY(0); 
+    } 
+ 
+    50% { 
+        transform: translateY(5px); 
+    } 
+ 
+} 
+ 
+ 
+/* ===================================================== 
+   TABLET 
+===================================================== */ 
+ 
+@media (max-width: 900px) { 
+ 
+    .hero { 
+        height: 85svh; 
+        min-height: 620px; 
+    } 
+ 
+    .hero-nombres { 
+        font-size: clamp(3.5rem, 10vw, 6rem); 
+    } 
+ 
+} 
+ 
+ 
+/* ===================================================== 
+   MÓVIL 
+===================================================== */ 
+ 
+@media (max-width: 768px) { 
+ 
+    .hero { 
+        height: 100svh; 
+        min-height: 680px; 
+    } 
+ 
+ 
+    /* 
+       En móvil aprovechamos la orientación 
+       vertical de la imagen 1550 × 2180. 
+    */ 
+ 
+    .hero-fondo img { 
+        width: 100%; 
+        height: 100%; 
+ 
+        object-fit: cover; 
+ 
+        object-position: center center; 
+    } 
+ 
+ 
+    .hero-content { 
+        width: 94%; 
+ 
+        padding: 
+            45px 15px 
+            75px; 
+    } 
+ 
+ 
+    .hero-kicker { 
+        margin-bottom: 20px; 
+ 
+        font-size: .72rem; 
+ 
+        letter-spacing: .24em; 
+    } 
+ 
+ 
+    .hero-nombres { 
+        flex-wrap: wrap; 
+ 
+        gap: 10px; 
+ 
+        font-size: clamp(3.4rem, 15vw, 5.5rem); 
+ 
+        line-height: .82; 
+    } 
+ 
+ 
+    .hero-linea { 
+        width: min(300px, 80%); 
+ 
+        margin: 24px auto 20px; 
+    } 
+ 
+ 
+    .hero-versiculo p { 
+        font-size: 1.25rem; 
+    } 
+ 
+ 
+    .hero-mensaje { 
+        max-width: 90%; 
+ 
+        font-size: .90rem; 
+    } 
+ 
+ 
+    .hero-fecha { 
+        margin: 20px 0; 
+    } 
+ 
+ 
+    .hero-fecha > span { 
+        font-size: 3.3rem; 
+    } 
+ 
+ 
+    .hero-fecha > div { 
+        padding-left: 12px; 
+    } 
+ 
+ 
+    .hero-boton { 
+        min-height: 50px; 
+ 
+        padding: 0 26px; 
+ 
+        font-size: .70rem; 
+    } 
+ 
+ 
+    .hero-scroll { 
+        bottom: 12px; 
+ 
+        font-size: .60rem; 
+    } 
+ 
+} 
+ 
+ 
+/* ===================================================== 
+   MÓVILES PEQUEÑOS 
+===================================================== */ 
+ 
+@media (max-width: 420px) { 
+ 
+    .hero { 
+        min-height: 640px; 
+    } 
+ 
+ 
+    .hero-content { 
+        padding: 
+            35px 12px 
+            65px; 
+    } 
+ 
+ 
+    .hero-nombres { 
+        font-size: clamp(3rem, 15vw, 4.5rem); 
+    } 
+ 
+ 
+    .hero-versiculo p { 
+        font-size: 1.15rem; 
+    } 
+ 
+ 
+    .hero-fecha > span { 
+        font-size: 3rem; 
+    } 
+ 
+} 
+ 
+/* ===================================================== 
+   CONTADOR 
+===================================================== */ 
+ 
+.contador { 
+ 
+    padding: 85px 20px; 
+ 
+    background: var(--blanco); 
+ 
+    text-align: center; 
+} 
+ 
+ 
+.contador-contenido { 
+ 
+    width: min(900px, 100%); 
+ 
+    margin: auto; 
+} 
+ 
+ 
+.contador h2 { 
+ 
+    margin-bottom: 40px; 
+ 
+    color: var(--texto); 
+ 
+    font-size: clamp(2.5rem, 5vw, 4rem); 
+ 
+    font-weight: 500; 
+ 
+    line-height: .95; 
+} 
+ 
+ 
+.contador-grid { 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    gap: clamp(10px, 3vw, 30px); 
+} 
+ 
+ 
+.contador-item { 
+ 
+    min-width: 90px; 
+} 
+ 
+ 
+.contador-item strong { 
+ 
+    display: block; 
+ 
+    color: var(--dorado); 
+ 
+    font-family: var(--serif); 
+ 
+    font-size: clamp(3rem, 6vw, 4.7rem); 
+ 
+    font-weight: 500; 
+ 
+    line-height: .9; 
+} 
+ 
+ 
+.contador-item span { 
+ 
+    display: block; 
+ 
+    margin-top: 10px; 
+ 
+    color: var(--texto-suave); 
+ 
+    font-size: .72rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .14em; 
+ 
+    text-transform: uppercase; 
+} 
+ 
+ 
+.contador-separador { 
+ 
+    color: var(--dorado-claro); 
+ 
+    font-family: var(--serif); 
+ 
+    font-size: 2rem; 
+ 
+    font-weight: 400; 
+} 
+ 
+ 
+.contador p { 
+ 
+    width: min(600px, 100%); 
+ 
+    margin: 35px auto 0; 
+ 
+    color: var(--texto-suave); 
+ 
+    font-size: .95rem; 
+} 
+ 
+ 
+/* ===================================================== 
+   EVENTOS 
+===================================================== */ 
+ 
+.evento { 
+ 
+    padding: 105px 20px; 
+ 
+    background: var(--crema); 
+} 
+ 
+ 
+.evento-intro { 
+ 
+    width: min(700px, 100%); 
+ 
+    margin: 0 auto 60px; 
+ 
+    text-align: center; 
+} 
+ 
+ 
+.evento-intro h2 { 
+ 
+    margin-bottom: 18px; 
+ 
+    font-size: clamp(2.8rem, 6vw, 4.5rem); 
+ 
+    line-height: .95; 
+} 
+ 
+ 
+.evento-intro p { 
+ 
+    color: var(--texto-suave); 
+ 
+    font-size: 1rem; 
+ 
+    line-height: 1.75; 
+} 
+ 
+ 
+.evento-lista { 
+ 
+    display: grid; 
+ 
+    grid-template-columns: repeat(2, 1fr); 
+ 
+    gap: 25px; 
+ 
+    width: min(1050px, 100%); 
+ 
+    margin: auto; 
+} 
+ 
+ 
+.evento-card { 
+ 
+    position: relative; 
+ 
+    display: grid; 
+ 
+    grid-template-columns: 55px 75px 1fr; 
+ 
+    gap: 20px; 
+ 
+    padding: 38px 30px; 
+ 
+    background: var(--blanco); 
+ 
+    border: 1px solid var(--linea); 
+ 
+    border-radius: var(--radio); 
+ 
+    box-shadow: var(--sombra-suave); 
+ 
+    transition: 
+        transform .3s ease, 
+        box-shadow .3s ease, 
+        border-color .3s ease; 
+} 
+ 
+ 
+.evento-card:hover { 
+ 
+    transform: translateY(-4px); 
+ 
+    border-color: var(--dorado-claro); 
+ 
+    box-shadow: var(--sombra); 
+} 
+ 
+ 
+.evento-numero { 
+ 
+    color: var(--dorado-claro); 
+ 
+    font-size: .75rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .12em; 
+} 
+ 
+ 
+.evento-icono { 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    width: 62px; 
+ 
+    height: 62px; 
+ 
+    background: #faf7f0; 
+ 
+    border: 1px solid var(--dorado-claro); 
+ 
+    border-radius: 50%; 
+} 
+ 
+ 
+.evento-icono img { 
+ 
+    width: 34px; 
+ 
+    height: 34px; 
+ 
+    object-fit: contain; 
+} 
+ 
+ 
+.evento-info { 
+ 
+    min-width: 0; 
+} 
+ 
+ 
+.evento-tipo { 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-size: .7rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .15em; 
+ 
+    text-transform: uppercase; 
+} 
+ 
+ 
+.evento-info h3 { 
+ 
+    margin: 7px 0; 
+ 
+    font-size: 2rem; 
+ 
+    line-height: 1; 
+} 
+ 
+ 
+.evento-fecha { 
+ 
+    color: var(--texto-suave); 
+ 
+    font-size: .9rem; 
+} 
+ 
+ 
+.evento-hora { 
+ 
+    margin: 10px 0 18px; 
+ 
+    color: var(--dorado); 
+ 
+    font-family: var(--serif); 
+ 
+    font-size: 1.8rem; 
+ 
+    font-weight: 500; 
+} 
+ 
+ 
+.evento-direccion { 
+ 
+    color: var(--texto-suave); 
+ 
+    font-size: .88rem; 
+ 
+    line-height: 1.7; 
+} 
+ 
+ 
+/* ===================================================== 
+   PRIVACIDAD RECEPCIÓN 
+===================================================== */ 
+ 
+.evento-privacidad { 
+ 
+    display: flex; 
+ 
+    gap: 10px; 
+ 
+    margin-top: 20px; 
+ 
+    padding: 14px; 
+ 
+    background: #faf7f0; 
+ 
+    border-left: 2px solid var(--dorado); 
+ 
+    border-radius: 6px; 
+} 
+ 
+ 
+.evento-privacidad-icono { 
+ 
+    flex-shrink: 0; 
+ 
+    font-size: .9rem; 
+} 
+ 
+ 
+.evento-privacidad p { 
+ 
+    color: var(--texto-suave); 
+ 
+    font-size: .76rem; 
+ 
+    line-height: 1.55; 
+} 
+ 
+ 
+.evento-privacidad strong { 
+ 
+    color: var(--texto); 
+ 
+    font-weight: 700; 
+} 
+ 
+ 
+.link-mapa { 
+ 
+    display: inline-flex; 
+ 
+    align-items: center; 
+ 
+    gap: 8px; 
+ 
+    margin-top: 22px; 
+ 
+    padding-bottom: 4px; 
+ 
+    border-bottom: 1px solid var(--dorado); 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-size: .72rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .1em; 
+ 
+    text-transform: uppercase; 
+ 
+    transition: 
+        color .25s ease, 
+        border-color .25s ease; 
+} 
+ 
+ 
+.link-mapa:hover { 
+ 
+    color: var(--dorado); 
+ 
+    border-color: var(--dorado-claro); 
+} 
+ 
+ 
+.link-mapa b { 
+ 
+    font-size: 1rem; 
+} 
+ 
+ 
+/* ===================================================== 
+   HISTORIA / GALERÍA 
+===================================================== */ 
+ 
+.historia { 
+ 
+    padding: 100px 20px; 
+ 
+    background: var(--blanco); 
+} 
+ 
+ 
+.historia-header { 
+ 
+    width: min(750px, 100%); 
+ 
+    margin: auto auto 50px; 
+ 
+    text-align: center; 
+} 
+ 
+ 
+.historia-header h2 { 
+ 
+    font-size: clamp(2.8rem, 6vw, 4.5rem); 
+ 
+    line-height: .95; 
+} 
+ 
+ 
+.galeria-wrapper { 
+ 
+    position: relative; 
+ 
+    width: min(1050px, 100%); 
+ 
+    margin: auto; 
+} 
+ 
+ 
+.galeria-fotos { 
+ 
+    display: grid; 
+ 
+    grid-template-columns: repeat(4, 1fr); 
+ 
+    gap: 14px; 
+} 
+ 
+ 
+.galeria-fotos img { 
+ 
+    width: 100%; 
+ 
+    height: 340px; 
+ 
+    object-fit: cover; 
+ 
+    border-radius: 10px; 
+ 
+    cursor: pointer; 
+ 
+    filter: saturate(.92); 
+ 
+    opacity: .94; 
+ 
+    transition: 
+        transform .45s ease, 
+        filter .45s ease, 
+        opacity .45s ease; 
+} 
+ 
+ 
+.galeria-fotos img:hover { 
+ 
+    transform: scale(.985); 
+ 
+    filter: saturate(1); 
+ 
+    opacity: 1; 
+} 
+ 
+ 
+.galeria-control { 
+ 
+    position: absolute; 
+ 
+    top: 50%; 
+ 
+    z-index: 5; 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    width: 45px; 
+ 
+    height: 45px; 
+ 
+    transform: translateY(-50%); 
+ 
+    background: rgba(255, 253, 249, .96); 
+ 
+    border: 1px solid var(--linea); 
+ 
+    border-radius: 50%; 
+ 
+    color: var(--texto); 
+ 
+    font-family: var(--serif); 
+ 
+    font-size: 2rem; 
+ 
+    font-weight: 400; 
+ 
+    line-height: 1; 
+ 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .10); 
+ 
+    transition: 
+        background .25s ease, 
+        border-color .25s ease, 
+        transform .25s ease; 
+} 
+ 
+ 
+.galeria-control:hover { 
+ 
+    background: var(--blanco); 
+ 
+    border-color: var(--dorado-claro); 
+ 
+    transform: translateY(-50%) scale(1.05); 
+} 
+ 
+ 
+.galeria-control.anterior { 
+ 
+    left: -22px; 
+} 
+ 
+ 
+.galeria-control.siguiente { 
+ 
+    right: -22px; 
+} 
+ 
+ 
+/* ===================================================== 
+   LIGHTBOX 
+===================================================== */ 
+ 
+.lightbox { 
+ 
+    position: fixed; 
+ 
+    inset: 0; 
+ 
+    z-index: 1000; 
+ 
+    display: none; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    padding: 30px; 
+ 
+    background: rgba(25, 21, 17, .95); 
+ 
+    backdrop-filter: blur(4px); 
+} 
+ 
+ 
+.lightbox.activo { 
+ 
+    display: flex; 
+} 
+ 
+ 
+.lightbox img { 
+ 
+    max-width: min(1100px, 95vw); 
+ 
+    max-height: 90vh; 
+ 
+    object-fit: contain; 
+ 
+    border-radius: 4px; 
+ 
+    box-shadow: 
+        0 30px 80px rgba(0, 0, 0, .35); 
+} 
+ 
+ 
+.lightbox-cerrar { 
+ 
+    position: absolute; 
+ 
+    top: 20px; 
+ 
+    right: 25px; 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    width: 50px; 
+ 
+    height: 50px; 
+ 
+    border: 0; 
+ 
+    background: transparent; 
+ 
+    color: #fff; 
+ 
+    font-size: 2.5rem; 
+ 
+    font-weight: 300; 
+ 
+    transition: 
+        transform .25s ease, 
+        color .25s ease; 
+} 
+ 
+ 
+.lightbox-cerrar:hover { 
+ 
+    color: var(--dorado-claro); 
+ 
+    transform: rotate(90deg); 
+} 
+ 
+ 
+/* ===================================================== 
+   CONFIRMACIÓN 
+===================================================== */ 
+ 
+.rsvp { 
+ 
+    padding: 110px 20px; 
+ 
+    background: var(--crema); 
+} 
+ 
+ 
+.rsvp-card { 
+ 
+    width: min(680px, 100%); 
+ 
+    margin: auto; 
+ 
+    padding: clamp(40px, 7vw, 72px); 
+ 
+    background: var(--blanco); 
+ 
+    border: 1px solid var(--linea); 
+ 
+    border-radius: 24px; 
+ 
+    text-align: center; 
+ 
+    box-shadow: var(--sombra); 
+} 
+ 
+ 
+.rsvp-card h2 { 
+ 
+    font-size: clamp(3rem, 7vw, 4.8rem); 
+ 
+    font-weight: 500; 
+ 
+    line-height: .95; 
+} 
+ 
+ 
+.nombre-invitado { 
+ 
+    margin-top: 15px; 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-family: var(--serif); 
+ 
+    font-size: 1.55rem; 
+ 
+    font-weight: 600; 
+} 
+ 
+ 
+.rsvp-opciones { 
+ 
+    display: flex; 
+ 
+    flex-direction: column; 
+ 
+    gap: 12px; 
+ 
+    margin-top: 35px; 
+} 
+ 
+ 
+.rsvp-btn { 
+ 
+    display: grid; 
+ 
+    grid-template-columns: 45px 1fr 30px; 
+ 
+    align-items: center; 
+ 
+    width: 100%; 
+ 
+    min-height: 78px; 
+ 
+    padding: 12px 18px; 
+ 
+    background: rgba(255, 255, 255, .65); 
+ 
+    border: 1px solid var(--linea); 
+ 
+    border-radius: 12px; 
+ 
+    color: var(--texto); 
+ 
+    text-align: left; 
+ 
+    transition: 
+        transform .25s ease, 
+        border-color .25s ease, 
+        background .25s ease, 
+        box-shadow .25s ease; 
+} 
+ 
+ 
+.rsvp-btn:hover { 
+ 
+    border-color: var(--dorado-claro); 
+ 
+    background: var(--blanco); 
+ 
+    transform: translateY(-2px); 
+ 
+    box-shadow: var(--sombra-suave); 
+} 
+ 
+ 
+.rsvp-btn.principal { 
+ 
+    background: var(--dorado); 
+ 
+    border-color: var(--dorado); 
+ 
+    color: #fff; 
+} 
+ 
+ 
+.rsvp-btn.principal:hover { 
+ 
+    background: var(--dorado-oscuro); 
+ 
+    border-color: var(--dorado-oscuro); 
+} 
+ 
+ 
+.rsvp-btn.discreto { 
+ 
+    background: #faf8f4; 
+} 
+ 
+ 
+.btn-icono { 
+ 
+    color: var(--dorado); 
+ 
+    font-size: 1.25rem; 
+ 
+    text-align: center; 
+} 
+ 
+ 
+.principal .btn-icono { 
+ 
+    color: #fff; 
+} 
+ 
+ 
+.btn-texto { 
+ 
+    display: flex; 
+ 
+    flex-direction: column; 
+ 
+    padding: 0 10px; 
+} 
+ 
+ 
+.btn-texto strong { 
+ 
+    font-size: .9rem; 
+ 
+    font-weight: 700; 
+} 
+ 
+ 
+.btn-texto small { 
+ 
+    margin-top: 3px; 
+ 
+    color: var(--texto-suave); 
+ 
+    font-size: .72rem; 
+ 
+    line-height: 1.45; 
+} 
+ 
+ 
+.principal .btn-texto small { 
+ 
+    color: rgba(255, 255, 255, .84); 
+} 
+ 
+ 
+.btn-flecha { 
+ 
+    font-size: 1.1rem; 
+ 
+    font-weight: 400; 
+} 
+ 
+ 
+.guardar-fecha { 
+ 
+    display: inline-flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    gap: 8px; 
+ 
+    margin-top: 30px; 
+ 
+    padding: 12px 18px; 
+ 
+    border: 0; 
+ 
+    background: transparent; 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-size: .72rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .12em; 
+ 
+    text-transform: uppercase; 
+ 
+    transition: 
+        color .25s ease, 
+        transform .25s ease; 
+} 
+ 
+ 
+.guardar-fecha:hover { 
+ 
+    color: var(--dorado); 
+ 
+    transform: translateY(-1px); 
+} 
+ 
+ 
+.guardar-fecha span { 
+ 
+    font-size: 1.2rem; 
+} 
+ 
+ 
+.opciones-calendario { 
+ 
+    display: none; 
+ 
+    flex-direction: column; 
+ 
+    gap: 10px; 
+ 
+    margin-top: 10px; 
+} 
+ 
+ 
+.opciones-calendario.visible { 
+ 
+    display: flex; 
+} 
+ 
+ 
+.opciones-calendario a { 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-size: .82rem; 
+ 
+    text-decoration: underline; 
+ 
+    text-underline-offset: 3px; 
+} 
+ 
+ 
+.opciones-calendario a:hover { 
+ 
+    color: var(--dorado); 
+} 
+ 
+ 
+/* ===================================================== 
+REGALOS 
+===================================================== */ 
+ 
+.regalos { 
+ 
+padding: 100px 20px; 
+ 
+background: var(--crema-2); 
+ 
+text-align: center; 
+ 
+} 
+ 
+.regalos-contenido { 
+ 
+width: min(650px, 100%); 
+ 
+margin: 0 auto; 
+ 
+} 
+ 
+/* ===================================================== 
+TÍTULO 
+===================================================== */ 
+ 
+.regalos h2 { 
+ 
+margin: 0 auto; 
+ 
+font-size: clamp( 
+    2.3rem, 
+    5vw, 
+    3.6rem 
+); 
+ 
+font-weight: 500; 
+ 
+line-height: 1.08; 
+ 
+} 
+ 
+/* ===================================================== 
+ORNAMENTO 
+===================================================== */ 
+ 
+.regalos .ornamento { 
+ 
+display: flex; 
+ 
+align-items: center; 
+ 
+justify-content: center; 
+ 
+gap: 14px; 
+ 
+width: min(260px, 70%); 
+ 
+margin: 28px auto 38px; 
+ 
+} 
+ 
+.regalos .ornamento span { 
+ 
+flex: 1; 
+ 
+height: 1px; 
+ 
+background: var(--dorado-claro); 
+ 
+} 
+ 
+.regalos .ornamento b { 
+ 
+font-family: var(--serif); 
+ 
+font-size: 1.3rem; 
+ 
+font-weight: 400; 
+ 
+color: var(--dorado); 
+ 
+} 
+ 
+/* ===================================================== 
+TARJETA 
+===================================================== */ 
+ 
+.regalos-grid { 
+ 
+margin-top: 0; 
+ 
+} 
+ 
+.regalo { 
+ 
+padding: 38px 30px; 
+ 
+background: rgba( 
+    255, 
+    253, 
+    249, 
+    .92 
+); 
+ 
+border: 1px solid var(--linea); 
+ 
+border-radius: 16px; 
+ 
+box-shadow: 
+    0 14px 38px 
+    rgba(80, 65, 45, .07); 
+ 
+} 
+ 
+/* ===================================================== 
+LOGO YAPE 
+===================================================== */ 
+ 
+.yape-icono { 
+ 
+display: flex; 
+ 
+justify-content: center; 
+ 
+margin-bottom: 20px; 
+ 
+} 
+ 
+.yape-icono img { 
+ 
+display: block; 
+ 
+width: 42px; 
+ 
+height: 42px; 
+ 
+object-fit: contain; 
+ 
+} 
+ 
+/* ===================================================== 
+CONTACTOS YAPE 
+===================================================== */ 
+ 
+.yape-contacto { 
+ 
+padding: 18px 0; 
+ 
+} 
+ 
+.yape-contacto + .yape-contacto { 
+ 
+border-top: 1px solid var(--linea); 
+ 
+} 
+ 
+/* ===================================================== 
+NÚMERO 
+===================================================== */ 
+ 
+.yape-numero { 
+ 
+display: flex; 
+ 
+align-items: center; 
+ 
+justify-content: center; 
+ 
+gap: 12px; 
+ 
+} 
+ 
+.yape-numero > span { 
+ 
+color: var(--texto); 
+ 
+font-size: 1.08rem; 
+ 
+font-weight: 600; 
+ 
+letter-spacing: .025em; 
+ 
+} 
+ 
+.yape-numero button { 
+ 
+display: flex; 
+ 
+align-items: center; 
+ 
+justify-content: center; 
+ 
+flex-shrink: 0; 
+ 
+width: 40px; 
+ 
+height: 40px; 
+ 
+padding: 0; 
+ 
+background: transparent; 
+ 
+border: 1px solid var(--linea); 
+ 
+border-radius: 50%; 
+ 
+color: var(--dorado-oscuro); 
+ 
+font-size: 1.05rem; 
+ 
+cursor: pointer; 
+ 
+transition: 
+    background .25s ease, 
+    border-color .25s ease, 
+    transform .25s ease; 
+ 
+} 
+ 
+.yape-numero button { 
+ 
+background: var(--crema); 
+ 
+border-color: var(--dorado-claro); 
+ 
+transform: scale(1.05); 
+ 
+} 
+ 
+/* ===================================================== 
+NOMBRE 
+===================================================== */ 
+ 
+.yape-nombre { 
+ 
+display: block; 
+ 
+margin-top: 5px; 
+ 
+color: var(--texto-suave); 
+ 
+font-size: .84rem; 
+ 
+} 
+ 
+/* ===================================================== 
+DIRECCIÓN 
+===================================================== */ 
+ 
+.yape-direccion { 
+ 
+display: flex; 
+ 
+align-items: center; 
+ 
+justify-content: center; 
+ 
+gap: 10px; 
+ 
+margin-top: 15px; 
+ 
+padding-top: 22px; 
+ 
+border-top: 1px solid var(--linea); 
+ 
+color: var(--texto-suave); 
+ 
+font-size: .84rem; 
+ 
+} 
+ 
+.casa-icono { 
+ 
+display: flex; 
+ 
+align-items: center; 
+ 
+justify-content: center; 
+ 
+width: 34px; 
+ 
+height: 34px; 
+ 
+border: 1px solid var(--dorado-claro); 
+ 
+border-radius: 50%; 
+ 
+color: var(--dorado); 
+ 
+font-size: 1.2rem; 
+ 
+} 
+ 
+/* ===================================================== 
+COPIADO 
+===================================================== */ 
+ 
+.copiado { 
+ 
+display: block; 
+ 
+height: 0; 
+ 
+margin-top: 0; 
+ 
+overflow: hidden; 
+ 
+opacity: 0; 
+ 
+color: var(--dorado-oscuro); 
+ 
+font-size: .76rem; 
+ 
+transition: 
+    opacity .25s ease, 
+    margin .25s ease; 
+ 
+} 
+ 
+.copiado.visible { 
+ 
+height: auto; 
+ 
+margin-top: 10px; 
+ 
+opacity: 1; 
+ 
+} 
+ 
+/* ===================================================== 
+FINAL 
+===================================================== */ 
+ 
+.regalos-final { 
+ 
+margin-top: 45px; 
+ 
+} 
+ 
+.regalos-final p { 
+ 
+margin: 0; 
+ 
+color: var(--texto-suave); 
+ 
+font-size: .92rem; 
+ 
+line-height: 1.7; 
+ 
+} 
+ 
+.regalos-final span { 
+ 
+display: block; 
+ 
+margin-top: 18px; 
+ 
+color: var(--dorado); 
+ 
+font-family: var(--serif); 
+ 
+font-size: 1.4rem; 
+ 
+} 
+ 
+/* ===================================================== 
+MÓVIL 
+===================================================== */ 
+ 
+@media (max-width: 600px) { 
+ 
+.regalos { 
+ 
+    padding: 80px 18px; 
+ 
+} 
+ 
+ 
+.regalo { 
+ 
+    padding: 32px 20px; 
+ 
+} 
+ 
+ 
+.yape-icono img { width: 40px; height: 40px; } 
+ 
+ 
+.yape-numero > span { 
+ 
+    font-size: 1rem; 
+ 
+} 
+ 
+} 
+ 
+ 
+/* ===================================================== 
+   MODALES 
+===================================================== */ 
+ 
+.modal { 
+ 
+    position: fixed; 
+ 
+    inset: 0; 
+ 
+    z-index: 2000; 
+ 
+    display: none; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    padding: 20px; 
+ 
+    background: rgba(25, 21, 17, .68); 
+ 
+    backdrop-filter: blur(6px); 
+} 
+ 
+ 
+.modal.activo { 
+ 
+    display: flex; 
+} 
+ 
+ 
+.modal-caja { 
+ 
+    position: relative; 
+ 
+    width: min(480px, 100%); 
+ 
+    max-height: calc(100svh - 40px); 
+ 
+    overflow-y: auto; 
+ 
+    padding: 45px 35px; 
+ 
+    background: var(--blanco); 
+ 
+    border: 1px solid var(--linea); 
+ 
+    border-radius: 20px; 
+ 
+    box-shadow: var(--sombra-fuerte); 
+ 
+    text-align: center; 
+ 
+    animation: aparecer .25s ease; 
+} 
+ 
+ 
+@keyframes aparecer { 
+ 
+    from { 
+ 
+        opacity: 0; 
+ 
+        transform: 
+            translateY(15px) 
+            scale(.98); 
+    } 
+ 
+    to { 
+ 
+        opacity: 1; 
+ 
+        transform: 
+            translateY(0) 
+            scale(1); 
+    } 
+} 
+ 
+ 
+.modal-cerrar { 
+ 
+    position: absolute; 
+ 
+    top: 12px; 
+ 
+    right: 17px; 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    width: 40px; 
+ 
+    height: 40px; 
+ 
+    border: 0; 
+ 
+    background: transparent; 
+ 
+    color: var(--texto-suave); 
+ 
+    font-size: 1.8rem; 
+ 
+    font-weight: 300; 
+ 
+    transition: 
+        color .25s ease, 
+        transform .25s ease; 
+} 
+ 
+ 
+.modal-cerrar:hover { 
+ 
+    color: var(--dorado); 
+ 
+    transform: rotate(90deg); 
+} 
+ 
+ 
+.modal-kicker { 
+ 
+    display: block; 
+ 
+    margin-bottom: 12px; 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-size: .72rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .16em; 
+ 
+    text-transform: uppercase; 
+} 
+ 
+ 
+.modal-caja h3 { 
+ 
+    font-size: 2.5rem; 
+ 
+    font-weight: 500; 
+ 
+    line-height: 1.05; 
+} 
+ 
+ 
+.modal-caja p { 
+ 
+    margin-top: 15px; 
+ 
+    color: var(--texto-suave); 
+ 
+    font-size: .92rem; 
+ 
+    line-height: 1.7; 
+} 
+ 
+ 
+/* ===================================================== 
+   SELECTOR PERSONAS 
+===================================================== */ 
+ 
+.selector-personas { 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    gap: 30px; 
+ 
+    margin: 30px 0; 
+} 
+ 
+ 
+.selector-personas > button { 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    width: 45px; 
+ 
+    height: 45px; 
+ 
+    background: transparent; 
+ 
+    border: 1px solid var(--linea); 
+ 
+    border-radius: 50%; 
+ 
+    color: var(--texto); 
+ 
+    font-size: 1.5rem; 
+ 
+    transition: 
+        background .25s ease, 
+        border-color .25s ease, 
+        transform .25s ease; 
+} 
+ 
+ 
+.selector-personas > button:hover:not(:disabled) { 
+ 
+    background: var(--crema); 
+ 
+    border-color: var(--dorado-claro); 
+ 
+    transform: scale(1.05); 
+} 
+ 
+ 
+.selector-personas > button:disabled { 
+ 
+    opacity: .35; 
+ 
+    cursor: not-allowed; 
+} 
+ 
+ 
+.selector-personas > div { 
+ 
+    min-width: 80px; 
+} 
+ 
+ 
+.selector-personas strong { 
+ 
+    display: block; 
+ 
+    color: var(--dorado); 
+ 
+    font-family: var(--serif); 
+ 
+    font-size: 3.2rem; 
+ 
+    font-weight: 500; 
+ 
+    line-height: 1; 
+} 
+ 
+ 
+.selector-personas small { 
+ 
+    color: var(--texto-suave); 
+ 
+    font-size: .78rem; 
+} 
+ 
+ 
+/* ===================================================== 
+   ICONOS MODALES 
+===================================================== */ 
+ 
+.modal-icono { 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    width: 60px; 
+ 
+    height: 60px; 
+ 
+    margin: 0 auto 20px; 
+ 
+    background: var(--crema-2); 
+ 
+    border-radius: 50%; 
+ 
+    color: var(--dorado); 
+ 
+    font-size: 1.8rem; 
+} 
+ 
+ 
+/* ===================================================== 
+   ZOOM 
+===================================================== */ 
+ 
+.zoom-intro { 
+ 
+    max-width: 400px; 
+ 
+    margin-left: auto; 
+ 
+    margin-right: auto; 
+} 
+ 
+ 
+.zoom-datos { 
+ 
+    display: grid; 
+ 
+    grid-template-columns: 1fr 1fr; 
+ 
+    gap: 12px; 
+ 
+    margin-top: 25px; 
+} 
+ 
+ 
+.zoom-dato { 
+ 
+    padding: 20px 12px; 
+ 
+    background: #faf7f0; 
+ 
+    border: 1px solid var(--linea); 
+ 
+    border-radius: 12px; 
+} 
+ 
+ 
+.zoom-dato span { 
+ 
+    display: block; 
+ 
+    margin-bottom: 7px; 
+ 
+    color: var(--texto-suave); 
+ 
+    font-size: .65rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .12em; 
+ 
+    text-transform: uppercase; 
+} 
+ 
+ 
+.zoom-dato strong { 
+ 
+    display: block; 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-family: var(--serif); 
+ 
+    font-size: 1.45rem; 
+ 
+    font-weight: 600; 
+ 
+    letter-spacing: .04em; 
+} 
+ 
+ 
+.zoom-aviso { 
+ 
+    display: flex; 
+ 
+    align-items: flex-start; 
+ 
+    gap: 10px; 
+ 
+    margin-top: 18px; 
+ 
+    padding: 15px; 
+ 
+    background: #f8f3e9; 
+ 
+    border: 1px solid var(--dorado-claro); 
+ 
+    border-radius: 10px; 
+ 
+    text-align: left; 
+} 
+ 
+ 
+.zoom-aviso-icono { 
+ 
+    flex-shrink: 0; 
+ 
+    font-size: .95rem; 
+} 
+ 
+ 
+.zoom-aviso p { 
+ 
+    margin: 0; 
+ 
+    font-size: .76rem; 
+ 
+    line-height: 1.55; 
+} 
+ 
+ 
+.zoom-aviso strong { 
+ 
+    color: var(--texto); 
+ 
+    font-weight: 700; 
+} 
+ 
+ 
+.zoom-recordatorio { 
+ 
+    display: flex; 
+ 
+    align-items: flex-start; 
+ 
+    gap: 10px; 
+ 
+    margin-top: 15px; 
+ 
+    text-align: left; 
+} 
+ 
+ 
+.zoom-recordatorio > span { 
+ 
+    flex-shrink: 0; 
+ 
+    color: var(--dorado); 
+ 
+    font-size: 1rem; 
+} 
+ 
+ 
+.zoom-recordatorio p { 
+ 
+    margin: 0; 
+ 
+    font-size: .76rem; 
+ 
+    line-height: 1.55; 
+} 
+ 
+ 
+.zoom-copiar { 
+ 
+    display: inline-flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    gap: 9px; 
+ 
+    width: 100%; 
+ 
+    min-height: 52px; 
+ 
+    margin-top: 22px; 
+ 
+    padding: 0 18px; 
+ 
+    background: var(--dorado); 
+ 
+    border: 1px solid var(--dorado); 
+ 
+    border-radius: 8px; 
+ 
+    color: #fff; 
+ 
+    font-size: .72rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .08em; 
+ 
+    text-transform: uppercase; 
+ 
+    transition: 
+        background .25s ease, 
+        transform .25s ease; 
+} 
+ 
+ 
+.zoom-copiar:hover { 
+ 
+    background: var(--dorado-oscuro); 
+ 
+    border-color: var(--dorado-oscuro); 
+ 
+    transform: translateY(-1px); 
+} 
+ 
+ 
+.zoom-copiar span:first-child { 
+ 
+    font-size: 1rem; 
+} 
+ 
+ 
+.zoom-copiado { 
+ 
+    display: block; 
+ 
+    margin-top: 8px; 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-size: .76rem; 
+ 
+    font-weight: 600; 
+ 
+    opacity: 0; 
+ 
+    transition: opacity .25s ease; 
+} 
+ 
+ 
+.zoom-copiado.visible { 
+ 
+    opacity: 1; 
+} 
+ 
+ 
+/* ===================================================== 
+   ACCIONES MODALES 
+===================================================== */ 
+ 
+.modal-acciones { 
+ 
+    display: grid; 
+ 
+    grid-template-columns: 1fr 1fr; 
+ 
+    gap: 10px; 
+ 
+    margin-top: 28px; 
+} 
+ 
+ 
+.modal-confirmar, 
+.modal-cancelar { 
+ 
+    min-height: 52px; 
+ 
+    padding: 0 18px; 
+ 
+    border-radius: 8px; 
+ 
+    font-size: .72rem; 
+ 
+    font-weight: 700; 
+ 
+    letter-spacing: .08em; 
+ 
+    text-transform: uppercase; 
+ 
+    transition: 
+        background .25s ease, 
+        border-color .25s ease, 
+        transform .25s ease; 
+} 
+ 
+ 
+.modal-confirmar:hover, 
+.modal-cancelar:hover { 
+ 
+    transform: translateY(-1px); 
+} 
+ 
+ 
+.modal-confirmar { 
+ 
+    background: var(--dorado); 
+ 
+    border: 1px solid var(--dorado); 
+ 
+    color: #fff; 
+} 
+ 
+ 
+.modal-confirmar:hover { 
+ 
+    background: var(--dorado-oscuro); 
+ 
+    border-color: var(--dorado-oscuro); 
+} 
+ 
+ 
+.modal-cancelar { 
+ 
+    background: transparent; 
+ 
+    border: 1px solid var(--linea); 
+ 
+    color: var(--texto-suave); 
+} 
+ 
+ 
+.modal-cancelar:hover { 
+ 
+    background: var(--crema); 
+} 
+ 
+ 
+.modal-confirmar.no { 
+ 
+    background: #8b625d; 
+ 
+    border-color: #8b625d; 
+} 
+ 
+ 
+.modal-confirmar.no:hover { 
+ 
+    background: #76514d; 
+ 
+    border-color: #76514d; 
+} 
+ 
+ 
+/* ===================================================== 
+   ÉXITO 
+===================================================== */ 
+ 
+.icono-exito { 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    width: 65px; 
+ 
+    height: 65px; 
+ 
+    margin: 0 auto 20px; 
+ 
+    background: var(--crema-2); 
+ 
+    border-radius: 50%; 
+ 
+    color: var(--dorado); 
+ 
+    font-size: 1.7rem; 
+} 
+ 
+ 
+/* ===================================================== 
+   MÚSICA 
+===================================================== */ 
+ 
+.boton-musica { 
+ 
+    position: fixed; 
+ 
+    right: 22px; 
+ 
+    bottom: 22px; 
+ 
+    z-index: 500; 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: center; 
+ 
+    width: 52px; 
+ 
+    height: 52px; 
+ 
+    background: rgba(255, 253, 249, .96); 
+ 
+    border: 1px solid var(--dorado); 
+ 
+    border-radius: 50%; 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-family: var(--serif); 
+ 
+    font-size: 1.4rem; 
+ 
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, .12); 
+ 
+    backdrop-filter: blur(5px); 
+ 
+    transition: 
+        transform .25s ease, 
+        background .25s ease; 
+} 
+ 
+ 
+.boton-musica:hover { 
+ 
+    background: var(--blanco); 
+ 
+    transform: scale(1.05); 
+} 
+ 
+ 
+.boton-musica.reproduciendo { 
+ 
+    animation: girar 3s linear infinite; 
+} 
+ 
+ 
+@keyframes girar { 
+ 
+    to { 
+        transform: rotate(360deg); 
+    } 
+} 
+ 
+ 
+/* ===================================================== 
+   ANIMACIONES DE ENTRADA 
+===================================================== */ 
+ 
+.js .animar-entrada { 
+ 
+    opacity: 0; 
+ 
+    transform: translateY(25px); 
+ 
+    transition: 
+        opacity .7s ease, 
+        transform .7s ease; 
+} 
+ 
+ 
+.js .animar-entrada.visible { 
+ 
+    opacity: 1; 
+ 
+    transform: translateY(0); 
+} 
+ 
+ 
+/* ===================================================== 
+   TABLETS 
+===================================================== */ 
+ 
+@media (max-width: 900px) { 
+ 
+    .evento-lista { 
+ 
+        grid-template-columns: 1fr; 
+    } 
+ 
+    .galeria-fotos { 
+ 
+        grid-template-columns: repeat(2, 1fr); 
+    } 
+ 
+    .galeria-fotos img { 
+ 
+        height: 300px; 
+    } 
+ 
+    .galeria-control.anterior { 
+ 
+        left: 10px; 
+    } 
+ 
+    .galeria-control.siguiente { 
+ 
+        right: 10px; 
+    } 
+} 
+ 
+ 
+/* ===================================================== 
+   MÓVILES 
+===================================================== */ 
+ 
+@media (max-width: 650px) { 
+ 
+    .hero::before { 
+ 
+        inset: 14px; 
+    } 
+ 
+    .hero::after { 
+ 
+        top: 30px; 
+    } 
+ 
+    .hero-content { 
+ 
+        width: 94%; 
+ 
+        padding: 70px 10px 95px; 
+    } 
+ 
+    .hero-kicker { 
+ 
+        font-size: .7rem; 
+ 
+        letter-spacing: .24em; 
+    } 
+ 
+    .hero-nombres { 
+ 
+        gap: 12px; 
+ 
+        font-size: clamp(3.5rem, 18vw, 5.5rem); 
+    } 
+ 
+    .hero-linea { 
+ 
+        margin: 28px auto 24px; 
+    } 
+ 
+    .hero-versiculo p { 
+ 
+        font-size: 1.22rem; 
+    } 
+ 
+    .hero-mensaje { 
+ 
+        font-size: .96rem; 
+ 
+        line-height: 1.7; 
+    } 
+ 
+    .hero-fecha { 
+ 
+        margin: 28px 0; 
+    } 
+ 
+    .hero-fecha > span { 
+ 
+        font-size: 3.5rem; 
+    } 
+ 
+    .hero-fecha small { 
+ 
+        font-size: .64rem; 
+    } 
+ 
+    .hero-fecha strong { 
+ 
+        font-size: .95rem; 
+    } 
+ 
+    .hero-boton { 
+ 
+        min-height: 52px; 
+ 
+        padding: 0 25px; 
+ 
+        font-size: .72rem; 
+    } 
+ 
+    .hero-scroll { 
+ 
+        display: none; 
+    } 
+ 
+ 
+    /* CONTADOR */ 
+ 
+    .contador { 
+ 
+        padding: 70px 15px; 
+    } 
+ 
+    .contador h2 { 
+ 
+        margin-bottom: 35px; 
+    } 
+ 
+    .contador-grid { 
+ 
+        gap: 5px; 
+    } 
+ 
+    .contador-item { 
+ 
+        min-width: 62px; 
+    } 
+ 
+    .contador-item strong { 
+ 
+        font-size: 2.7rem; 
+    } 
+ 
+    .contador-item span { 
+ 
+        font-size: .65rem; 
+ 
+        letter-spacing: .06em; 
+    } 
+ 
+    .contador-separador { 
+ 
+        font-size: 1.4rem; 
+    } 
+ 
+    .contador p { 
+ 
+        font-size: .9rem; 
+    } 
+ 
+ 
+    /* EVENTOS */ 
+ 
+    .evento, 
+    .historia, 
+    .rsvp, 
+    .regalos { 
+ 
+        padding: 75px 15px; 
+    } 
+ 
+    .evento-intro { 
+ 
+        margin-bottom: 45px; 
+    } 
+ 
+    .evento-intro p { 
+ 
+        font-size: .94rem; 
+    } 
+ 
+    .evento-card { 
+ 
+        grid-template-columns: 42px 58px 1fr; 
+ 
+        gap: 12px; 
+ 
+        padding: 26px 18px; 
+    } 
+ 
+    .evento-icono { 
+ 
+        width: 54px; 
+ 
+        height: 54px; 
+    } 
+ 
+    .evento-icono img { 
+ 
+        width: 30px; 
+ 
+        height: 30px; 
+    } 
+ 
+    .evento-info h3 { 
+ 
+        font-size: 1.75rem; 
+    } 
+ 
+    .evento-tipo { 
+ 
+        font-size: .66rem; 
+    } 
+ 
+    .evento-fecha { 
+ 
+        font-size: .84rem; 
+    } 
+ 
+    .evento-hora { 
+ 
+        font-size: 1.55rem; 
+    } 
+ 
+    .evento-direccion { 
+ 
+        font-size: .84rem; 
+    } 
+ 
+    .evento-privacidad p { 
+ 
+        font-size: .72rem; 
+    } 
+ 
+    .link-mapa { 
+ 
+        font-size: .68rem; 
+    } 
+ 
+ 
+    /* GALERÍA */ 
+ 
+    .galeria-fotos { 
+ 
+        grid-template-columns: repeat(2, 1fr); 
+ 
+        gap: 8px; 
+    } 
+ 
+    .galeria-fotos img { 
+ 
+        height: 220px; 
+ 
+        border-radius: 8px; 
+    } 
+ 
+    .galeria-control { 
+ 
+        width: 40px; 
+ 
+        height: 40px; 
+ 
+        font-size: 1.7rem; 
+    } 
+ 
+ 
+    /* RSVP */ 
+ 
+    .rsvp-card { 
+ 
+        padding: 38px 18px; 
+ 
+        border-radius: 20px; 
+    } 
+ 
+    .nombre-invitado { 
+ 
+        font-size: 1.4rem; 
+    } 
+ 
+    .rsvp-btn { 
+ 
+        grid-template-columns: 38px 1fr 20px; 
+ 
+        min-height: 76px; 
+ 
+        padding: 10px; 
+    } 
+ 
+    .btn-texto { 
+ 
+        padding: 0 8px; 
+    } 
+ 
+    .btn-texto strong { 
+ 
+        font-size: .88rem; 
+    } 
+ 
+    .btn-texto small { 
+ 
+        font-size: .72rem; 
+    } 
+ 
+ 
+    /* REGALOS */ 
+ 
+    .regalo { 
+ 
+        padding: 28px 20px; 
+    } 
+ 
+    .yape-numero { 
+ 
+        font-size: .95rem; 
+    } 
+ 
+ 
+    /* MODALES */ 
+ 
+    .modal { 
+ 
+        padding: 15px; 
+    } 
+ 
+    .modal-caja { 
+ 
+        padding: 40px 22px 30px; 
+ 
+        border-radius: 18px; 
+    } 
+ 
+    .modal-caja h3 { 
+ 
+        font-size: 2.2rem; 
+    } 
+ 
+    .modal-caja p { 
+ 
+        font-size: .88rem; 
+    } 
+ 
+    .modal-acciones { 
+ 
+        grid-template-columns: 1fr; 
+    } 
+ 
+    .zoom-datos { 
+ 
+        gap: 8px; 
+    } 
+ 
+    .zoom-dato { 
+ 
+        padding: 16px 8px; 
+    } 
+ 
+    .zoom-dato strong { 
+ 
+        font-size: 1.2rem; 
+    } 
+ 
+ 
+    /* MÚSICA */ 
+ 
+    .boton-musica { 
+ 
+        right: 16px; 
+ 
+        bottom: 16px; 
+ 
+        width: 50px; 
+ 
+        height: 50px; 
+    } 
+} 
+ 
+ 
+/* ===================================================== 
+   MÓVILES PEQUEÑOS 
+===================================================== */ 
+ 
+@media (max-width: 420px) { 
+ 
+    .hero::before { 
+ 
+        inset: 10px; 
+    } 
+ 
+    .hero-content { 
+ 
+        padding: 55px 8px 80px; 
+    } 
+ 
+    .hero-nombres { 
+ 
+        gap: 9px; 
+ 
+        font-size: clamp(3.1rem, 17vw, 4.8rem); 
+    } 
+ 
+    .hero-frase { 
+ 
+        font-size: .92rem; 
+    } 
+ 
+    .hero-versiculo p { 
+ 
+        font-size: 1.12rem; 
+    } 
+ 
+    .hero-fecha { 
+ 
+        gap: 12px; 
+ 
+        margin: 25px 0; 
+    } 
+ 
+    .hero-fecha > span { 
+ 
+        font-size: 3.1rem; 
+    } 
+ 
+    .hero-fecha > div { 
+ 
+        padding-left: 12px; 
+    } 
+ 
+    .hero-fecha small { 
+ 
+        font-size: .58rem; 
+    } 
+ 
+    .hero-fecha strong { 
+ 
+        font-size: .88rem; 
+    } 
+ 
+ 
+    /* CONTADOR */ 
+ 
+    .contador-item { 
+ 
+        min-width: 55px; 
+    } 
+ 
+    .contador-item strong { 
+ 
+        font-size: 2.2rem; 
+    } 
+ 
+    .contador-item span { 
+ 
+        font-size: .6rem; 
+    } 
+ 
+    .contador-separador { 
+ 
+        font-size: 1.1rem; 
+    } 
+ 
+ 
+    /* EVENTOS */ 
+ 
+    .evento-card { 
+ 
+        grid-template-columns: 36px 52px 1fr; 
+ 
+        gap: 9px; 
+ 
+        padding: 22px 14px; 
+    } 
+ 
+    .evento-icono { 
+ 
+        width: 50px; 
+ 
+        height: 50px; 
+    } 
+ 
+    .evento-icono img { 
+ 
+        width: 27px; 
+ 
+        height: 27px; 
+    } 
+ 
+    .evento-info h3 { 
+ 
+        font-size: 1.55rem; 
+    } 
+ 
+    .evento-tipo { 
+ 
+        font-size: .6rem; 
+    } 
+ 
+    .evento-fecha { 
+ 
+        font-size: .78rem; 
+    } 
+ 
+    .evento-hora { 
+ 
+        font-size: 1.4rem; 
+    } 
+ 
+    .evento-direccion { 
+ 
+        font-size: .78rem; 
+    } 
+ 
+ 
+    /* GALERÍA */ 
+ 
+    .galeria-fotos img { 
+ 
+        height: 180px; 
+    } 
+ 
+    .galeria-control { 
+ 
+        width: 38px; 
+ 
+        height: 38px; 
+    } 
+ 
+ 
+    /* RSVP */ 
+ 
+    .rsvp-card { 
+ 
+        padding: 32px 14px; 
+    } 
+ 
+    .rsvp-btn { 
+ 
+        grid-template-columns: 34px 1fr 18px; 
+ 
+        min-height: 72px; 
+ 
+        padding: 8px; 
+    } 
+ 
+    .btn-texto { 
+ 
+        padding: 0 6px; 
+    } 
+ 
+    .btn-texto strong { 
+ 
+        font-size: .82rem; 
+    } 
+ 
+    .btn-texto small { 
+ 
+        font-size: .68rem; 
+    } 
+ 
+ 
+    /* REGALOS */ 
+ 
+    .yape-numero { 
+ 
+        gap: 10px; 
+ 
+        font-size: .9rem; 
+    } 
+ 
+    .yape-numero button { 
+ 
+        width: 40px; 
+ 
+        height: 40px; 
+    } 
+ 
+ 
+    /* ZOOM */ 
+ 
+    .zoom-datos { 
+ 
+        grid-template-columns: 1fr; 
+    } 
+ 
+ 
+    /* ===================================================== 
+   BOTÓN DE MÚSICA 
+===================================================== */ 
+ 
+.boton-musica { 
+ 
+    position: fixed; 
+ 
+    right: 22px; 
+    bottom: 22px; 
+ 
+    z-index: 1000; 
+ 
+    width: 52px; 
+    height: 52px; 
+ 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+ 
+    border: 1px solid var(--dorado); 
+ 
+    border-radius: 50%; 
+ 
+    background: rgba(255, 253, 249, .92); 
+ 
+    color: var(--dorado-oscuro); 
+ 
+    font-family: var(--serif); 
+ 
+    font-size: 1.35rem; 
+ 
+    cursor: pointer; 
+ 
+    box-shadow: 
+        0 6px 20px rgba(50, 40, 25, .18); 
+ 
+    backdrop-filter: blur(8px); 
+ 
+    transition: 
+        transform .3s ease, 
+        background .3s ease, 
+        box-shadow .3s ease; 
+} 
+ 
+ 
+/* ===================================================== 
+   HOVER 
+===================================================== */ 
+ 
+.boton-musica:hover { 
+ 
+    transform: scale(1.08); 
+ 
+    background: var(--blanco); 
+ 
+    box-shadow: 
+        0 8px 25px rgba(50, 40, 25, .25); 
+} 
+ 
+ 
+/* ===================================================== 
+   MÚSICA REPRODUCIÉNDOSE 
+===================================================== */ 
+ 
+.boton-musica.reproduciendo { 
+ 
+    animation: 
+        girarMusica 3s linear infinite; 
+ 
+} 
+ 
+ 
+/* ===================================================== 
+   ANIMACIÓN 
+===================================================== */ 
+ 
+@keyframes girarMusica { 
+ 
+    from { 
+        transform: rotate(0deg); 
+    } 
+ 
+    to { 
+        transform: rotate(360deg); 
+    } 
+ 
+} 
+ 
+ 
+/* ===================================================== 
+   MÓVIL 
+===================================================== */ 
+ 
+@media (max-width: 768px) { 
+ 
+    .boton-musica { 
+ 
+        right: 16px; 
+        bottom: 16px; 
+ 
+        width: 48px; 
+        height: 48px; 
+ 
+        font-size: 1.2rem; 
+ 
+    } 
+ 
+} 
+ 
+ 
+ 
+/* ===================================================== 
+   PANTALLAS MUY ALTAS 
+===================================================== */ 
+ 
+@media (min-height: 850px) and (max-width: 650px) { 
+ 
+    .hero-content { 
+ 
+        padding-top: 100px; 
+ 
+        padding-bottom: 120px; 
+    } 
+} 
+ 
+ 
+/* ===================================================== 
+   REDUCCIÓN DE MOVIMIENTO 
+===================================================== */ 
+ 
+@media (prefers-reduced-motion: reduce) { 
+ 
+    html { 
+ 
+        scroll-behavior: auto; 
+    } 
+ 
+    *, 
+    *::before, 
+    *::after { 
+ 
+        animation-duration: .01ms !important; 
+ 
+        animation-iteration-count: 1 !important; 
+ 
+        transition-duration: .01ms !important; 
+    } 
+}hay que hacerlo mejor, ma´s sencillo para aquellos que vean la invitación y tal vez tengan mnos vista, adaptalo para que se vea bien, hermoso pero adaptado a ellos...@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
 
 
 /* =====================================================
@@ -3633,5 +7269,584 @@ MÓVIL
         animation-iteration-count: 1 !important;
 
         transition-duration: .01ms !important;
+    }
+}
+
+
+/* ============================================================
+   MEJORA VISUAL + ACCESIBILIDAD · BAJA VISIÓN
+   Mantiene el estilo elegante original, pero prioriza:
+   - texto más cómodo de leer
+   - mejor contraste
+   - botones fáciles de tocar
+   - menos texto diminuto
+   - adaptación a zoom del navegador
+   - modo de alto contraste opcional
+============================================================ */
+
+:root {
+    --texto-accesible: #25231f;
+    --texto-secundario-accesible: #514c44;
+    --dorado-accesible: #76591f;
+    --fondo-accesible: #fffdf9;
+    --linea-accesible: #c9c0b2;
+}
+
+/* Lectura general */
+html {
+    font-size: 100%;
+}
+
+body {
+    color: var(--texto-accesible);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+/* Evita párrafos demasiado anchos */
+p,
+.evento-direccion,
+.evento-fecha,
+.btn-texto small,
+.evento-privacidad p,
+.zoom-aviso p,
+.zoom-recordatorio p {
+    max-width: 72ch;
+}
+
+/* Texto secundario: un poco más grande y con mejor contraste */
+.hero-frase,
+.hero-mensaje,
+.contador p,
+.evento-intro p,
+.evento-fecha,
+.evento-direccion,
+.evento-privacidad p,
+.btn-texto small,
+.zoom-intro,
+.zoom-aviso p,
+.zoom-recordatorio p {
+    color: var(--texto-secundario-accesible);
+}
+
+.hero-frase {
+    font-size: clamp(1rem, 1.2vw, 1.12rem);
+}
+
+.hero-mensaje {
+    font-size: clamp(1rem, 1.15vw, 1.08rem);
+}
+
+/* Etiquetas pequeñas: no bajarlas demasiado */
+.eyebrow,
+.hero-kicker,
+.hero-scroll,
+.evento-tipo,
+.evento-numero,
+.evento-fecha,
+.hero-fecha small,
+.link-mapa,
+.contador-item span {
+    font-size: max(.78rem, .78em);
+}
+
+/* Mejor contraste para dorados */
+.eyebrow,
+.hero-kicker,
+.hero-fecha small,
+.evento-tipo,
+.link-mapa {
+    color: var(--dorado-accesible);
+}
+
+/* Títulos elegantes pero claramente legibles */
+.contador h2,
+.evento-intro h2,
+.historia-header h2,
+.rsvp-card h2 {
+    line-height: 1.08;
+}
+
+/* Botones: área táctil cómoda */
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.hero-boton,
+.rsvp-btn,
+.link-mapa,
+.guardar-fecha,
+.modal-confirmar,
+.modal-cancelar,
+.zoom-copiar,
+.galeria-control,
+.lightbox-cerrar,
+.boton-musica,
+.yape-numero button {
+    min-height: 44px;
+}
+
+/* RSVP: no usar tipografía demasiado pequeña */
+.btn-texto strong {
+    font-size: 1rem;
+}
+
+.btn-texto small {
+    font-size: .9rem;
+    line-height: 1.5;
+}
+
+/* Tarjetas más respirables */
+.evento-card {
+    padding: 34px 30px;
+}
+
+.evento-info h3 {
+    line-height: 1.15;
+}
+
+.evento-hora {
+    font-size: 1.95rem;
+}
+
+.evento-direccion {
+    font-size: .98rem;
+}
+
+/* Información privada: más fácil de leer */
+.evento-privacidad p {
+    font-size: .88rem;
+}
+
+/* Enlaces más visibles */
+.link-mapa {
+    font-size: .82rem;
+    border-bottom-width: 2px;
+}
+
+/* Galería: borde sutil para separar fotos */
+.galeria-fotos img {
+    border: 1px solid var(--linea-accesible);
+}
+
+/* Focus mucho más visible para teclado */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #6b4d13;
+    outline-offset: 4px;
+}
+
+/* Enlace para saltar directamente al contenido */
+.salto-contenido {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 3000;
+    padding: 12px 18px;
+    border-radius: 10px;
+    background: #211e19;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    transform: translateY(-160%);
+    transition: transform .2s ease;
+}
+
+.salto-contenido:focus {
+    transform: translateY(0);
+}
+
+/* Controles opcionales de lectura */
+.accesibilidad {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 900;
+    display: flex;
+    gap: 8px;
+}
+
+.accesibilidad button {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 1px solid var(--linea-accesible);
+    border-radius: 12px;
+    background: rgba(255, 253, 249, .96);
+    color: var(--texto-accesible);
+    font-size: .95rem;
+    font-weight: 800;
+    box-shadow: 0 6px 18px rgba(50, 40, 25, .12);
+    backdrop-filter: blur(8px);
+}
+
+.accesibilidad button:hover {
+    background: #fff;
+    transform: translateY(-1px);
+}
+
+body.texto-grande {
+    font-size: 112%;
+}
+
+body.texto-grande .hero-frase,
+body.texto-grande .hero-mensaje,
+body.texto-grande .evento-fecha,
+body.texto-grande .evento-direccion,
+body.texto-grande .evento-privacidad p,
+body.texto-grande .btn-texto small {
+    font-size: 1.05rem;
+}
+
+body.texto-grande .btn-texto strong {
+    font-size: 1.08rem;
+}
+
+/* Modo de contraste: sigue siendo elegante, pero aumenta claramente la separación */
+body.alto-contraste {
+    --crema: #fff;
+    --blanco: #fff;
+    --texto: #171717;
+    --texto-suave: #3e3e3e;
+    --linea: #8d8d8d;
+    --dorado: #684a0d;
+    --dorado-claro: #8a681f;
+    --dorado-oscuro: #543b08;
+    background: #fff;
+    color: #171717;
+}
+
+body.alto-contraste .hero-overlay {
+    background: rgba(255, 255, 255, .62);
+}
+
+body.alto-contraste .hero-nombres,
+body.alto-contraste .hero-versiculo p,
+body.alto-contraste .hero-fecha > span,
+body.alto-contraste .hero-fecha strong {
+    color: #171717;
+    text-shadow: none;
+}
+
+body.alto-contraste .evento-card,
+body.alto-contraste .rsvp-card,
+body.alto-contraste .regalo,
+body.alto-contraste .modal-caja {
+    border-color: #8d8d8d;
+    box-shadow: none;
+}
+
+body.alto-contraste .hero-boton,
+body.alto-contraste .rsvp-btn.principal,
+body.alto-contraste .modal-confirmar {
+    background: #211e19;
+    border-color: #211e19;
+    color: #fff;
+}
+
+/* No depender únicamente del movimiento */
+@media (prefers-reduced-motion: reduce) {
+    .boton-musica.reproduciendo,
+    .hero-scroll b {
+        animation: none !important;
+    }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .evento-lista {
+        grid-template-columns: 1fr;
+        width: min(720px, 100%);
+    }
+
+    .hero-content {
+        width: min(760px, 94%);
+    }
+}
+
+/* Móvil: priorizar lectura antes que cantidad de elementos */
+@media (max-width: 768px) {
+    .accesibilidad {
+        top: 12px;
+        right: 12px;
+    }
+
+    .hero {
+        min-height: 720px;
+    }
+
+    .hero-content {
+        padding: 72px 18px 88px;
+    }
+
+    .hero-kicker {
+        font-size: .8rem;
+        line-height: 1.4;
+    }
+
+    .hero-nombres {
+        font-size: clamp(3.1rem, 15vw, 5.4rem);
+        line-height: .9;
+    }
+
+    .hero-versiculo p {
+        font-size: clamp(1.25rem, 5vw, 1.55rem);
+        line-height: 1.35;
+    }
+
+    .hero-mensaje {
+        max-width: 42rem;
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+
+    .hero-fecha > span {
+        font-size: 3.5rem;
+    }
+
+    .hero-fecha strong {
+        font-size: 1.05rem;
+    }
+
+    .hero-boton {
+        min-height: 54px;
+        padding: 0 24px;
+        font-size: .8rem;
+    }
+
+    .contador,
+    .evento,
+    .historia,
+    .rsvp {
+        padding-top: 76px;
+        padding-bottom: 76px;
+    }
+
+    .contador h2,
+    .evento-intro h2,
+    .historia-header h2,
+    .rsvp-card h2 {
+        font-size: clamp(2.4rem, 10vw, 3.8rem);
+        line-height: 1.05;
+    }
+
+    .contador-grid {
+        gap: clamp(7px, 3vw, 18px);
+    }
+
+    .contador-item {
+        min-width: 62px;
+    }
+
+    .contador-item strong {
+        font-size: clamp(2.4rem, 10vw, 4rem);
+    }
+
+    .contador-item span {
+        font-size: .72rem;
+    }
+
+    .evento-card {
+        grid-template-columns: 48px 68px 1fr;
+        gap: 16px;
+        padding: 28px 22px;
+    }
+
+    .evento-icono {
+        width: 58px;
+        height: 58px;
+    }
+
+    .evento-info h3 {
+        font-size: 1.9rem;
+    }
+
+    .evento-fecha,
+    .evento-direccion {
+        font-size: .95rem;
+    }
+
+    .evento-hora {
+        font-size: 1.8rem;
+    }
+
+    .galeria-fotos img {
+        height: 240px;
+    }
+
+    .rsvp-card {
+        padding: 42px 22px;
+    }
+
+    .rsvp-btn {
+        grid-template-columns: 48px 1fr 32px;
+        min-height: 82px;
+        padding: 14px 16px;
+    }
+
+    .btn-icono {
+        font-size: 1.4rem;
+    }
+
+    .btn-texto strong {
+        font-size: 1rem;
+    }
+
+    .btn-texto small {
+        font-size: .88rem;
+    }
+}
+
+/* Móviles pequeños: no reducir el texto a tamaños incómodos */
+@media (max-width: 420px) {
+    .hero {
+        min-height: 700px;
+    }
+
+    .hero-content {
+        padding: 68px 16px 84px;
+    }
+
+    .hero-kicker {
+        font-size: .78rem;
+        letter-spacing: .18em;
+    }
+
+    .hero-nombres {
+        font-size: clamp(2.9rem, 16vw, 4.5rem);
+    }
+
+    .hero-frase {
+        font-size: 1rem;
+    }
+
+    .hero-versiculo p {
+        font-size: 1.22rem;
+    }
+
+    .hero-mensaje {
+        font-size: .98rem;
+    }
+
+    .hero-fecha > span {
+        font-size: 3rem;
+    }
+
+    .hero-fecha small {
+        font-size: .7rem;
+    }
+
+    .hero-fecha strong {
+        font-size: 1rem;
+    }
+
+    .contador-item {
+        min-width: 58px;
+    }
+
+    .contador-item strong {
+        font-size: 2.35rem;
+    }
+
+    .contador-item span {
+        font-size: .66rem;
+    }
+
+    .contador-separador {
+        font-size: 1.3rem;
+    }
+
+    .evento-card {
+        grid-template-columns: 42px 58px 1fr;
+        gap: 11px;
+        padding: 24px 16px;
+    }
+
+    .evento-icono {
+        width: 52px;
+        height: 52px;
+    }
+
+    .evento-info h3 {
+        font-size: 1.7rem;
+    }
+
+    .evento-fecha,
+    .evento-direccion {
+        font-size: .9rem;
+    }
+
+    .evento-hora {
+        font-size: 1.6rem;
+    }
+
+    .link-mapa {
+        font-size: .76rem;
+    }
+
+    .galeria-fotos {
+        grid-template-columns: 1fr;
+    }
+
+    .galeria-fotos img {
+        height: 250px;
+    }
+
+    .rsvp-card {
+        padding: 36px 16px;
+    }
+
+    .rsvp-btn {
+        grid-template-columns: 42px 1fr 28px;
+        min-height: 80px;
+    }
+
+    .btn-texto strong {
+        font-size: .98rem;
+    }
+
+    .btn-texto small {
+        font-size: .86rem;
+    }
+
+    .accesibilidad button {
+        min-width: 42px;
+        min-height: 42px;
+    }
+}
+
+/* Zoom del navegador / pantallas pequeñas: evita desbordamientos */
+@media (max-width: 360px) {
+    .contador-grid {
+        gap: 4px;
+    }
+
+    .contador-item {
+        min-width: 52px;
+    }
+
+    .contador-item strong {
+        font-size: 2.05rem;
+    }
+
+    .contador-item span {
+        font-size: .6rem;
+        letter-spacing: .08em;
+    }
+
+    .evento-card {
+        grid-template-columns: 1fr;
+    }
+
+    .evento-numero {
+        display: none;
+    }
+
+    .evento-icono {
+        margin-bottom: 2px;
     }
 }
