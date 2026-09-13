@@ -1320,7 +1320,6 @@ const zoomCopiado =
 function obtenerTextoZoom() {
 
     return `Videoconferencia — Boda de Omar y Wendy
-```
 
 ID de reunión: ${CONFIG.zoomId}
 Clave: ${CONFIG.zoomClave}
@@ -1329,7 +1328,6 @@ Te recomendamos anotar estos datos con anticipación para tenerlos a la mano el 
 
 Estos datos son reservados. Por favor, no los compartas con otras personas.`;
 
-```
 }
 
 
