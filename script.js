@@ -1672,16 +1672,6 @@ async function reproducirMusica() {
    AUTOPLAY
 ===================================================== */
 
-window.addEventListener(
-    "load",
-    () => {
-
-        if (!prefiereMenosMovimiento) {
-            reproducirMusica();
-        }
-
-    }
-);
 
 
 /* =====================================================
