@@ -1136,12 +1136,13 @@ if (contrasteTexto) {
     ) {
 
         const datos = {
-            codigo: codigoInvitado,
-            tipo: tipo,
-            personas: cantidad,
-            nombre: codigoInvitado,
-            fecha: new Date().toISOString()
-        };
+    codigo: codigoInvitado,
+    tipo: tipo,
+    respuesta: tipo,
+    personas: cantidad,
+    nombre: codigoInvitado,
+    fecha: new Date().toISOString()
+};
 
 
         /* ---------------------------------------------
